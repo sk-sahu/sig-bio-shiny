@@ -66,8 +66,8 @@ wego_plot <- function(BP=go_table, CC=go_table, MF=go_table){
     ## Add a title to the plot
     labs(x = NULL, title = "Gene Ontology (GO) Annotation") + 
     # theme settings
-    theme(text = element_text(size=20),
-          axis.text = element_text(size = 15),
+    theme(text = element_text(size=10),
+          axis.text = element_text(size = 5),
           axis.text.x = element_text(angle = 60), 
           panel.background = element_rect(fill = "white", colour = "grey50"))
   return(wego_alike_plot)
