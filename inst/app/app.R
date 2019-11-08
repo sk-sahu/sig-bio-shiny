@@ -17,8 +17,9 @@ ENSG00000204682"),
                                          actionButton("submit_2", label =  "Submit Uploaded")
                             ),
                             mainPanel(
+                              helpText("Note: It may take minutes. Check progress bar"),
                               tags$hr(),
-                              uiOutput("warning"),
+                              #uiOutput("warning"),
                               #tags$hr(),
                               plotOutput("wego_plot"),
                               uiOutput("download_wego_plot_button"),
@@ -65,6 +66,11 @@ server <- function(input, output) {
   # For submit of text area input
   observeEvent(input$submit, {
     
+    # for progress bar
+    withProgress(message = 'Steps:', value = 0, {
+      
+      incProgress(1/6, detail = paste("Starting...")) ##### Progress step 1
+      
     output$warning <- renderUI({
       helpText("Note: It may take time for number of genes.")
     })
@@ -76,11 +82,13 @@ server <- function(input, output) {
     colnames(gene_list_split) <- "gene_list"
     gene_list_uprcase <- toupper(gene_list_split$gene_list)
     
+    incProgress(2/6, detail = paste("Converting gene ids...")) ##### Progress step 2
     # Conver genelist to ENTREZIDs
     entrez_ids=mapIds(eval(parse(text = org_pkg)), as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
     print("After Gene List converted into EntrezIDs (head): ")
     print(head(entrez_ids))
     
+    incProgress(3/6, detail = paste("Doing Gene Ontology...")) ##### Progress step 3
     # Gene Ontology ----
     gene_ontology <- function(go_type = "BP"){
       go_obj <- clusterProfiler::enrichGO(entrez_ids, OrgDb = org_pkg,
@@ -93,9 +101,7 @@ server <- function(input, output) {
     go_cc <- gene_ontology(go_type = "CC")
     go_mf <- gene_ontology(go_type = "MF")
     
-    # WEGO alike plot
-    
-    
+    incProgress(4/6, detail = paste("Making Tables...")) ##### Progress step 4
     # All Outputs ----
     # tables
     output$table_go_bp <- DT::renderDataTable({
@@ -108,6 +114,7 @@ server <- function(input, output) {
       go_mf@result
     })
     
+    incProgress(5/6, detail = paste("Making plots...")) ##### Progress step 5
     # plots and their downloads ----
     # wego plot
     output$wego_plot <- renderPlot({
@@ -136,6 +143,8 @@ server <- function(input, output) {
       }
     })
     
+    incProgress(6/6, detail = paste("Finish.")) ##### Progress step 6
+    }) # withProgress ends here
   }) # textbox area submit button observeEvent() end.
   
   # For submit of file upload
