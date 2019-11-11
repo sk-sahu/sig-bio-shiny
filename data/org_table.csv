@@ -1,4 +1,20 @@
 org_name,org_pkg,org_kegg
 Human,org.Hs.eg.db,hsa
-Arabidopsis,org.ath.tair.db,at
-
+Mouse,org.Mm.eg.db,mmu
+Rat,org.Rn.eg.db,mo
+Yeast,org.Sc.sgd.db,sce
+Fly,org.Dm.eg.db,dme
+Arabidopsis,oorg.At.tair.db,ath
+Zebrafish,org.Dr.eg.db,dre
+Worm,org.Ce.eg.db,cel
+Bovine,org.Bt.eg.db,bta
+Chicken,org.Gg.eg.db,gga
+Canine,org.Cf.eg.db,cfa
+Pig,org.Ss.eg.db,ssc
+Rhesus,org.Mmu.eg.db,mcc
+E coli strain K12,org.EcK12.eg.db,eco
+Xenopus,org.Xl.eg.db,xla
+Anopheles,org.Ag.eg.db,aga
+Chimp,org.Pt.eg.db,ptr
+Malaria,org.Pf.plasmo.db,pfa
+E coli strain Sakai,org.EcSakai.eg.db,ecs

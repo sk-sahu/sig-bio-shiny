@@ -1,0 +1,13 @@
+name: sig-bio
+title: sig-bio
+username:
+account: sangram
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1450332
+bundleId: 2577980
+url: https://sangram.shinyapps.io/sig-bio/
+when: 1573409515.07818
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: .RData|HELP.html

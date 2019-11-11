@@ -9,7 +9,7 @@ ENSG00000012048,4.6
 ENSG00000214049,-3.7
 ENSG00000204682,2.5"),
                                          # get org from org_table.csv file
-                                         org_table <- read.csv("../../data/org_table.csv", header = TRUE, row.names = 1),
+                                         org_table <- read.csv("data/org_table.csv", header = TRUE, row.names = 1),
                                          selectInput("org", "Organism:", 
                                                      choices=rownames(org_table)),
                                          hr(),
@@ -94,6 +94,9 @@ ENSG00000204682,2.5"),
                  # Session-info-tab ----
                  tabPanel("Session info",
                           verbatimTextOutput("sessioninfo")
+                 ),
+                 tabPanel("Help",
+                          includeMarkdown("HELP.md")
                  )
 )
     
@@ -108,7 +111,7 @@ suppressMessages(library(enrichplot))
 suppressMessages(library(dplyr))
 suppressMessages(library(ggplot2))
 #suppressMessages(library(BiocParallel))
-source("../../R/wego_plot.R")
+source("R/wego_plot.R")
 
 server <- function(input, output) {
   
