@@ -110,6 +110,7 @@ suppressMessages(library(clusterProfiler))
 suppressMessages(library(enrichplot))
 suppressMessages(library(dplyr))
 suppressMessages(library(ggplot2))
+suppressMessages(library(DT))
 #suppressMessages(library(BiocParallel))
 source("R/wego_plot.R")
 

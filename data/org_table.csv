@@ -4,7 +4,7 @@ Mouse,org.Mm.eg.db,mmu
 Rat,org.Rn.eg.db,mo
 Yeast,org.Sc.sgd.db,sce
 Fly,org.Dm.eg.db,dme
-Arabidopsis,oorg.At.tair.db,ath
+Arabidopsis,org.At.tair.db,ath
 Zebrafish,org.Dr.eg.db,dre
 Worm,org.Ce.eg.db,cel
 Bovine,org.Bt.eg.db,bta
