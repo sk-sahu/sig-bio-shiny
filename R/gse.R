@@ -7,6 +7,8 @@ library(ggstance)
 library(enrichplot)
 library(clusterProfiler.dplyr)
 
+load("data.RData")
+
 # same as geneList
 # entrez_ids_with_fc_vector = geneList is a object from DOSE pkg
 pathway_gse <- function(id_with_fc_list = entrez_ids_with_fc_vector, organism = "human"){
