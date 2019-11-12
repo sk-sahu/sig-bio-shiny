@@ -1,1 +1,4 @@
 ^/home/sangram/Documents/personal/sig-bio-shiny/Dockerfile$
+^LICENSE\.md$
+^\.circleci/config\.yml$
+^\.gitlab-ci\.yml$

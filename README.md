@@ -1,7 +1,9 @@
 # sig-bio-shiny
 
-![status](https://img.shields.io/badge/status-work%20in%20progress-orange) 
-[![Build Status](https://travis-ci.org/sk-sahu/sig-bio-shiny.svg?branch=master)](https://travis-ci.org/sk-sahu/sig-bio-shiny)
+<!-- badges: start -->
+  [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+  [![Build Status](https://travis-ci.org/sk-sahu/sig-bio-shiny.svg?branch=master)](https://travis-ci.org/sk-sahu/sig-bio-shiny)
+  <!-- badges: end -->
 
 R shiny application for doing significant biology on a set of genes
 
