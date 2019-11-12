@@ -18,16 +18,22 @@ Imports:
     stats,
     testthat,
     utils,
-    ReactomePA,
     dplyr,
-    clusterProfiler.dplyr,
     forcats,
     ggplot2,
-    ggstance
+    ggstance,
+    processx,
+    attempt,
+    DT,
+    glue,
+    golem,
+    clusterProfiler.dplyr,
+    ReactomePA
+Remotes: YuLab-SMU/clusterProfiler.dplyr,
+    bioc::3.3/ReactomePA
 Suggests: 
     covr,
     devtools,
-    DT,
     knitr,
     rmarkdown
 VignetteBuilder: 
