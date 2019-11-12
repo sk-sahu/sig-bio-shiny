@@ -6,9 +6,24 @@ ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                                          # For text area input 
                                          textAreaInput("text_area_list", "Gene list or Gene,Foldchnage list:", height = "130px", width = "200px",
                                                        value = "
-ENSG00000012048,4.6
-ENSG00000214049,-3.7
-ENSG00000204682,2.5"),
+ENSG00000049239,23.4013439616
+ENSG00000074800,22.4639348847
+ENSG00000171603,23.078462958
+ENSG00000116285,23.091453082
+ENSG00000116288,8.1240074204
+ENSG00000074800,8.2065166175
+ENSG00000142599,8.8824101153
+ENSG00000171621,7.6509604768
+ENSG00000162413,8.666196158
+ENSG00000116273,7.4955643371
+ENSG00000175756,7.5253928354
+ENSG00000188976,7.2279606723
+ENSG00000234619,8.303434686
+ENSG00000007923,7.5280119186
+ENSG00000232848,7.6211916231
+ENSG00000049245,9.702377583
+ENSG00000131584,8.0619989127
+ENSG00000228463,-6.2285238309"),
                                          # get org from org_table.csv file
                                          org_table <- read.csv("data/org_table.csv", header = TRUE, row.names = 1),
                                          selectInput("org", "Organism:", 
@@ -29,7 +44,9 @@ ENSG00000204682,2.5"),
                               tags$hr(),
                               #uiOutput("warning"),
                               #tags$hr(),
-                            textOutput("gene_number_info")
+                              textOutput("gene_number_info"),
+                              tags$hr(),
+                              DT::dataTableOutput(outputId = "entrez_ids_with_fc_table")
                             ) # mainpanel end.
                           )
                  ),
@@ -89,7 +106,9 @@ ENSG00000204682,2.5"),
                             tabPanel("Enrich-Plot",
                                      plotOutput("enrich_plot_kegg")),
                             tabPanel("Cnet-Plot", 
-                                     plotOutput("cnet_plot_kegg"))
+                                     plotOutput("cnet_plot_kegg")),
+                            tabPanel("GSE-Plot", 
+                                     plotOutput("pathway_gse_plot"))
                           )
                  ),
                  # Session-info-tab ----
@@ -114,6 +133,7 @@ suppressMessages(library(ggplot2))
 suppressMessages(library(DT))
 #suppressMessages(library(BiocParallel))
 source("R/wego_plot.R")
+source("R/gse.R")
 
 server <- function(input, output) {
   
@@ -162,26 +182,35 @@ server <- function(input, output) {
     print("After Gene List converted into EntrezIDs (head): ")
     print(head(entrez_ids))
     
-    # for message in main tab
-    input_gene_number <- length(gene_list_uprcase)
-    proceed_gene_number <- length(entrez_ids)
-    output$gene_number_info <- renderText({ 
-      paste("Done!",
-            "Total Number of Input genes: ", input_gene_number,
-            "Total Number of proceed further: ", proceed_gene_number,
-            sep="\n")
-    })
-    
     # If FoldChnage provided 
     # Create a geneList with genes and log2FC for few plots
     gene_with_fc_vector <- gene_with_fc_df[,2]
     names(gene_with_fc_vector) = as.character(gene_with_fc_df[,1])
     #gene_with_fc_vector = sort(gene_with_fc_vector, decreasing = TRUE)
     # Conver genelist in gene_with_fc_vector to ENTREZIDs
-    entrez_ids_with_fc <- cbind(entrez_ids, gene_with_fc_vector)
+    entrez_ids_with_fc <- data.frame(entrez_ids, gene_with_fc_vector = gene_with_fc_vector[names(entrez_ids)])
+    entrez_ids_with_fc_table <- entrez_ids_with_fc # for display only
+    entrez_ids_with_fc_table$input_list <- names(entrez_ids) # for display only
     entrez_ids_with_fc <- na.omit(entrez_ids_with_fc)
-    rownames(entrez_ids_with_fc) <- entrez_ids_with_fc[,1]
-    entrez_ids_with_fc <- entrez_ids_with_fc[,2]
+    entrez_ids_with_fc_vector <- entrez_ids_with_fc[,2]
+    names(entrez_ids_with_fc_vector) <- entrez_ids_with_fc[,1]
+    #rownames(entrez_ids_with_fc) <- entrez_ids_with_fc[,1]
+    #entrez_ids_with_fc <- entrez_ids_with_fc[,2]
+    
+    # for message in main tab
+    input_gene_number <- length(gene_list_uprcase)
+    proceed_gene_number <- length(na.omit(entrez_ids))
+    output$gene_number_info <- renderText({ 
+      paste("Done!",
+            "Total Number of Input genes: ", input_gene_number,
+            "| Total Number of proceed further: ", proceed_gene_number,
+            "| Reason could be entrez id not found. Check the table bellow.",
+            sep="\n")
+    })
+    # message for main pannel
+    output$entrez_ids_with_fc_table <- DT::renderDataTable({
+      datatable(entrez_ids_with_fc_table)
+    })
     
     # Gene Ontology ----
     # small function
@@ -272,15 +301,15 @@ server <- function(input, output) {
     if (all(grepl(",", gene_list_split))){
       # cnetplot (Gene Concept Network)
       output$cnet_plot_go_bp <- renderPlot({
-      enrichplot::cnetplot(go_bp, foldChange=entrez_ids_with_fc, 
+      enrichplot::cnetplot(go_bp, foldChange=entrez_ids_with_fc_vector, 
                            circular = TRUE, colorEdge = TRUE)
       })
       output$cnet_plot_go_cc <- renderPlot({
-        enrichplot::cnetplot(go_cc, foldChange=entrez_ids_with_fc, 
+        enrichplot::cnetplot(go_cc, foldChange=entrez_ids_with_fc_vector, 
                              circular = TRUE, colorEdge = TRUE)
       })
       output$cnet_plot_go_mf <- renderPlot({
-        enrichplot::cnetplot(go_mf, foldChange=entrez_ids_with_fc, 
+        enrichplot::cnetplot(go_mf, foldChange=entrez_ids_with_fc_vector, 
                              circular = TRUE, colorEdge = TRUE)
       })
     }else{
@@ -318,14 +347,23 @@ server <- function(input, output) {
     if (all(grepl(",", gene_list_split))){
       # cnetplot (Gene Concept Network)
       output$cnet_plot_kegg <- renderPlot({
-        enrichplot::cnetplot(kegg_2, foldChange=entrez_ids_with_fc, 
+        enrichplot::cnetplot(kegg_2, foldChange=entrez_ids_with_fc_vector, 
                              circular = TRUE, colorEdge = TRUE)
       })
+      output$pathway_gse_plot <- renderPlot({
+        # gse-pathway
+        pathway_gse(id_with_fc_list = entrez_ids_with_fc_vector)
+      })
+      # gse-pathway
+      pathway_gse()
     }else{
       output$cnet_plot_kegg <- renderPlot({
         message_plot()
       })
     }
+    
+    # gse-pathway
+    pathway_gse()
     
     incProgress(6/6, detail = paste("Finish.")) ##### Progress step 6
     

@@ -17,8 +17,7 @@ Rscript setup.R
 ```
 Rscript app.R
 ```
-Access the app in your browser - 
-http://127.0.0.1:3138/
+Access the app in your browser with output URL.
 
 Questions - [HELP](HELP.md)
 
