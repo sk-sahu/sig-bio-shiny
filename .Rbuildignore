@@ -2,3 +2,5 @@
 ^LICENSE\.md$
 ^\.circleci/config\.yml$
 ^\.gitlab-ci\.yml$
+^.*\.Rproj$
+^\.Rproj\.user$
