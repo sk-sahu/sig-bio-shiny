@@ -1,3 +1,4 @@
+library(shiny)
 ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                  tabPanel("Gene-Summary",
                           sidebarLayout(

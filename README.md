@@ -4,4 +4,4 @@
 
 R shiny application for doing significant biology on a set of genes
 
-
+How to run - [HELP](HELP.md)
