@@ -15,10 +15,11 @@ if_not_install <- function(pkg_list, source = "cran"){
 }
 
 # install required cran packages
-list_of_cran_pkgs <- c("shiny","rmarkdown","dplyr", "ggplot2", "forcats","DT", "BiocManager", "devtools")
+list_of_cran_pkgs <- c("shiny","rmarkdown","dplyr", "ggstance",
+                       "ggplot2", "forcats","DT", "BiocManager", "devtools")
 if_not_install(pkg_list = list_of_cran_pkgs)
 
-list_of_bioc_pkgs <- c("AnnotationDbi", "clusterProfiler", "enrichplot")
+list_of_bioc_pkgs <- c("AnnotationDbi", "clusterProfiler", "enrichplot", "ReactomePA")
 if_not_install(pkg_list = list_of_bioc_pkgs, source = "bioc")
 
 # install all the org.db

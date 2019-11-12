@@ -9,10 +9,10 @@ library(clusterProfiler.dplyr)
 
 # same as geneList
 # entrez_ids_with_fc_vector = geneList is a object from DOSE pkg
-pathway_gse <- function(id_with_fc_list = entrez_ids_with_fc_vector){
+pathway_gse <- function(id_with_fc_list = entrez_ids_with_fc_vector, organism = "human"){
   list_for_gse <- as.numeric(levels(id_with_fc_list))[id_with_fc_list]
   names(list_for_gse) <- names(id_with_fc_list)
-  gse_pathway <- gsePathway(sort(list_for_gse, decreasing = TRUE), pvalueCutoff = 1)
+  gse_pathway <- gsePathway(sort(list_for_gse, decreasing = TRUE), organism = organism)
   
   # test: geneList is a object from DOSE pkg
   #gse_pathway <- gsePathway(geneList)

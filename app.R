@@ -352,12 +352,15 @@ server <- function(input, output) {
       })
       output$pathway_gse_plot <- renderPlot({
         # gse-pathway
-        pathway_gse(id_with_fc_list = entrez_ids_with_fc_vector)
+        pathway_gse(id_with_fc_list = entrez_ids_with_fc_vector, organism = tolower(org))
       })
       # gse-pathway
       pathway_gse()
     }else{
       output$cnet_plot_kegg <- renderPlot({
+        message_plot()
+      })
+      output$pathway_gse_plot <- renderPlot({
         message_plot()
       })
     }
