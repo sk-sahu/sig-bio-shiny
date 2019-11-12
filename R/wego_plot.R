@@ -1,9 +1,24 @@
 # the arguments are result data frames returned by clusterProfiler::enrichGO objects
 # it retuns a ploting object
 
-library(dplyr)
-library(ggplot2)
-library(forcats)
+#' Plot WEGO
+#' 
+#' This make a WEGO alike plot.
+#' 
+#' @param BP An enrichGO object for Biological Process.
+#' @param CC An enrichGO object for Cellular Components.
+#' @param MF An enrichGO object for Molecular Functions.
+#' 
+#' @return A WEGO alike ggplot plot object.
+#' 
+#' @import dplyr
+#' @import ggplot2
+#' @import forcats
+#'
+#' @export
+#suppressMessages(library(dplyr))
+#suppressMessages(library(ggplot2))
+#suppressMessages(library(forcats))
 
 wego_plot <- function(BP=go_table, CC=go_table, MF=go_table){
   

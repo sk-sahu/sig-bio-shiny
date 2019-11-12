@@ -1,35 +1,43 @@
 library(shiny)
+org_table <- read.csv("data/org_table.csv", header = TRUE, row.names = 1)
+
 ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                  tabPanel("Gene-Summary",
                           sidebarLayout(
                             sidebarPanel(width = 3,
                                          # For text area input 
-                                         textAreaInput("text_area_list", "Gene list or Gene,Foldchnage list:", height = "130px", width = "200px",
+                                         textAreaInput("text_area_list", "Gene list or Gene,Foldchnage list:", 
+                                                       height = "150px", width = "230px",
                                                        value = "
-ENSG00000049239,23.4013439616
-ENSG00000074800,22.4639348847
-ENSG00000171603,23.078462958
-ENSG00000116285,23.091453082
-ENSG00000116288,8.1240074204
-ENSG00000074800,8.2065166175
-ENSG00000142599,8.8824101153
-ENSG00000171621,7.6509604768
-ENSG00000162413,8.666196158
-ENSG00000116273,7.4955643371
-ENSG00000175756,7.5253928354
-ENSG00000188976,7.2279606723
-ENSG00000234619,8.303434686
-ENSG00000007923,7.5280119186
-ENSG00000232848,7.6211916231
-ENSG00000049245,9.702377583
-ENSG00000131584,8.0619989127
-ENSG00000228463,-6.2285238309"),
-                                         # get org from org_table.csv file
-                                         org_table <- read.csv("data/org_table.csv", header = TRUE, row.names = 1),
-                                         selectInput("org", "Organism:", 
+ENSG00000049239,23.40
+ENSG00000074800,22.46
+ENSG00000171603,-23.07
+ENSG00000116285,23.09
+ENSG00000116288,8.12
+ENSG00000074800,8.20
+ENSG00000142599,-8.88
+ENSG00000171621,7.65
+ENSG00000162413,8.66
+ENSG00000116273,-7.49
+ENSG00000175756,7.52
+ENSG00000188976,7.22
+ENSG00000234619,8.30
+ENSG00000007923,7.52
+ENSG00000232848,-7.62
+ENSG00000049245,9.70
+ENSG00000131584,8.06
+ENSG00000228463,-6.22"),
+                                         # get org from org_table.csv file which is stored in org_table object
+                                         
+                                         selectInput("org", label = "Organism:", selected = "Human",
                                                      choices=rownames(org_table)),
+                                         numericInput("pval_cutoff", label = "pvalue-CutOff", 
+                                                      value = 1, min=0.001, max=1),
+                                         numericInput("qval_cutoff", label = "qvalue-CutOff", 
+                                                      value = 1, min=0.001, max=1),
                                          hr(),
-                                         helpText("List is taken from Bioconductor."),
+                                         helpText("After submit it may take minutes. Check Progress bar in right
+                                                  side cornor"),
                                          
                                          actionButton("submit", label =  "Submit"),
                                          tags$hr(),
@@ -217,7 +225,7 @@ server <- function(input, output) {
     gene_ontology <- function(go_type = "BP"){
       go_obj <- clusterProfiler::enrichGO(entrez_ids, OrgDb = org_pkg,
                                       keyType = "ENTREZID",ont = go_type, 
-                                      pvalueCutoff=1, qvalueCutoff=1)
+                                      pvalueCutoff=input$pval_cutoff, qvalueCutoff=input$qval_cutoff)
       go_obj_2 <- clusterProfiler::setReadable(go_obj, OrgDb = org_pkg, keyType = "ENTREZID")
       return(go_obj_2)
     }
@@ -328,9 +336,9 @@ server <- function(input, output) {
     incProgress(5/6, detail = paste("Doing KEGG...")) ##### Progress step 5
     kegg <- enrichKEGG(entrez_ids, 
                        organism = kegg_org_name, 
-                       pvalueCutoff=0.05, 
+                       pvalueCutoff=input$pval_cutoff, 
                        pAdjustMethod="BH", 
-                       qvalueCutoff=0.1)
+                       qvalueCutoff=input$qval_cutoff)
     kegg_2 <- setReadable(kegg, OrgDb = org_pkg, keyType = "ENTREZID")
     # kegg-table 
     output$table_kegg <- DT::renderDataTable({
@@ -352,7 +360,9 @@ server <- function(input, output) {
       })
       output$pathway_gse_plot <- renderPlot({
         # gse-pathway
-        pathway_gse(id_with_fc_list = entrez_ids_with_fc_vector, organism = tolower(org))
+        pathway_gse(id_with_fc_list = entrez_ids_with_fc_vector, 
+                    organism = tolower(input$org),
+                    pval = input$pval_cutoff)
       })
       # gse-pathway
       pathway_gse()

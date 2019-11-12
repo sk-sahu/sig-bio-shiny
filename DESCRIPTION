@@ -1,0 +1,38 @@
+Package: SigBio
+Title: Significant Biology on a Gene Set
+Version: 0.1
+Description: A genes set from a diffrential experiment or any set of intrest can be explored with multiple aspects in a single place.
+Author: Sangram Keshari Sahu
+Maintainer: Sangram Keshari Sahu <sangramsahu15@gmail.com>  
+License: MIT + file LICENSE
+URL: https://github.com/sk-sahu/sig-bio-shiny
+BugReports: https://github.com/sk-sahu/sig-bio-shiny/issues
+Depends: 
+    R (>= 3.0)
+Imports: 
+    dockerfiler,
+    htmltools,
+    jsonlite,
+    remotes,
+    shiny,
+    stats,
+    testthat,
+    utils,
+    ReactomePA,
+    dplyr,
+    clusterProfiler.dplyr,
+    forcats,
+    ggplot2,
+    ggstance
+Suggests: 
+    covr,
+    devtools,
+    DT,
+    knitr,
+    rmarkdown
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+Language: en-US
+LazyData: true
+RoxygenNote: 6.1.1
