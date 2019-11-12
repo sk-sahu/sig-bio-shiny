@@ -1,22 +1,6 @@
 # Help
 ***
 
-## Set Up
-To install all the required R packages and organism database run `setup.R`
-
-from terminal
-```
-cd sig-bio-shiny
-Rscript setup.R
-```
-
-## Run the shiny app
-```
-Rscript app.R
-```
-Access the app in your browser - 
-http://127.0.0.1:3138/
-
 ## Input 
 Input in text area must be **ENSEMBL** gene ID (Support of RefSeq IDs will be added).
 
