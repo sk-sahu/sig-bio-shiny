@@ -1,6 +1,7 @@
 FROM rocker/tidyverse:3.6.1
 COPY setup.R /
 COPY SigBio_*.tar.gz /app.tar.gz
+COPY data ./
 RUN Rscript setup.R \
 	&& ls -la
 # && R -e 'remotes::install_local("/app.tar.gz")'
