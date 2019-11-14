@@ -27,10 +27,8 @@ Imports:
     DT,
     glue,
     golem,
-    clusterProfiler.dplyr,
-    ReactomePA
-Remotes: YuLab-SMU/clusterProfiler.dplyr,
-    bioc::3.3/ReactomePA
+    clusterProfiler.dplyr
+Remotes: YuLab-SMU/clusterProfiler.dplyr
 Suggests: 
     covr,
     devtools,

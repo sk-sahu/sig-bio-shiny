@@ -7,7 +7,6 @@
 #' 
 #' @return A GSE plot
 #' 
-#' @importFrom ReactomePA gsePathway
 #' @importFrom clusterProfiler.dplyr arrange group_by slice
 #' @importFrom forcats fct_reorder
 #' @importFrom ggstance geom_barh
@@ -30,7 +29,7 @@ pathway_gse <- function(id_with_fc_list = entrez_ids_with_fc_vector,
                         pval = "0.05"){
   list_for_gse <- as.numeric(levels(id_with_fc_list))[id_with_fc_list]
   names(list_for_gse) <- names(id_with_fc_list)
-  gse_pathway <- gsePathway(sort(list_for_gse, decreasing = TRUE), 
+  gse_pathway <- ReactomePA::gsePathway(sort(list_for_gse, decreasing = TRUE), 
                             organism = organism,
                             pvalueCutoff = pval,
                             )
