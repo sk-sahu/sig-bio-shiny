@@ -13,7 +13,7 @@ R shiny application for doing significant biology on a set of genes.
 2. [Download](#download)
 3. [Set Up](#set-up)
 4. [Run the shiny app](#run-the-shiny-app)
-5. [FAQ](#questions)
+5. [FAQ](#faq)
 6. [Reference](#reference)
 
 
