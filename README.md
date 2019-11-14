@@ -7,7 +7,12 @@
   [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sudosk/sig-bio-shiny)](https://hub.docker.com/repository/docker/sudosk/sig-bio-shiny/builds)
   <!-- badges: end -->
 
-R shiny application for doing significant biology on a set of genes
+R shiny application for doing significant biology on a set of genes.
+
+1. [Requirement](#requirement)
+2. [Download](#download)
+3. [Set Up](#set-up)
+4. [Run the shiny app](#run-the-shiny-app)
 
 ## Requirement
 Need atleast 8GB of RAM in the system
