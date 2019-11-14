@@ -13,6 +13,9 @@ R shiny application for doing significant biology on a set of genes.
 2. [Download](#download)
 3. [Set Up](#set-up)
 4. [Run the shiny app](#run-the-shiny-app)
+5. [FAQ](#questions)
+6. [Reference](#reference)
+
 
 ## Requirement
 Need atleast 8GB of RAM in the system
@@ -43,6 +46,8 @@ Rscript app.R
 ```
 Access the app in your browser with output URL.
 
-Questions - [HELP](HELP.md)
+## FAQ
+[HELP](HELP.md)
 
-Reference - [here](reference.md)
+## Reference
+[here](reference.md)
