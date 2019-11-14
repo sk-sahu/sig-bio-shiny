@@ -9,6 +9,9 @@
 
 R shiny application for doing significant biology on a set of genes
 
+## Requirement
+Need atleast 8GB of RAM in the system
+
 ## Download
 Clone using git
 ```
