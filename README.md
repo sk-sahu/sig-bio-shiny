@@ -9,6 +9,17 @@
 
 R shiny application for doing significant biology on a set of genes
 
+## Download
+Clone using git
+```
+git clone https://github.com/sk-sahu/sig-bio-shiny.git
+```
+Download using wget
+```
+wget https://github.com/sk-sahu/sig-bio-shiny/archive/master.zip
+unzip master.zip && mv sig-bio-shiny-master sig-bio-shiny
+```
+
 ## Set Up
 To install all the required R packages and organism database run `setup.R`
 
