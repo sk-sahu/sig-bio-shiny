@@ -4,3 +4,5 @@
 ^\.gitlab-ci\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^Makefile$
+^Jenkinsfile$

@@ -27,13 +27,15 @@ Imports:
     DT,
     glue,
     golem,
-    clusterProfiler.dplyr
+    clusterProfiler.dplyr,
+    magrittr
 Remotes: YuLab-SMU/clusterProfiler.dplyr
 Suggests: 
     covr,
     devtools,
     knitr,
-    rmarkdown
+    rmarkdown,
+    spelling
 VignetteBuilder: 
     knitr
 Encoding: UTF-8

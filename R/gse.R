@@ -13,15 +13,7 @@
 #' @importFrom ggplot2 ggplot
 #'
 #' @export
-#suppressMessages(library(ReactomePA))
-#suppressMessages(library(forcats))
-#suppressMessages(library(ggplot2))
-#suppressMessages(library(ggstance))
-#suppressMessages(library(enrichplot))
-#suppressMessages(library(clusterProfiler.dplyr))
-
 load("data.RData")
-
 # same as geneList
 # entrez_ids_with_fc_vector = geneList is a object from DOSE pkg
 pathway_gse <- function(id_with_fc_list = entrez_ids_with_fc_vector, 

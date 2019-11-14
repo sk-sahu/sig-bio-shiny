@@ -1,11 +1,21 @@
-language: R
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-services:
-  - docker
+language: R
+sudo: false
+cache: packages
+
+warnings_are_errors: false
 
 before_install:
-- docker pull sudosk/sig-bio-shiny
-- docker run -d -p ./:temp_dir sudosk/sig-bio-shiny /bin/sh -c "Rscript temp_dir/app.R;"
+    - Rscript -e 'install.packages("devtools")'
+    - Rscript -e 'devtools::install(dependencies=TRUE)'
 
-script:
-- Rscript temp_dir/app.R
+r_build_args: "--no-manual --no-resave-data"
+r_check_args: "--no-build-vignettes --no-manual --timings"
+
+r_packages:
+  - covr
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'covr::coveralls()'

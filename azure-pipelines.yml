@@ -1,0 +1,9 @@
+resources:
+  repositories:
+    - repository: r-azure-pipelines
+      type: github
+      name: sk-sahu/r-azure-pipelines
+      endpoint: sk-sahu
+
+jobs:
+    - template: azure-tidyverse.yml@r-azure-pipelines
