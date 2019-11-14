@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: rocker/verse:latest
+      - image: sudosk/sig-bio-shiny
     environment:
       R_LIBS: ~/R/Library
     steps:
