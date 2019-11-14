@@ -7,15 +7,15 @@ cache: packages
 warnings_are_errors: false
 
 before_install:
-    - Rscript -e 'install.packages("devtools")'
+    - Rscript setup.R
     - Rscript -e 'devtools::install(dependencies=TRUE)'
 
 r_build_args: "--no-manual --no-resave-data"
 r_check_args: "--no-build-vignettes --no-manual --timings"
 
-r_packages:
-  - covr
+#r_packages:
+#  - covr
 
-after_success:
-  - Rscript -e 'covr::codecov()'
-  - Rscript -e 'covr::coveralls()'
+#after_success:
+#  - Rscript -e 'covr::codecov()'
+#  - Rscript -e 'covr::coveralls()'
