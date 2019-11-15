@@ -67,10 +67,10 @@ wego_plot <- function(BP=go_table, CC=go_table, MF=go_table){
   
   ## Plot "Description" in the x-axis following the order stated in the "Position" column
   ## vs "Percentage of genes" in the first y-axis
-  wego_alike_plot <- ggplot(data = wego_style_go_2, aes(x = fct_reorder(Description, desc(Position)), y = `Percentage of genes`, fill = Domain)) +
+  wego_alike_plot <- ggplot(data = wego_style_go_2, aes(x = forcats::fct_reorder(Description, desc(Position)), y = `Percentage of genes`, fill = Domain)) +
     ## Plot "Description" in the x-axis following the order stated in the "Position" column
     ## vs normalized "Number of genes" in the second y-axis
-    geom_col(data = wego_style_go_2, aes(x = fct_reorder(Description, desc(Position)), y = `Number of genes`/normalizer)) +
+    geom_col(data = wego_style_go_2, aes(x = forcats::fct_reorder(Description, desc(Position)), y = `Number of genes`/normalizer)) +
     ## Add a second y-axis based on the transformation of "Percentage of genes" to "Number of genes".
     ## Notice that the transformation undoes the normalization for the earlier geom_col.
     scale_y_continuous(sec.axis = sec_axis(trans = ~.*normalizer, name = "Number of genes")) +

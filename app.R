@@ -124,7 +124,7 @@ ENSG00000228463,-6.22"),
                           verbatimTextOutput("sessioninfo")
                  ),
                  tabPanel("Help",
-                          includeMarkdown("HELP.md")
+                          includeMarkdown("docs/HELP.md")
                  )
 )
     

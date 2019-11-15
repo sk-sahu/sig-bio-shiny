@@ -47,7 +47,7 @@ Rscript app.R
 Access the app in your browser with output URL.
 
 ## FAQ
-[HELP](HELP.md)
+[HELP](docs/HELP.md)
 
 ## Reference
-[here](reference.md)
+[here](docs/reference.md)

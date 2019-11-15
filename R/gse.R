@@ -33,8 +33,8 @@ pathway_gse <- function(id_with_fc_list = entrez_ids_with_fc_vector,
     group_by(sign(NES)) %>% 
     slice(1:5)
   
-  ggplot(y, aes(NES, fct_reorder(Description, NES), fill=qvalues), showCategory=10) + 
-    geom_barh(stat='identity') + 
+  ggplot(y, aes(NES, forcats::fct_reorder(Description, NES), fill=qvalues), showCategory=10) + 
+    ggstance::geom_barh(stat='identity') + 
     scale_fill_continuous(low='red', high='blue', guide=guide_colorbar(reverse=TRUE)) + 
     theme_minimal() + xlab("Normalized Enrichment Score (NES)") + ylab(NULL)
 }
