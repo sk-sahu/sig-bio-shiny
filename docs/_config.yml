@@ -1,3 +1,4 @@
 title: "Sig-Bio-Shiny"
 description: "R shiny application for doing significant biology on a set of genes."
 baseurl: "https://sk-sahu.github.io/sig-bio-shiny"
+theme: jekyll-theme-leap-day
