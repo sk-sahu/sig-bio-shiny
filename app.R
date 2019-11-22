@@ -58,7 +58,7 @@ ENSG00000228463,-6.22"),
                               #tags$hr(),
                               textOutput("gene_number_info"),
                               tags$hr(),
-                              DT::dataTableOutput(outputId = "entrez_ids_with_fc_table")
+                              DT::dataTableOutput(outputId = "gene_number_info_table")
                             ) # mainpanel end.
                           )
                  ),
@@ -163,7 +163,7 @@ server <- function(input, output) {
       kegg_org_name <- as.character(org_table[input$org,]$org_kegg)
       #org_pkg <- "org.Hs.eg.db" 
       #kegg_org_name <- "hsa"
-      gtf_type <- id_type # ensembl or refseq
+      gtf_type <- input$id_type # ensembl or refseq
       suppressMessages(library(org_pkg, character.only = TRUE))
       
     output$warning <- renderUI({
@@ -190,24 +190,42 @@ server <- function(input, output) {
     }
     
     # Conver genelist to ENTREZIDs
-    entrez_ids=mapIds(eval(parse(text = org_pkg)), as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
+    message("Converting input gene list to entrez ids...")
+    #entrez_ids=mapIds(eval(parse(text = org_pkg)), as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
+    tryCatch(
+      expr = {
+        entrez_ids=mapIds(eval(parse(text = org_pkg)), as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
+      },
+      error = function(e){ 
+        message("The gene-id type and input list are not matching.")
+        stop()
+      },
+      warning = function(w){
+        message("The gene-id type and input list are not matching.")
+        stop()
+      }
+    )
+    
     print("After Gene List converted into EntrezIDs (head): ")
     print(head(entrez_ids))
     
     # If FoldChnage provided 
     # Create a geneList with genes and log2FC for few plots
-    gene_with_fc_vector <- gene_with_fc_df[,2]
-    names(gene_with_fc_vector) = as.character(gene_with_fc_df[,1])
-    #gene_with_fc_vector = sort(gene_with_fc_vector, decreasing = TRUE)
-    # Conver genelist in gene_with_fc_vector to ENTREZIDs
-    entrez_ids_with_fc <- data.frame(entrez_ids, gene_with_fc_vector = gene_with_fc_vector[names(entrez_ids)])
-    entrez_ids_with_fc_table <- entrez_ids_with_fc # for display only
-    entrez_ids_with_fc_table$input_list <- names(entrez_ids) # for display only
-    entrez_ids_with_fc <- na.omit(entrez_ids_with_fc)
-    entrez_ids_with_fc_vector <- entrez_ids_with_fc[,2]
-    names(entrez_ids_with_fc_vector) <- entrez_ids_with_fc[,1]
-    #rownames(entrez_ids_with_fc) <- entrez_ids_with_fc[,1]
-    #entrez_ids_with_fc <- entrez_ids_with_fc[,2]
+    if (all(grepl(",", gene_list_split)))
+    {
+      gene_with_fc_vector <- gene_with_fc_df[,2]
+      names(gene_with_fc_vector) = as.character(gene_with_fc_df[,1])
+      #gene_with_fc_vector = sort(gene_with_fc_vector, decreasing = TRUE)
+      # Conver genelist in gene_with_fc_vector to ENTREZIDs
+      entrez_ids_with_fc <- data.frame(entrez_ids, gene_with_fc_vector = gene_with_fc_vector[names(entrez_ids)])
+      entrez_ids_with_fc_table <- entrez_ids_with_fc # for display only
+      entrez_ids_with_fc_table$input_list <- names(entrez_ids) # for display only
+      entrez_ids_with_fc <- na.omit(entrez_ids_with_fc)
+      entrez_ids_with_fc_vector <- entrez_ids_with_fc[,2]
+      names(entrez_ids_with_fc_vector) <- entrez_ids_with_fc[,1]
+      #rownames(entrez_ids_with_fc) <- entrez_ids_with_fc[,1]
+      #entrez_ids_with_fc <- entrez_ids_with_fc[,2]
+    }
     
     # for message in main tab
     input_gene_number <- length(gene_list_uprcase)
@@ -220,16 +238,18 @@ server <- function(input, output) {
             sep="\n")
     })
     # message for main pannel
-    output$entrez_ids_with_fc_table <- DT::renderDataTable({
-      datatable(entrez_ids_with_fc_table)
+    output$gene_number_info_table <- DT::renderDataTable({
+      datatable(cbind(gene_list_uprcase, entrez_ids))
     })
     
     # Gene Ontology ----
     # small function
     gene_ontology <- function(go_type = "BP"){
+      message(paste0("Doing enrichGO for: ", go_type))
       go_obj <- clusterProfiler::enrichGO(entrez_ids, OrgDb = org_pkg,
                                       keyType = "ENTREZID",ont = go_type, 
                                       pvalueCutoff=input$pval_cutoff, qvalueCutoff=input$qval_cutoff)
+      message("Converting entrezids to readable gene ids (gene symbles) ")
       go_obj_2 <- clusterProfiler::setReadable(go_obj, OrgDb = org_pkg, keyType = "ENTREZID")
       return(go_obj_2)
     }
