@@ -163,7 +163,7 @@ server <- function(input, output) {
       kegg_org_name <- as.character(org_table[input$org,]$org_kegg)
       #org_pkg <- "org.Hs.eg.db" 
       #kegg_org_name <- "hsa"
-      gtf_type <- "ENSEMBL" # ensembl or refseq
+      gtf_type <- id_type # ensembl or refseq
       suppressMessages(library(org_pkg, character.only = TRUE))
       
     output$warning <- renderUI({
