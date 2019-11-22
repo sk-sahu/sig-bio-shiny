@@ -75,15 +75,18 @@ wego_plot <- function(BP=go_table, CC=go_table, MF=go_table){
     ## Notice that the transformation undoes the normalization for the earlier geom_col.
     scale_y_continuous(sec.axis = sec_axis(trans = ~.*normalizer, name = "Number of genes")) +
     ## Modify the aesthetic of the theme
-    theme(axis.text.x = element_text(angle = 70, hjust = 1), axis.title.y = element_text(size = 8),
-          legend.text = element_text(size = 7), legend.title = element_text(size = 8),
-          legend.key.size =  unit(0.2, "in"), plot.title = element_text(size = 11, hjust = 0.5)) +
+    theme(text = element_text(size=13),
+          axis.text = element_text(size = 13),
+          axis.text.x = element_text(angle = 60, hjust = 1), 
+          axis.title.y = element_text(size = 13),
+          legend.text = element_text(size = 13), 
+          legend.title = element_text(size = 13),
+          legend.key.size =  unit(0.2, "in"), 
+          plot.title = element_text(size = 13, hjust = 0.5),
+          plot.margin = unit(c(1,1,1,5), "cm"),
+          panel.background = element_rect(fill = "white", colour = "grey50")) +
     ## Add a title to the plot
-    labs(x = NULL, title = "Gene Ontology (GO) Annotation") + 
-    # theme settings
-    theme(text = element_text(size=10),
-          axis.text = element_text(size = 5),
-          axis.text.x = element_text(angle = 60), 
-          panel.background = element_rect(fill = "white", colour = "grey50"))
+    labs(x = NULL, title = "Gene Ontology")
+          
   return(wego_alike_plot)
 }

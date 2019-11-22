@@ -66,6 +66,7 @@ ENSG00000228463,-6.22"),
                  tabPanel("Gene Ontology",
                           
                               plotOutput("wego_plot"),
+                              downloadButton('download_tables', 'Download all tables'),
                               uiOutput("download_wego_plot_button"),
                               tabsetPanel(
                                 tabPanel("Biological Process",
@@ -263,9 +264,10 @@ server <- function(input, output) {
     #incProgress(4/6, detail = paste("Making Tables...")) ##### Progress step 4
     # All Outputs ----
     # tables
+    # print
     output$table_go_bp <- DT::renderDataTable({
       go_bp@result
-      })
+    })
     output$table_go_cc <- DT::renderDataTable({
       go_cc@result
     })
@@ -401,6 +403,27 @@ server <- function(input, output) {
     
     # gse-pathway
     pathway_gse()
+    
+    # download all the tables
+    output$download_tables <- downloadHandler(
+      filename = function(){
+        paste0("SigBio_tables.zip")
+      },
+      content = function(file){
+        #go to a temp dir to avoid permission issues
+        owd <- setwd(tempdir())
+        on.exit(setwd(owd))
+        
+        fs <- c("go_bp.csv", "go_cc.csv", "go_mf.csv", "kegg.csv")
+        write.csv(go_bp@result, file = "go_bp.csv")
+        write.csv(go_bp@result, file = "go_cc.csv")
+        write.csv(go_bp@result, file = "go_mf.csv")
+        write.csv(kegg_2@result, file = "kegg.csv")
+        
+        zip(zipfile=file, files=fs)
+      },
+      contentType = "application/zip"
+    )
     
     incProgress(6/6, detail = paste("Finish.")) ##### Progress step 6
     
