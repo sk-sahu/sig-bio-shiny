@@ -1,5 +1,7 @@
 library(shiny)
-org_table <- read.csv("data/org_table.csv", header = TRUE, row.names = 1)
+org_bioc <- read.csv("data/org_bioc.csv", header = TRUE, row.names = 1)
+org_unofficial <- read.csv("data/org_unofficial.csv", header = TRUE, row.names = 1)
+org_table <- rbind(org_bioc, org_unofficial)
 
 ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                  tabPanel("Gene-Summary",
@@ -27,8 +29,10 @@ ENSG00000232848,-7.62
 ENSG00000049245,9.70
 ENSG00000131584,8.06
 ENSG00000228463,-6.22"),
-                                         # get org from org_table.csv file which is stored in org_table object
+                                         # get org from org_table object
                                          
+                                         selectInput("id_type", label = "Input gene-id Type:", selected = "ENSEMBL",
+                                                     choices=c("ENSEMBL", "REFSEQ")),
                                          selectInput("org", label = "Organism:", selected = "Human",
                                                      choices=rownames(org_table)),
                                          numericInput("pval_cutoff", label = "pvalue-CutOff", 
