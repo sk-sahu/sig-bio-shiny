@@ -32,7 +32,7 @@ ENSG00000228463,-6.22"),
                                          # get org from org_table object
                                          
                                          selectInput("id_type", label = "Input gene-id Type:", selected = "ENSEMBL",
-                                                     choices=c("ENSEMBL", "REFSEQ")),
+                                                     choices=c("ENSEMBL", "REFSEQ", "ENTREZID")),
                                          selectInput("org", label = "Organism:", selected = "Human",
                                                      choices=rownames(org_table)),
                                          numericInput("pval_cutoff", label = "pvalue-CutOff", 
