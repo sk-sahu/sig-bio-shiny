@@ -1,6 +1,6 @@
 ---
 title: "Documentation"
-date: "25/11/2019"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: html_document
 bibliography: bib/bibliography.bib
 csl: bib/3-biotech.csl
