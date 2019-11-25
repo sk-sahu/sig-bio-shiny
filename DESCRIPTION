@@ -26,23 +26,19 @@ Imports:
     attempt,
     DT,
     glue,
-    golem,
-    clusterProfiler.dplyr,
     magrittr,
-    BiocManager,
-    AnnotationHub,
-    AnnotationDbi,
-    clusterProfiler,
-    enrichplot
+    enrichplot,
+    BiocManager (>= 1.30.10),
+    AnnotationHub (>= 2.16.1),
+    AnnotationDbi (>= 1.46.1),
+    clusterProfiler (>= 3.12.0)
 Remotes: YuLab-SMU/clusterProfiler.dplyr
 Suggests: 
     covr,
     devtools,
     knitr,
-    rmarkdown,
-    spelling
-VignetteBuilder: 
-    knitr
+    rmarkdown
+VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US
 LazyData: true

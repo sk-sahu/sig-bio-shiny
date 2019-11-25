@@ -165,7 +165,7 @@ server <- function(input, output) {
       
       # based on user input
       selected_species <- as.character(input$org)
-      message("Selected org is - ", selected_species)
+      sigbio_message("Selected org is - ", selected_species)
       selected_species_orgdb <- query(orgdb, selected_species)
       org_pkg <- ah[[selected_species_orgdb$ah_id]]
       kegg_org_name <- input$kegg_org_code
@@ -194,17 +194,17 @@ server <- function(input, output) {
     }
     
     # Conver genelist to ENTREZIDs
-    message("Converting input gene list to entrez ids...")
+    sigbio_message("Converting input gene list to entrez ids...")
     tryCatch(
       expr = {
         entrez_ids=mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
       },
       error = function(e){ 
-        message("The gene-id type and input list are not matching.")
+        sigbio_message("The gene-id type and input list are not matching.")
         stop()
       },
       warning = function(w){
-        message("The gene-id type and input list are not matching.")
+        sigbio_message("The gene-id type and input list are not matching.")
         stop()
       }
     )
@@ -245,11 +245,11 @@ server <- function(input, output) {
     
     # Gene Ontology ----
     gene_ontology <- function(go_type = "BP"){
-      message(paste0("Doing enrichGO for: ", go_type))
+      sigbio_message(paste0("Doing enrichGO for: ", go_type))
       go_obj <- clusterProfiler::enrichGO(entrez_ids, OrgDb = org_pkg,
                                       keyType = "ENTREZID",ont = go_type, 
                                       pvalueCutoff=input$pval_cutoff, qvalueCutoff=input$qval_cutoff)
-      message("Converting entrezids to readable gene ids (gene symbles) ")
+      sigbio_message("Converting entrezids to readable gene ids (gene symbles) ")
       go_obj_2 <- clusterProfiler::setReadable(go_obj, OrgDb = org_pkg, keyType = "ENTREZID")
       return(go_obj_2)
     }
@@ -357,7 +357,7 @@ server <- function(input, output) {
     
     # KEGG ----
     incProgress(5/6, detail = paste("Doing KEGG...")) ##### Progress step 5
-    message(paste0("Doing enrichKEGG... "))
+    sigbio_message(paste0("Doing enrichKEGG... "))
     kegg <- enrichKEGG(entrez_ids, 
                        organism = kegg_org_name, 
                        pvalueCutoff=input$pval_cutoff, 
@@ -423,7 +423,8 @@ server <- function(input, output) {
       contentType = "application/zip"
     )
     
-    incProgress(6/6, detail = paste("Finish.")) ##### Progress step 6
+    sigbio_message("Finished. Check your browser for results.")
+    incProgress(6/6, detail = paste("Finished.")) ##### Progress step 6
     
     output$sessioninfo <- renderPrint({
       sessionInfo()
