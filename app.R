@@ -1,7 +1,11 @@
 library(shiny)
-org_bioc <- read.csv("data/org_bioc.csv", header = TRUE, row.names = 1)
-org_unofficial <- read.csv("data/org_unofficial.csv", header = TRUE, row.names = 1)
-org_table <- rbind(org_bioc, org_unofficial)
+library(AnnotationHub)
+ah = AnnotationHub()
+orgdb <- query(ah, "OrgDb")
+
+#org_bioc <- read.csv("data/org_bioc.csv", header = TRUE, row.names = 1)
+#org_unofficial <- read.csv("data/org_unofficial.csv", header = TRUE, row.names = 1)
+#org_table <- rbind(org_bioc, org_unofficial)
 
 ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                  tabPanel("Gene-Summary",
@@ -33,8 +37,8 @@ ENSG00000228463,-6.22"),
                                          
                                          selectInput("id_type", label = "Input gene-id Type:", selected = "ENSEMBL",
                                                      choices=c("ENSEMBL", "REFSEQ", "ENTREZID")),
-                                         selectInput("org", label = "Organism:", selected = "Human",
-                                                     choices=rownames(org_table)),
+                                         selectInput("org", label = "Organism:", selected = "Homo sapiens",
+                                                     choices=orgdb$species),
                                          numericInput("pval_cutoff", label = "pvalue-CutOff", 
                                                       value = 1, min=0.001, max=1),
                                          numericInput("qval_cutoff", label = "qvalue-CutOff", 
@@ -159,13 +163,17 @@ server <- function(input, output) {
       incProgress(1/6, detail = paste("Starting...")) ##### Progress step 1
       
       # based on user input
+      selected_species <- as.character(input$org)
+      message("Selected org is - ", selected_species)
+      selected_species_orgdb <- query(orgdb, selected_species)
       #org_row <- org_table[org,]
-      org_pkg <- as.character(org_table[input$org,]$org_pkg)
-      kegg_org_name <- as.character(org_table[input$org,]$org_kegg)
+      #org_pkg <- as.character(org_table[input$org,]$org_pkg)
+      org_pkg <- ah[[selected_species_orgdb$ah_id]]
+      #kegg_org_name <- as.character(org_table[input$org,]$org_kegg)
       #org_pkg <- "org.Hs.eg.db" 
-      #kegg_org_name <- "hsa"
+      kegg_org_name <- "bbub"
       gtf_type <- input$id_type # ensembl or refseq
-      suppressMessages(library(org_pkg, character.only = TRUE))
+      #suppressMessages(library(org_pkg, character.only = TRUE))
       
     output$warning <- renderUI({
       helpText("Note: It may take time for number of genes.")
@@ -195,7 +203,7 @@ server <- function(input, output) {
     #entrez_ids=mapIds(eval(parse(text = org_pkg)), as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
     tryCatch(
       expr = {
-        entrez_ids=mapIds(eval(parse(text = org_pkg)), as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
+        entrez_ids=mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
       },
       error = function(e){ 
         message("The gene-id type and input list are not matching.")
@@ -360,6 +368,7 @@ server <- function(input, output) {
     
     # KEGG ----
     incProgress(5/6, detail = paste("Doing KEGG...")) ##### Progress step 5
+    message(paste0("Doing enrichKEGG... "))
     kegg <- enrichKEGG(entrez_ids, 
                        organism = kegg_org_name, 
                        pvalueCutoff=input$pval_cutoff, 
@@ -391,7 +400,7 @@ server <- function(input, output) {
                     pval = input$pval_cutoff)
       })
       # gse-pathway
-      pathway_gse()
+      #pathway_gse()
     }else{
       output$cnet_plot_kegg <- renderPlot({
         message_plot()
@@ -402,7 +411,7 @@ server <- function(input, output) {
     }
     
     # gse-pathway
-    pathway_gse()
+    #pathway_gse()
     
     # download all the tables
     output$download_tables <- downloadHandler(
