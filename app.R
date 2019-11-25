@@ -1,13 +1,9 @@
 library(shiny)
 source("R/get_kegg.R")
-library(AnnotationHub)
+suppressMessages(library(AnnotationHub))
 ah = AnnotationHub()
 orgdb <- query(ah, "OrgDb")
 kegg_list <- kegg_link()
-
-#org_bioc <- read.csv("data/org_bioc.csv", header = TRUE, row.names = 1)
-#org_unofficial <- read.csv("data/org_unofficial.csv", header = TRUE, row.names = 1)
-#org_table <- rbind(org_bioc, org_unofficial)
 
 ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                  tabPanel("Gene-Summary",
@@ -56,9 +52,9 @@ ENSG00000228463,-6.22"),
                                          tags$hr(),
                                          
                                          # For file input
-                                         fileInput("file1", "Or upload from a (.txt) file",
-                                                   multiple = FALSE, width = "250px"),
-                                         actionButton("submit_2", label =  "Submit Uploaded")
+                                         # fileInput("file1", "Or upload from a (.txt) file",
+                                         #           multiple = FALSE, width = "250px"),
+                                         # actionButton("submit_2", label =  "Submit Uploaded")
                             ),
                             mainPanel(
                               helpText("Note: It may take minutes, depending upon the number of genes. Check progress bar"),
@@ -138,7 +134,7 @@ ENSG00000228463,-6.22"),
                           verbatimTextOutput("sessioninfo")
                  ),
                  tabPanel("Help",
-                          includeMarkdown("docs/HELP.md")
+                          includeMarkdown("vignettes/Help.md")
                  )
 )
     
@@ -171,14 +167,9 @@ server <- function(input, output) {
       selected_species <- as.character(input$org)
       message("Selected org is - ", selected_species)
       selected_species_orgdb <- query(orgdb, selected_species)
-      #org_row <- org_table[org,]
-      #org_pkg <- as.character(org_table[input$org,]$org_pkg)
       org_pkg <- ah[[selected_species_orgdb$ah_id]]
-      #kegg_org_name <- as.character(org_table[input$org,]$org_kegg)
-      #org_pkg <- "org.Hs.eg.db" 
       kegg_org_name <- input$kegg_org_code
       gtf_type <- input$id_type # ensembl or refseq
-      #suppressMessages(library(org_pkg, character.only = TRUE))
       
     output$warning <- renderUI({
       helpText("Note: It may take time for number of genes.")
@@ -189,7 +180,6 @@ server <- function(input, output) {
     #gene_list <- c("ENSG00000012048", "ENSG00000214049", "ENSG00000204682")
     gene_list <- input$text_area_list
     gene_list_split <- unlist(strsplit(gene_list, "\n"))
-    #gene_list_split <- as.data.frame(gene_list_split)
     gene_list_split <- unique(gene_list_split[gene_list_split != ""])
     
     if (all(grepl(",", gene_list_split)))
@@ -205,7 +195,6 @@ server <- function(input, output) {
     
     # Conver genelist to ENTREZIDs
     message("Converting input gene list to entrez ids...")
-    #entrez_ids=mapIds(eval(parse(text = org_pkg)), as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
     tryCatch(
       expr = {
         entrez_ids=mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
@@ -237,8 +226,6 @@ server <- function(input, output) {
       entrez_ids_with_fc <- na.omit(entrez_ids_with_fc)
       entrez_ids_with_fc_vector <- entrez_ids_with_fc[,2]
       names(entrez_ids_with_fc_vector) <- entrez_ids_with_fc[,1]
-      #rownames(entrez_ids_with_fc) <- entrez_ids_with_fc[,1]
-      #entrez_ids_with_fc <- entrez_ids_with_fc[,2]
     }
     
     # for message in main tab
@@ -257,7 +244,6 @@ server <- function(input, output) {
     })
     
     # Gene Ontology ----
-    # small function
     gene_ontology <- function(go_type = "BP"){
       message(paste0("Doing enrichGO for: ", go_type))
       go_obj <- clusterProfiler::enrichGO(entrez_ids, OrgDb = org_pkg,
@@ -274,10 +260,8 @@ server <- function(input, output) {
     incProgress(4/6, detail = paste("Doing Gene Ontology for: MF...")) ##### Progress step 4
     go_mf <- gene_ontology(go_type = "MF")
     
-    #incProgress(4/6, detail = paste("Making Tables...")) ##### Progress step 4
     # All Outputs ----
     # tables
-    # print
     output$table_go_bp <- DT::renderDataTable({
       go_bp@result
     })
@@ -288,7 +272,6 @@ server <- function(input, output) {
       go_mf@result
     })
     
-    #incProgress(5/6, detail = paste("Making plots...")) ##### Progress step 5
     # plots and their downloads ----
     # wego plot
     output$wego_plot <- renderPlot({
@@ -344,6 +327,7 @@ server <- function(input, output) {
            cex = 1.6, col = "black")
       par(mar = c(5, 4, 4, 2) + 0.1)
     }
+    
     # if foldchange provided
     if (all(grepl(",", gene_list_split))){
       # cnetplot (Gene Concept Network)
@@ -401,7 +385,7 @@ server <- function(input, output) {
       output$pathway_gse_plot <- renderPlot({
         # gse-pathway
         pathway_gse(id_with_fc_list = entrez_ids_with_fc_vector, 
-                    organism = tolower(input$org),
+                    organism = kegg_org_name,
                     pval = input$pval_cutoff)
       })
       # gse-pathway

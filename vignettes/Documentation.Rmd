@@ -1,13 +1,22 @@
+---
+title: "Documentation"
+date: "25/11/2019"
+output: html_document
+bibliography: bib/bibliography.bib
+csl: bib/3-biotech.csl
+link-citations: true
+---
+
 # Sig-Bio-Shiny
 
 This is a R shiny application to do significant biology on a set of genes.
 
 This uses few of the Biocondutor packages underneath to give an interface for doing significant biology (Such as GO, KEGG, GSE analysis).
 
-* [AnnotationHub] To get annotation information.
-* [AnnotationDbi] To use some universal APIs for mapping data from OrgDb objects.
-* [clusterProfiler] To perform most of the analysis.
-* [enrichplot] To plot most plots.
+* [AnnotationHub] To get annotation information. [@AnnotationHub]
+* [AnnotationDbi] To use some universal APIs for mapping data from OrgDb objects. [@AnnotationDbi]
+* [clusterProfiler] To perform most of the analysis. [@clusterProfiler] and [@clusterProfiler.dplyr]
+* [enrichplot] To plot most plots. [@enrichplot]
 
 [AnnotationDbi]: https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html
 [AnnotationHub]: https://bioconductor.org/packages/release/bioc/html/AnnotationHub.html
@@ -30,11 +39,11 @@ Need atleast 8GB of RAM in the system
 
 ## Download
 Clone using git
-```
+```{bash, eval=FALSE}
 git clone https://github.com/sk-sahu/sig-bio-shiny.git
 ```
 Download using wget
-```
+```{bash, eval=FALSE}
 wget https://github.com/sk-sahu/sig-bio-shiny/archive/master.zip
 unzip master.zip && mv sig-bio-shiny-master sig-bio-shiny
 ```
@@ -43,19 +52,18 @@ unzip master.zip && mv sig-bio-shiny-master sig-bio-shiny
 To install all the required R packages and organism database run `setup.R`
 
 from terminal
-```
+```{bash, eval=FALSE}
 cd sig-bio-shiny
 Rscript setup.R
 ```
 
 ## Run the shiny app
-```
+```{bash, eval=FALSE}
 Rscript app.R
 ```
 Access the app in your browser with output URL.
 
 ## FAQ
-[HELP](HELP.md)
+[HELP](Help.html)
 
 ## Reference
-[here](reference.md)

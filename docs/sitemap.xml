@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://sksahu.net/sig-bio-shiny/index.html</loc>
+  </url>
+  <url>
+    <loc>http://sksahu.net/sig-bio-shiny/reference/kegg_rest.html</loc>
+  </url>
+  <url>
+    <loc>http://sksahu.net/sig-bio-shiny/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>http://sksahu.net/sig-bio-shiny/reference/run.html</loc>
+  </url>
+  <url>
+    <loc>http://sksahu.net/sig-bio-shiny/reference/wego_plot.html</loc>
+  </url>
+  <url>
+    <loc>http://sksahu.net/sig-bio-shiny/articles/Documentation.html</loc>
+  </url>
+</urlset>

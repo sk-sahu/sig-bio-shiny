@@ -28,7 +28,12 @@ Imports:
     glue,
     golem,
     clusterProfiler.dplyr,
-    magrittr
+    magrittr,
+    BiocManager,
+    AnnotationHub,
+    AnnotationDbi,
+    clusterProfiler,
+    enrichplot
 Remotes: YuLab-SMU/clusterProfiler.dplyr
 Suggests: 
     covr,

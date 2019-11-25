@@ -2,10 +2,13 @@
 
 export("%>%")
 export()
+export(run)
 export(wego_plot)
 import(dplyr)
 import(forcats)
 import(ggplot2)
+import(magrittr)
+importFrom(clusterProfiler,gseKEGG)
 importFrom(clusterProfiler.dplyr,arrange)
 importFrom(clusterProfiler.dplyr,group_by)
 importFrom(clusterProfiler.dplyr,slice)

@@ -1,5 +1,5 @@
 FROM rocker/tidyverse:3.6.1
-COPY setup.R /
+COPY R/setup.R /
 COPY SigBio_*.tar.gz /app.tar.gz
 COPY data /data
 RUN Rscript setup.R \
