@@ -15,7 +15,4 @@ kegg_link <- function(){
   kegg_rest(url)
 }
 
-kegg_list <- kegg_link()
-
-grep( paste("*", selected_species, "*",sep = ""), kegg_list$kegg_org_name)
-grep("*Anopheles*", kegg_list$kegg_org_name, value=T)
+#kegg_list <- kegg_link()

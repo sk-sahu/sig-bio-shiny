@@ -1,7 +1,9 @@
 library(shiny)
+source("R/get_kegg.R")
 library(AnnotationHub)
 ah = AnnotationHub()
 orgdb <- query(ah, "OrgDb")
+kegg_list <- kegg_link()
 
 #org_bioc <- read.csv("data/org_bioc.csv", header = TRUE, row.names = 1)
 #org_unofficial <- read.csv("data/org_unofficial.csv", header = TRUE, row.names = 1)
@@ -39,6 +41,9 @@ ENSG00000228463,-6.22"),
                                                      choices=c("ENSEMBL", "REFSEQ", "ENTREZID")),
                                          selectInput("org", label = "Organism:", selected = "Homo sapiens",
                                                      choices=orgdb$species),
+                                         selectInput("kegg_org_code", label = "KEGG Organism Short Name:", selected = "hsa",
+                                                     choices=kegg_list$org_code),
+                                         helpText("Get your KEGG Organism short name from here - https://www.genome.jp/kegg/catalog/org_list.html"),
                                          numericInput("pval_cutoff", label = "pvalue-CutOff", 
                                                       value = 1, min=0.001, max=1),
                                          numericInput("qval_cutoff", label = "qvalue-CutOff", 
@@ -171,7 +176,7 @@ server <- function(input, output) {
       org_pkg <- ah[[selected_species_orgdb$ah_id]]
       #kegg_org_name <- as.character(org_table[input$org,]$org_kegg)
       #org_pkg <- "org.Hs.eg.db" 
-      kegg_org_name <- "bbub"
+      kegg_org_name <- input$kegg_org_code
       gtf_type <- input$id_type # ensembl or refseq
       #suppressMessages(library(org_pkg, character.only = TRUE))
       
