@@ -449,17 +449,17 @@ server <- function(input, output) {
   }) # textbox area submit button observeEvent() end.
   
   # For submit of file upload
-  observeEvent(input$submit_2, {
-    
-    validate(
-      need(input$file1 != "", "Please upload a file")
-    )
-    
-    gene_sortlist <- input$file1
-    gene_ids <- read.csv(gene_sortlist$datapath, header = FALSE)
-    gene_ids_uprcase <- toupper(gene_ids$V1)
-    
-  })
+  # observeEvent(input$submit_2, {
+  #   
+  #   validate(
+  #     need(input$file1 != "", "Please upload a file")
+  #   )
+  #   
+  #   gene_sortlist <- input$file1
+  #   gene_ids <- read.csv(gene_sortlist$datapath, header = FALSE)
+  #   gene_ids_uprcase <- toupper(gene_ids$V1)
+  #   
+  # })
 }
 
 # Run the application 
