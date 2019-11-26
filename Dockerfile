@@ -1,8 +1,8 @@
 FROM rocker/tidyverse:3.6.1
 COPY inst/extra/setup.R /
-ADD  https://github.com/sk-sahu/sig-bio-shiny/archive/master.zip /app.tar.gz
-COPY data /data
 RUN Rscript setup.R \
+	&& Rscript -e 'installed.packages()' \
+	&& wget https://github.com/sk-sahu/sig-bio-shiny/archive/master.zip -O /app.tar.gz \
 	&& ls -la \
  	&& R -e 'remotes::install_local("/app.tar.gz")'
 EXPOSE 80
