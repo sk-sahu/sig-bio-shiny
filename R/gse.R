@@ -9,7 +9,6 @@
 #' 
 #' @import magrittr
 #' @importFrom clusterProfiler gseKEGG
-#' @importFrom clusterProfiler.dplyr arrange group_by slice
 #' @importFrom forcats fct_reorder
 #' @importFrom ggstance geom_barh
 #' @importFrom ggplot2 ggplot
@@ -31,9 +30,9 @@ pathway_gse <- function(id_with_fc_list = entrez_ids_with_fc_vector,
   # test: geneList is a object from DOSE pkg
   #gse_pathway <- gsePathway(geneList)
   
-  y <- arrange(gse_pathway@result, abs(NES)) %>% 
-    group_by(sign(NES)) %>% 
-    slice(1:5)
+  y <- clusterProfiler.dplyr::arrange(gse_pathway@result, abs(NES)) %>% 
+    clusterProfiler.dplyr::group_by(sign(NES)) %>% 
+    clusterProfiler.dplyr::slice(1:5)
   
   ggplot(y, aes(NES, forcats::fct_reorder(Description, NES), fill=qvalues), showCategory=10) + 
     ggstance::geom_barh(stat='identity') + 

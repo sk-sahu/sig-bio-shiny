@@ -1,9 +1,13 @@
 library(shiny)
 source("R/get_kegg.R")
 source("R/sigbio_message.R")
+source("R/mapids.R")
+sigbio_message("Starting the application...")
 suppressMessages(library(AnnotationHub))
+sigbio_message("Fetching AnnotationHub database...")
 ah = AnnotationHub()
 orgdb <- query(ah, "OrgDb")
+sigbio_message("KEGG database organism list API fetch...")
 kegg_list <- kegg_link()
 
 ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
@@ -69,6 +73,12 @@ ENSG00000228463,-6.22"),
                           )
                  ),
                  
+                 # mapped ids
+                 tabPanel("Mapped Ids",
+                            DT::dataTableOutput(outputId = "mapped_ids_table")
+                 ),
+                 
+                 # gene ontology
                  tabPanel("Gene Ontology",
                           
                               plotOutput("wego_plot"),
@@ -162,7 +172,7 @@ server <- function(input, output) {
     # for progress bar
     withProgress(message = 'Steps:', value = 0, {
       
-      incProgress(1/6, detail = paste("Starting...")) ##### Progress step 1
+      incProgress(1/7, detail = paste("Getting Org Database...")) ##### Progress step 1
       
       # based on user input
       selected_species <- as.character(input$org)
@@ -194,11 +204,15 @@ server <- function(input, output) {
       gene_list_uprcase <- toupper(gene_list_split)
     }
     
+    incProgress(2/7, detail = paste("Getting Org Database...")) ##### Progress step 2
     # Conver genelist to ENTREZIDs
     sigbio_message("Converting input gene list to entrez ids...")
     tryCatch(
       expr = {
         entrez_ids=mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
+        mapped_ids <- mapIds_all(genelist = as.character(gene_list_uprcase),
+                                org_pkg = org_pkg,
+                                gtf_type = gtf_type)
       },
       error = function(e){ 
         sigbio_message("The gene-id type and input list are not matching.")
@@ -244,6 +258,12 @@ server <- function(input, output) {
       datatable(cbind(gene_list_uprcase, entrez_ids))
     })
     
+    # all maped ids
+    output$mapped_ids_table <- DT::renderDataTable({
+      as.data.frame(mapped_ids)
+    })
+    
+    
     # Gene Ontology ----
     gene_ontology <- function(go_type = "BP"){
       sigbio_message(paste0("Doing enrichGO for: ", go_type))
@@ -254,11 +274,11 @@ server <- function(input, output) {
       go_obj_2 <- clusterProfiler::setReadable(go_obj, OrgDb = org_pkg, keyType = "ENTREZID")
       return(go_obj_2)
     }
-    incProgress(2/6, detail = paste("Doing Gene Ontology for: BP...")) ##### Progress step 2
+    incProgress(3/7, detail = paste("Doing Gene Ontology for: BP...")) ##### Progress step 3
     go_bp <- gene_ontology(go_type = "BP")
-    incProgress(3/6, detail = paste("Doing Gene Ontology for: CC...")) ##### Progress step 3
+    incProgress(4/7, detail = paste("Doing Gene Ontology for: CC...")) ##### Progress step 4
     go_cc <- gene_ontology(go_type = "CC")
-    incProgress(4/6, detail = paste("Doing Gene Ontology for: MF...")) ##### Progress step 4
+    incProgress(5/7, detail = paste("Doing Gene Ontology for: MF...")) ##### Progress step 5
     go_mf <- gene_ontology(go_type = "MF")
     
     # All Outputs ----
@@ -357,7 +377,7 @@ server <- function(input, output) {
     }
     
     # KEGG ----
-    incProgress(5/6, detail = paste("Doing KEGG...")) ##### Progress step 5
+    incProgress(6/7, detail = paste("Doing KEGG...")) ##### Progress step 6
     sigbio_message(paste0("Doing enrichKEGG... "))
     kegg <- enrichKEGG(entrez_ids, 
                        organism = kegg_org_name, 
@@ -413,11 +433,12 @@ server <- function(input, output) {
         owd <- setwd(tempdir())
         on.exit(setwd(owd))
         
-        fs <- c("go_bp.csv", "go_cc.csv", "go_mf.csv", "kegg.csv")
-        write.csv(go_bp@result, file = "go_bp.csv")
-        write.csv(go_bp@result, file = "go_cc.csv")
-        write.csv(go_bp@result, file = "go_mf.csv")
-        write.csv(kegg_2@result, file = "kegg.csv")
+        fs <- c("go_bp.csv", "go_cc.tsv", "go_mf.tsv", "kegg.tsv", "MappedIDs.tsv")
+        write.table(go_bp@result, file = "go_bp.tsv", sep = "\t", row.names = FALSE)
+        write.table(go_bp@result, file = "go_cc.tsv", sep = "\t", row.names = FALSE)
+        write.table(go_bp@result, file = "go_mf.tsv", sep = "\t", row.names = FALSE)
+        write.table(kegg_2@result, file = "kegg.tsv", sep = "\t", row.names = FALSE)
+        write.table(mapped_ids, file = "MappedIDs.tsv", sep = "\t", row.names = FALSE)
         
         zip(zipfile=file, files=fs)
       },
@@ -425,7 +446,7 @@ server <- function(input, output) {
     )
     
     sigbio_message("Finished. Check your browser for results.")
-    incProgress(6/6, detail = paste("Finished.")) ##### Progress step 6
+    incProgress(7/7, detail = paste("Finished.")) ##### Progress step 7
     
     output$sessioninfo <- renderPrint({
       sessionInfo()

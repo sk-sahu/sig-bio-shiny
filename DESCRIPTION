@@ -27,6 +27,7 @@ Imports:
     DT,
     glue,
     magrittr,
+    reshape2,
     enrichplot,
     BiocManager (>= 1.30.10),
     AnnotationHub (>= 2.16.1),
