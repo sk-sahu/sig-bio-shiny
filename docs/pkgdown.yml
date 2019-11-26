@@ -1,0 +1,10 @@
+pandoc: 2.3.1
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  Documentation: Documentation.html
+  Orglist: Orglist.html
+urls:
+  reference: http://sksahu.net/sig-bio-shiny/reference
+  article: http://sksahu.net/sig-bio-shiny/articles
+

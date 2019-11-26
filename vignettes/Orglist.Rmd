@@ -1,0 +1,34 @@
+---
+title: "Orglist"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE)
+```
+
+## Available Orglist
+
+All the annotaion OrgDb are dervied using AnnotationHub.
+
+Here is a list of all of them
+
+```{r orgdb_list}
+suppressMessages(library(AnnotationHub))
+suppressMessages(library(DT))
+ah = AnnotationHub()
+orgdb <- query(ah, "OrgDb")
+df <- as.data.frame(cbind(orgdb$ah_id, orgdb$species, 
+                          orgdb$taxonomyid, orgdb$title))
+names(df) <- c("AnotationHub ID", "Species", "Taxonomy ID", "Title")
+DT::datatable(df)
+```
+
+All the kegg organism short name got through kegg rest api
+
+```{r kegg_org_list}
+source("../R/get_kegg.R")
+kegg_list <- kegg_link()
+DT::datatable(kegg_list)
+```

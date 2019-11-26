@@ -2,15 +2,15 @@ citHeader("To cite SigBio in publications use:")
 
 citEntry(
   entry    = "Article",
-  title    = ,
-  author   = ,
-  journal  = ,
-  year     = ,
-  volume   = ,
-  number   = ,
-  pages    = ,
-  url      = ,
-  textVersion = paste(
-
-  )
+  title    = "SigBio: R Shiny package for doing Significant Biology on a set of Genes",
+  author   = personList(
+             as.person("Sangram Keshari Sahu")
+             ),
+  journal  = "Not yet",
+  year     = "2019",
+  volume   = "Not yet",
+  number   = "Not yet",
+  pages    = "Not yet",
+  url      = "Not yet",
+  textVersion = paste("Not yet")
 )
