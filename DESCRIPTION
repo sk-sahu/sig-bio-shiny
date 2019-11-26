@@ -8,7 +8,13 @@ License: MIT + file LICENSE
 URL: https://github.com/sk-sahu/sig-bio-shiny
 BugReports: https://github.com/sk-sahu/sig-bio-shiny/issues
 Depends: 
-    R (>= 3.0)
+    R (>= 3.0),
+    AnnotationDbi (>= 1.46.1),
+    enrichplot (>= 1.4.0),
+    BiocManager (>= 1.30.10),
+    AnnotationHub (>= 2.16.1),
+    AnnotationDbi (>= 1.46.1),
+    clusterProfiler (>= 3.12.0)
 Imports: 
     dockerfiler,
     htmltools,
@@ -29,10 +35,12 @@ Imports:
     magrittr,
     reshape2,
     enrichplot,
-    BiocManager (>= 1.30.10),
-    AnnotationHub (>= 2.16.1),
-    AnnotationDbi (>= 1.46.1),
-    clusterProfiler (>= 3.12.0)
+    AnnotationDbi,
+    enrichplot,
+    BiocManager,
+    AnnotationHub,
+    AnnotationDbi,
+    clusterProfiler
 Remotes: YuLab-SMU/clusterProfiler.dplyr
 Suggests: 
     covr,
