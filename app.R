@@ -176,7 +176,7 @@ server <- function(input, output) {
       
       # based on user input
       selected_species <- as.character(input$org)
-      sigbio_message("Selected org is - ", selected_species)
+      sigbio_message(paste("Selected org is - ", selected_species))
       selected_species_orgdb <- query(orgdb, selected_species)
       org_pkg <- ah[[selected_species_orgdb$ah_id]]
       kegg_org_name <- input$kegg_org_code

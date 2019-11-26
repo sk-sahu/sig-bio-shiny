@@ -19,8 +19,10 @@ mapIds_all <- function(genelist, org_pkg, gtf_type) {
   
   colnames(genelist_ano_go)[1] <- "gene_ids"
   
+  #casting_formula = sprintf("%s ~ %s", genelist_ano_go$gene_ids, genelist_ano_go$ONTOLOGY)
+                            
   genelist_ano_go_reshaped <- reshape2::dcast(genelist_ano_go, 
-                                              gene_ids ~ ONTOLOGY,
+                                              formula =  "gene_ids ~ ONTOLOGY",
                                               value.var="GO",
                                               fun.aggregate = function(x) paste0(x, collapse=",")
   )
@@ -52,7 +54,7 @@ mapIds_all <- function(genelist, org_pkg, gtf_type) {
   return(final_ano)
 }
 
-#   for bub
+#  for bub
 # suppressMessages(library(AnnotationHub))
 # suppressMessages(library(AnnotationDbi))
 # ah = AnnotationHub()
@@ -62,7 +64,7 @@ mapIds_all <- function(genelist, org_pkg, gtf_type) {
 # genelist <- as.character(c("NM_001290732.1",
 #                            "NM_001290832.1",
 #                            "NM_001290833.1",
-#                            "NM_001290835.1", 
+#                            "NM_001290835.1",
 #                            "NM_001290838.1",
 #                            "NM_001290839.1"))
 # org_pkg <- ah[["AH72312"]]
