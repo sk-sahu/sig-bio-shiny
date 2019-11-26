@@ -1,6 +1,6 @@
 FROM rocker/tidyverse:3.6.1
-COPY R/setup.R /
-COPY SigBio_*.tar.gz /app.tar.gz
+COPY inst/extra/setup.R /
+ADD  https://github.com/sk-sahu/sig-bio-shiny/archive/master.zip /app.tar.gz
 COPY data /data
 RUN Rscript setup.R \
 	&& ls -la \
