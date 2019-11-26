@@ -1,5 +1,6 @@
 library(shiny)
 source("R/get_kegg.R")
+source("R/sigbio_message.R")
 suppressMessages(library(AnnotationHub))
 ah = AnnotationHub()
 orgdb <- query(ah, "OrgDb")
