@@ -1,6 +1,7 @@
 #' Call org list from KEGG rest API
 #' @import magrittr
 
+suppressMessages(library(magrittr))
 kegg_rest <- function(rest_url) {
   content <- tryCatch(suppressWarnings(readLines(rest_url)), error=function(e) NULL)
   if (is.null(content))
