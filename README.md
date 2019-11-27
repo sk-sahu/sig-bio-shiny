@@ -59,3 +59,8 @@ Rscript inst/extra/setup.R
 Rscript app.R
 ```
 Access the app in your browser with output URL.
+
+## Run with docker
+```bash
+docker run --name=shiny_app --user shiny --rm -p 80:3838 sudosk/sig-bio-shiny
+```
