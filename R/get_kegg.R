@@ -1,7 +1,6 @@
 #' Call org list from KEGG rest API
 #' @import magrittr
-
-suppressMessages(library(magrittr))
+#' @export
 kegg_rest <- function(rest_url) {
   content <- tryCatch(suppressWarnings(readLines(rest_url)), error=function(e) NULL)
   if (is.null(content))
@@ -14,6 +13,7 @@ kegg_rest <- function(rest_url) {
   return(res)
 }
 
+#' @export
 kegg_link <- function(){
   url <- paste0("http://rest.kegg.jp/list/organism", collapse="")
   kegg_rest(url)

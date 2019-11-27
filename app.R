@@ -1,7 +1,5 @@
-library(shiny)
-source("R/get_kegg.R")
-source("R/sigbio_message.R")
-source("R/mapids.R")
+suppressMessages(library(shiny))
+suppressMessages(library(SigBio))
 sigbio_message("Starting the application...")
 suppressMessages(library(AnnotationHub))
 sigbio_message("Fetching AnnotationHub database...")
@@ -161,8 +159,8 @@ suppressMessages(library(dplyr))
 suppressMessages(library(ggplot2))
 suppressMessages(library(DT))
 #suppressMessages(library(BiocParallel))
-source("R/wego_plot.R")
-source("R/gse.R")
+#source("R/wego_plot.R")
+#source("R/gse.R")
 
 server <- function(input, output) {
   
