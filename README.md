@@ -64,3 +64,5 @@ Access the app in your browser with output URL.
 ```bash
 docker run --name=shiny_app --user shiny --rm -p 80:3838 sudosk/sig-bio-shiny
 ```
+
+Accessed app in a browser at http://127.0.0.1
