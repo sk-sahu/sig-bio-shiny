@@ -1,9 +1,8 @@
-FROM rocker/tidyverse:3.6.1
-COPY inst/extra/setup.R /
-RUN Rscript setup.R \
-	&& Rscript -e 'installed.packages()' \
-	&& wget https://github.com/sk-sahu/sig-bio-shiny/archive/master.zip -O /app.tar.gz \
-	&& ls -la \
- 	&& R -e 'remotes::install_local("/app.tar.gz")'
+FROM rocker/shiny:3.6.1
+LABEL maintainer="Sangram Keshari Sahu <sangramsahu15@gmail.com>"
+RUN apt-get update &&\
+  apt-get install libxml2-dev libssl-dev -y 
+RUN R -e 'install.packages("remotes")'
+RUN	R -e 'remotes::install_github("sk-sahu/sig-bio-shiny", ref = "dev")'	
 EXPOSE 80
 CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');SigBio::run_app()"
