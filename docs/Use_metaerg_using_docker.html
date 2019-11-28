@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • SigBio</title>
+<title>Use metaerg using docker • SigBio</title>
 
 
 <!-- jquery -->
@@ -29,13 +29,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Use metaerg using docker" />
 
 
 
@@ -54,7 +54,7 @@
   </head>
 
   <body>
-    <div class="container template-reference-index">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -66,7 +66,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">SigBio</a>
+        <a class="navbar-link" href="index.html">SigBio</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
       </span>
     </div>
@@ -74,13 +74,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="index.html">
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -90,15 +90,15 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Documentation.html">Documentation</a>
+      <a href="articles/Documentation.html">Documentation</a>
     </li>
     <li>
-      <a href="../articles/Orglist.html">Orglist</a>
+      <a href="articles/Orglist.html">Orglist</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -121,72 +121,42 @@
 <div class="row">
   <div class="contents col-md-9">
     <div class="page-header">
-      <h1>Reference</h1>
+      <h1>Use metaerg using docker</h1>
     </div>
 
-    <table class="ref-index">
+<div id="use-metaerg-using-docker" class="section level1">
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
-
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      <tr>
-        
-        <td>
-          <p><code><a href="app_help.html">app_help()</a></code> </p>
-        </td>
-        <td><p>Title Help for SigBio Application</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="kegg_rest.html">kegg_rest()</a></code> </p>
-        </td>
-        <td><p>Call org list from KEGG rest API</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="mapIds_all.html">mapIds_all()</a></code> </p>
-        </td>
-        <td><p>Wrapper funtion to AnnotationDbi::select</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pathway_gse.html">pathway_gse()</a></code> </p>
-        </td>
-        <td><p>Do gene set enrichment</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="run.html">run()</a></code> </p>
-        </td>
-        <td><p>Running SigBio locally</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="wego_plot.html">wego_plot()</a></code> </p>
-        </td>
-        <td><p>Plot WEGO</p></td>
-      </tr>
-    </tbody>
-    </table>
-  </div>
-
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
-    </ul>
-  </div>
+<p>I have set up everything you can directly do from <a href="">here</a></p>
+<div id="check-docker" class="section level2">
+<h2 class="hasAnchor">
+<a href="#check-docker" class="anchor"></a>Check Docker</h2>
+<p>In the first step check is a docker is installed in your system</p>
+<pre><code>dokcer -v</code></pre>
+<p>if not install docker using this doc - <a href="https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04" class="uri">https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-16-04</a></p>
 </div>
+<div id="get-metaegr-docker-imager" class="section level2">
+<h2 class="hasAnchor">
+<a href="#get-metaegr-docker-imager" class="anchor"></a>Get metaegr docker imager</h2>
+<p>Then as mentioned in the metaerg documentaiton <a href="https://github.com/xiaoli-dong/metaerg#running-with-docker">Running with docker</a></p>
+<pre><code>docker pull xiaolidong/docker-metaerg</code></pre>
+</div>
+<div id="set-up-the-required-database" class="section level2">
+<h2 class="hasAnchor">
+<a href="#set-up-the-required-database" class="anchor"></a>Set-up the required database</h2>
+<pre><code>docker run --shm-size 2g --rm -u $(id -u):$(id -g) -it -v local_data:/data/ xiaolidong/docker-metaerg setup_db.pl -o /data -v 132</code></pre>
+<p><strong>Command Exaplanation:</strong> The basic command <code>docker run --shm-size 2g --rm -u $(id -u):$(id -g) -it</code> used to run the tool using docker. <code>-v local_data:/data/</code> used to mount local_data dir to data dir in docker container.</p>
+</div>
+<div id="run-metaerg" class="section level2">
+<h2 class="hasAnchor">
+<a href="#run-metaerg" class="anchor"></a>Run metaerg</h2>
+<pre><code>docker run --shm-size 2g --rm -u $(id -u):$(id -g) -it -v my_local_dir:/data/ xiaolidong/docker-metaerg metaerg.pl --dbdir /data/db --outdir /data/my_metaerg_output /data/contig.fasta</code></pre>
+</div>
+</div>
+
+  </div>
+
+</div>
+
 
 
       <footer>

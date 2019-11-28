@@ -1,6 +1,10 @@
-suppressMessages(library(AnnotationDbi))
-suppressMessages(library(reshape2))
+#suppressMessages(library(AnnotationDbi))
+#suppressMessages(library(reshape2))
 
+#' Wrapper funtion to AnnotationDbi::select
+#' @import AnnotationDbi
+#' @import reshape2
+#' @export
 mapIds_all <- function(genelist, org_pkg, gtf_type) {
   # Get the annotations ----
   genelist_ano <- AnnotationDbi::select(org_pkg, 

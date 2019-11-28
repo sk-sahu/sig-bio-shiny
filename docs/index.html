@@ -90,14 +90,18 @@
 <!-- badges: start -->
 
 <p>R shiny application for doing significant biology on a set of genes.</p>
+<p><strong>Significant Biology</strong> is an important step of any high-throughput sequence analysis. Once you maped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly explore those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this <strong>SigBio</strong> Shiny application. This is platform where with a set of genes you can do <strong>Gene Ontology (GO), KEGG Pathway, Enrichment, Annotation and many things (will be discussed soon).</strong></p>
+<div id="advantage" class="section level2">
+<h2 class="hasAnchor">
+<a href="#advantage" class="anchor"></a>Advantage</h2>
+<p>Will be added</p>
 <ol>
 <li><a href="#requirement">Requirement</a></li>
 <li><a href="#download">Download</a></li>
 <li><a href="#set-up">Set Up</a></li>
 <li><a href="#run-the-shiny-app">Run the shiny app</a></li>
-<li><a href="#faq">FAQ</a></li>
-<li><a href="#reference">Reference</a></li>
 </ol>
+</div>
 <div id="requirement" class="section level2">
 <h2 class="hasAnchor">
 <a href="#requirement" class="anchor"></a>Requirement</h2>
@@ -106,35 +110,37 @@
 <div id="download" class="section level2">
 <h2 class="hasAnchor">
 <a href="#download" class="anchor"></a>Download</h2>
+<p>Install as a R package</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span>(<span class="st">"remotes"</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>))</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">    <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"sk-sahu/sig-bio-shiny"</span>)</a></code></pre></div>
+<p>OR</p>
 <p>Clone using git</p>
-<pre><code>git clone https://github.com/sk-sahu/sig-bio-shiny.git</code></pre>
-<p>Download using wget</p>
-<pre><code>wget https://github.com/sk-sahu/sig-bio-shiny/archive/master.zip
-unzip master.zip &amp;&amp; mv sig-bio-shiny-master sig-bio-shiny</code></pre>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">git</span> clone https://github.com/sk-sahu/sig-bio-shiny.git</a></code></pre></div>
+<p>Download a specific version using wget</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="fu">wget</span> https://github.com/sk-sahu/sig-bio-shiny/archive/v0.1.zip -O SigBio-v0.1.zip</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="fu">unzip</span> SigBio-v0.1.zip</a></code></pre></div>
 </div>
 <div id="set-up" class="section level2">
 <h2 class="hasAnchor">
 <a href="#set-up" class="anchor"></a>Set Up</h2>
 <p>To install all the required R packages and organism database run <code>setup.R</code></p>
 <p>from terminal</p>
-<pre><code>cd sig-bio-shiny
-Rscript setup.R</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="bu">cd</span> sig-bio-shiny</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="ex">Rscript</span> inst/extra/setup.R</a></code></pre></div>
 </div>
 <div id="run-the-shiny-app" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-the-shiny-app" class="anchor"></a>Run the shiny app</h2>
-<pre><code>Rscript app.R</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="ex">Rscript</span> app.R</a></code></pre></div>
 <p>Access the app in your browser with output URL.</p>
 </div>
-<div id="faq" class="section level2">
+<div id="run-with-docker" class="section level2">
 <h2 class="hasAnchor">
-<a href="#faq" class="anchor"></a>FAQ</h2>
-<p><a href="docs/HELP.html">HELP</a></p>
-</div>
-<div id="reference" class="section level2">
-<h2 class="hasAnchor">
-<a href="#reference" class="anchor"></a>Reference</h2>
-<p><a href="docs/reference.html">here</a></p>
+<a href="#run-with-docker" class="anchor"></a>Run with docker</h2>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="ex">docker</span> run --name=shiny_app --user shiny --rm -p 80:3838 sudosk/sig-bio-shiny</a></code></pre></div>
+<p>Accessed app in a browser at <a href="http://127.0.0.1" class="uri">http://127.0.0.1</a></p>
 </div>
 </div>
   </div>
@@ -177,6 +183,7 @@ Rscript setup.R</code></pre>
 <li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 <li><a href="https://travis-ci.org/sk-sahu/sig-bio-shiny"><img src="https://travis-ci.org/sk-sahu/sig-bio-shiny.svg?branch=master" alt="Build Status"></a></li>
 <li><a href="https://circleci.com/gh/sk-sahu/sig-bio-shiny"><img src="https://circleci.com/gh/sk-sahu/sig-bio-shiny.svg?style=svg" alt="CircleCI"></a></li>
+<li><a href="https://github.com/sk-sahu/sig-bio-shiny/releases"><img src="https://img.shields.io/github/v/release/sk-sahu/sig-bio-shiny" alt="GitHub release (latest by date)"></a></li>
 <li><a href="https://hub.docker.com/repository/docker/sudosk/sig-bio-shiny/builds"><img src="https://img.shields.io/docker/cloud/build/sudosk/sig-bio-shiny" alt="Docker Cloud Build Status"></a></li>
 </ul>
 </div>
