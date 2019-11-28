@@ -1,9 +1,7 @@
-FROM rocker/tidyverse:3.6.1
-COPY R/setup.R /
-COPY SigBio_*.tar.gz /app.tar.gz
-COPY data /data
-RUN Rscript setup.R \
-	&& ls -la \
- 	&& R -e 'remotes::install_local("/app.tar.gz")'
-EXPOSE 80
-CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');SigBio::run_app()"
+FROM codingene/bioshiner:3.10
+LABEL maintainer="Sangram Keshari Sahu <sangramsahu15@gmail.com>"
+RUN	R -e 'remotes::install_github("sk-sahu/sig-bio-shiny", ref = "dev")'
+COPY app.R /srv/shiny-server/
+EXPOSE 3838
+
+#CMD R -e "options('shiny.port'=80,shiny.host='0.0.0.0');SigBio::run_app()"

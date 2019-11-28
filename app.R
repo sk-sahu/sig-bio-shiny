@@ -1,7 +1,5 @@
-library(shiny)
-source("R/get_kegg.R")
-source("R/sigbio_message.R")
-source("R/mapids.R")
+suppressMessages(library(shiny))
+suppressMessages(library(SigBio))
 sigbio_message("Starting the application...")
 suppressMessages(library(AnnotationHub))
 sigbio_message("Fetching AnnotationHub database...")
@@ -145,7 +143,7 @@ ENSG00000228463,-6.22"),
                           verbatimTextOutput("sessioninfo")
                  ),
                  tabPanel("Help",
-                          includeMarkdown("vignettes/Help.md")
+                          includeMarkdown(SigBio::app_help())
                  )
 )
     
@@ -161,8 +159,8 @@ suppressMessages(library(dplyr))
 suppressMessages(library(ggplot2))
 suppressMessages(library(DT))
 #suppressMessages(library(BiocParallel))
-source("R/wego_plot.R")
-source("R/gse.R")
+#source("R/wego_plot.R")
+#source("R/gse.R")
 
 server <- function(input, output) {
   
@@ -435,8 +433,8 @@ server <- function(input, output) {
         
         fs <- c("go_bp.csv", "go_cc.tsv", "go_mf.tsv", "kegg.tsv", "MappedIDs.tsv")
         write.table(go_bp@result, file = "go_bp.tsv", sep = "\t", row.names = FALSE)
-        write.table(go_bp@result, file = "go_cc.tsv", sep = "\t", row.names = FALSE)
-        write.table(go_bp@result, file = "go_mf.tsv", sep = "\t", row.names = FALSE)
+        write.table(go_cc@result, file = "go_cc.tsv", sep = "\t", row.names = FALSE)
+        write.table(go_mf@result, file = "go_mf.tsv", sep = "\t", row.names = FALSE)
         write.table(kegg_2@result, file = "kegg.tsv", sep = "\t", row.names = FALSE)
         write.table(mapped_ids, file = "MappedIDs.tsv", sep = "\t", row.names = FALSE)
         

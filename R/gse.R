@@ -14,7 +14,7 @@
 #' @importFrom ggplot2 ggplot
 #'
 #' @export
-load("data/gse_test.RData")
+#load("data/gse_test.RData")
 # same as geneList
 # entrez_ids_with_fc_vector = geneList is a object from DOSE pkg
 pathway_gse <- function(id_with_fc_list = entrez_ids_with_fc_vector, 

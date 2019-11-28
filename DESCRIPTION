@@ -8,25 +8,17 @@ License: MIT + file LICENSE
 URL: https://github.com/sk-sahu/sig-bio-shiny
 BugReports: https://github.com/sk-sahu/sig-bio-shiny/issues
 Depends: 
-    R (>= 3.0)
-Imports: 
-    dockerfiler,
-    htmltools,
-    jsonlite,
-    remotes,
+    R (>= 3.0),
+Imports:
     shiny,
-    stats,
-    testthat,
+    rmarkdown,
+    DT,
     utils,
+    magrittr,
     dplyr,
     forcats,
     ggplot2,
     ggstance,
-    processx,
-    attempt,
-    DT,
-    glue,
-    magrittr,
     reshape2,
     BiocManager,
     AnnotationDbi (>= 1.46.1),
@@ -35,12 +27,14 @@ Imports:
     AnnotationHub (>= 2.16.1),
     AnnotationDbi (>= 1.46.1),
     clusterProfiler (>= 3.12.0)
+biocViews: Annotation, Clustering, GeneSetEnrichment, GO, KEGG,
+    MultipleComparison, Pathways, Reactome, Visualization
 Remotes: YuLab-SMU/clusterProfiler.dplyr
-Suggests: 
+Suggests:   
     covr,
     devtools,
     knitr,
-    rmarkdown
+    testthat
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US
