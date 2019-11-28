@@ -143,7 +143,7 @@ ENSG00000228463,-6.22"),
                           verbatimTextOutput("sessioninfo")
                  ),
                  tabPanel("Help",
-                          includeMarkdown("vignettes/Help.md")
+                          includeMarkdown(SigBio::app_help())
                  )
 )
     
