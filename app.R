@@ -433,8 +433,8 @@ server <- function(input, output) {
         
         fs <- c("go_bp.csv", "go_cc.tsv", "go_mf.tsv", "kegg.tsv", "MappedIDs.tsv")
         write.table(go_bp@result, file = "go_bp.tsv", sep = "\t", row.names = FALSE)
-        write.table(go_bp@result, file = "go_cc.tsv", sep = "\t", row.names = FALSE)
-        write.table(go_bp@result, file = "go_mf.tsv", sep = "\t", row.names = FALSE)
+        write.table(go_cc@result, file = "go_cc.tsv", sep = "\t", row.names = FALSE)
+        write.table(go_mf@result, file = "go_mf.tsv", sep = "\t", row.names = FALSE)
         write.table(kegg_2@result, file = "kegg.tsv", sep = "\t", row.names = FALSE)
         write.table(mapped_ids, file = "MappedIDs.tsv", sep = "\t", row.names = FALSE)
         
