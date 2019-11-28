@@ -431,7 +431,7 @@ server <- function(input, output) {
         owd <- setwd(tempdir())
         on.exit(setwd(owd))
         
-        fs <- c("go_bp.csv", "go_cc.tsv", "go_mf.tsv", "kegg.tsv", "MappedIDs.tsv")
+        fs <- c("go_bp.tsv", "go_cc.tsv", "go_mf.tsv", "kegg.tsv", "MappedIDs.tsv")
         write.table(go_bp@result, file = "go_bp.tsv", sep = "\t", row.names = FALSE)
         write.table(go_cc@result, file = "go_cc.tsv", sep = "\t", row.names = FALSE)
         write.table(go_mf@result, file = "go_mf.tsv", sep = "\t", row.names = FALSE)
