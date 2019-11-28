@@ -1,6 +1,14 @@
-suppressMessages(library(shiny))
-suppressMessages(library(SigBio))
+message("Checking if SigBio Package is installed...")
+if(!require(SigBio)){
+  message("Not Present. Installing...")
+  options(repos = c(CRAN = "http://cran.rstudio.com"))
+  if (!require(remotes)) { install.packages("remotes") }
+  remotes::install_github("sk-sahu/sig-bio-shiny")
+  suppressMessages(library(SigBio))
+}
+
 sigbio_message("Starting the application...")
+suppressMessages(library(shiny))
 suppressMessages(library(AnnotationHub))
 sigbio_message("Fetching AnnotationHub database...")
 ah = AnnotationHub()
