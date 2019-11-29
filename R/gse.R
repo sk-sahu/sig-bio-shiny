@@ -8,7 +8,7 @@
 #' @return A GSE plot
 #' 
 #' @import magrittr
-#' @importFrom clusterProfiler gseKEGG
+#' @import clusterProfiler
 #' @importFrom forcats fct_reorder
 #' @importFrom ggstance geom_barh
 #' @importFrom ggplot2 ggplot

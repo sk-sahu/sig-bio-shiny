@@ -2,6 +2,7 @@
 #suppressMessages(library(reshape2))
 
 #' Wrapper funtion to AnnotationDbi::select
+#' 
 #' @import AnnotationDbi
 #' @import reshape2
 #' @export

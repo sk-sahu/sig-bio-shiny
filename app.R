@@ -8,12 +8,12 @@ if(!require(SigBio)){
 }
 
 sigbio_message("Starting the application...")
-suppressMessages(library(shiny))
-suppressMessages(library(AnnotationHub))
+#suppressMessages(library(shiny))
+#suppressMessages(library(AnnotationHub))
 sigbio_message("Fetching AnnotationHub database...")
 ah = AnnotationHub()
 orgdb <- query(ah, "OrgDb")
-sigbio_message("KEGG database organism list API fetch...")
+sigbio_message("KEGG database organism list API fetch...") 
 kegg_list <- kegg_link()
 
 ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
@@ -160,12 +160,12 @@ ENSG00000228463,-6.22"),
 
 # Server starts ----
 
-suppressMessages(library(AnnotationDbi))
-suppressMessages(library(clusterProfiler))
-suppressMessages(library(enrichplot))
-suppressMessages(library(dplyr))
-suppressMessages(library(ggplot2))
-suppressMessages(library(DT))
+#suppressMessages(library(AnnotationDbi))
+#suppressMessages(library(clusterProfiler))
+#suppressMessages(library(enrichplot))
+#suppressMessages(library(dplyr))
+#suppressMessages(library(ggplot2))
+#suppressMessages(library(DT))
 #suppressMessages(library(BiocParallel))
 #source("R/wego_plot.R")
 #source("R/gse.R")
