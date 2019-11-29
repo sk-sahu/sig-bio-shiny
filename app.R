@@ -24,24 +24,12 @@ ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                                          textAreaInput("text_area_list", "Gene list or Gene,Foldchnage list:", 
                                                        height = "150px", width = "230px",
                                                        value = "
-ENSG00000049239,23.40
-ENSG00000074800,22.46
-ENSG00000171603,-23.07
-ENSG00000116285,23.09
-ENSG00000116288,8.12
-ENSG00000074800,8.20
-ENSG00000142599,-8.88
-ENSG00000171621,7.65
-ENSG00000162413,8.66
-ENSG00000116273,-7.49
-ENSG00000175756,7.52
-ENSG00000188976,7.22
-ENSG00000234619,8.30
-ENSG00000007923,7.52
-ENSG00000232848,-7.62
-ENSG00000049245,9.70
-ENSG00000131584,8.06
-ENSG00000228463,-6.22"),
+ENSG00000196611,0.7
+ENSG00000093009,-1.2
+ENSG00000109255,-0.3
+ENSG00000134690,0.2
+ENSG00000065328,1.7
+ENSG00000117399,-0.5"),
                                          # get org from org_table object
                                          
                                          selectInput("id_type", label = "Input gene-id Type:", selected = "ENSEMBL",
@@ -143,7 +131,10 @@ ENSG00000228463,-6.22"),
                             tabPanel("Cnet-Plot", 
                                      plotOutput("cnet_plot_kegg")),
                             tabPanel("GSE-Plot", 
-                                     plotOutput("pathway_gse_plot"))
+                                     plotOutput("pathway_gse_plot")),
+                            tabPanel("Path-View", 
+                                     uiOutput("pathview_dropdown"),
+                                     plotOutput("pathview_plot_in_ui"))
                           )
                  ),
                  # Session-info-tab ----
@@ -192,9 +183,9 @@ server <- function(input, output) {
       helpText("Note: It may take time for number of genes.")
     })
     
+    
     # take gene list from text area and decode into a vector
     # if foldchange(fc) provided with coma(,) decode that in the if condition
-    #gene_list <- c("ENSG00000012048", "ENSG00000214049", "ENSG00000204682")
     gene_list <- input$text_area_list
     gene_list_split <- unlist(strsplit(gene_list, "\n"))
     gene_list_split <- unique(gene_list_split[gene_list_split != ""])
@@ -261,7 +252,7 @@ server <- function(input, output) {
     })
     # message for main pannel
     output$gene_number_info_table <- DT::renderDataTable({
-      datatable(cbind(gene_list_uprcase, entrez_ids))
+      DT::datatable(cbind(gene_list_uprcase, entrez_ids))
     })
     
     # all maped ids
@@ -395,11 +386,36 @@ server <- function(input, output) {
     output$table_kegg <- DT::renderDataTable({
       kegg_2@result
     })
+    
+    output$pathview_dropdown <- renderUI({
+      # Copy the line below to make a select box
+      selectInput("path_id", label = "Select from enriched pathway",
+                  choices = kegg_2@result$ID)
+    })
+    
+    # data preparation for next step pathview plot
+    gene_data <- entrez_ids_with_fc$gene_with_fc_vector %>% as.data.frame()
+    rownames(gene_data) <- entrez_ids_with_fc$entrez_ids
+    
+    observe({
+      pathview_plot <- pathview(gene.data  = gene_data,
+                           pathway.id = input$path_id,
+                           species    = kegg_org_name,
+                           kegg.dir = tempdir()
+                           )
+      # get the png and render
+      output$pathview_plot_in_ui <- renderImage({
+        filename <- normalizePath(file.path('.',
+                                            paste(input$path_id, '.pathview.png', sep='')))
+        list(src = filename)
+      }, deleteFile = FALSE)
+    })
+    
     # kegg-dotplot
     output$dot_plot_kegg <- renderPlot({
       dotplot(kegg_2, showCategory=30)
     })
-    # kegg-emapplot (Enrichment map)
+    # kegg-emapplot (Enrichment map)ac
     output$enrich_plot_kegg <- renderPlot({
       enrichplot::emapplot(kegg_2)
     })
