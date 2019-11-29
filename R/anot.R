@@ -3,5 +3,6 @@
 #' @import AnnotationHub
 #' @import enrichplot
 #' @import DT
+#' @import pathview
 #' @export
 NULL

@@ -398,7 +398,7 @@ server <- function(input, output) {
     rownames(gene_data) <- entrez_ids_with_fc$entrez_ids
     
     observe({
-      pathview_plot <- pathview(gene.data  = gene_data,
+      pathview_plot <- pathview::pathview(gene.data  = gene_data,
                            pathway.id = input$path_id,
                            species    = kegg_org_name,
                            kegg.dir = tempdir()
