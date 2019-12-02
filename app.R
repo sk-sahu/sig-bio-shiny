@@ -3,7 +3,7 @@
 # Source Code - https://github.com/sk-sahu/sig-bio-shiny
 # Developed and maintain by Sangram Keshari Sahu (https://sksahu.net)
 
-sigbio.version='0.2.0'
+sigbio.version='0.2.1'
 
 message("Running Sig-Bio-Shiny v", sigbio.version, " | ",date())
 message("Checking if SigBio v", sigbio.version, " Package is installed...")
@@ -22,6 +22,8 @@ org <- SigBio::load_org()
 ah <- org$ah_obj
 orgdb <- org$ah_orgdb
 kegg_list <- org$kegg_org_list
+
+library(shiny)
 
 ui <- navbarPage(paste0("Sig-Bio v",sigbio.version), inverse = TRUE, collapsible = TRUE,
                  tabPanel("Gene-Summary",
@@ -395,6 +397,7 @@ server <- function(input, output) {
     rownames(gene_data) <- entrez_ids_with_fc$entrez_ids
     
     observe({
+      suppressMessages(library(pathview))
       pathview_plot <- pathview::pathview(gene.data  = gene_data,
                            pathway.id = input$path_id,
                            species    = kegg_org_name,

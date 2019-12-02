@@ -1,3 +1,8 @@
+# SigBio 0.2.1
+
+### Bugs Fixed
+* Some minor bugs fixed ea03beebb2949954db4ac9b1aa06076c3fce14b3
+
 # SigBio 0.2.0
 
 ### Features Added
