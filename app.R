@@ -8,13 +8,14 @@ sigbio.version='0.2.1'
 message("Running Sig-Bio-Shiny v", sigbio.version, " | ",date())
 message("Checking if SigBio v", sigbio.version, " Package is installed...")
 
-if(!require(SigBio) && !(packageVersion("SigBio") == sigbio.version)){
+if("SigBio" %in% rownames(installed.packages()) && packageVersion("SigBio") != sigbio.version){
   options(repos = c(CRAN = "http://cran.rstudio.com"))
   if (!require(remotes)) { install.packages("remotes") }
   remotes::install_github("sk-sahu/sig-bio-shiny", 
                           ref = paste0("v", sigbio.version))
-  suppressMessages(library(SigBio))
 }
+
+suppressMessages(library(SigBio))
 
 sigbio_message("Starting the application...")
 # Load organisms
