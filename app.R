@@ -3,14 +3,16 @@
 # Source Code - https://github.com/sk-sahu/sig-bio-shiny
 # Developed and maintain by Sangram Keshari Sahu (https://sksahu.net)
 
-sig-bio-version=0.2.0
+sigbio.version='0.2.0'
 
-message("Checking if SigBio Package is installed...")
-if(!require(SigBio)){
-  message("Not Present. Installing...")
+message("Running Sig-Bio-Shiny v", sigbio.version, " | ",date())
+message("Checking if SigBio v", sigbio.version, " Package is installed...")
+
+if(!require(SigBio) && !(packageVersion("SigBio") == sigbio.version)){
   options(repos = c(CRAN = "http://cran.rstudio.com"))
   if (!require(remotes)) { install.packages("remotes") }
-  remotes::install_github("sk-sahu/sig-bio-shiny")
+  remotes::install_github("sk-sahu/sig-bio-shiny", 
+                          ref = paste0("v", sigbio.version))
   suppressMessages(library(SigBio))
 }
 
@@ -21,7 +23,7 @@ ah <- org$ah_obj
 orgdb <- org$ah_orgdb
 kegg_list <- org$kegg_org_list
 
-ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
+ui <- navbarPage(paste0("Sig-Bio v",sigbio.version), inverse = TRUE, collapsible = TRUE,
                  tabPanel("Gene-Summary",
                           sidebarLayout(
                             sidebarPanel(width = 3,
@@ -52,7 +54,8 @@ ENSG00000117399,-0.5"),
                                          helpText("After submit it may take minutes. Check Progress bar in right
                                                   side cornor"),
                                          
-                                         actionButton("submit", label =  "Submit"),
+                                         actionButton("submit", label =  "Submit",
+                                                      icon = icon("angle-double-right")),
                                          tags$hr(),
                                          
                                          # For file input
@@ -147,6 +150,10 @@ ENSG00000117399,-0.5"),
                  ),
                  tabPanel("Help",
                           includeMarkdown(SigBio::app_help())
+                 ),
+                 tabPanel("About",
+                          icon = icon("info-circle") ,
+                          includeMarkdown("")
                  )
 ) # UI ends ----
 

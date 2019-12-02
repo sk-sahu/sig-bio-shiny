@@ -1,7 +1,7 @@
 # sig-bio-shiny
 
 <!-- badges: start -->
-  [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+  [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
   [![Build Status](https://travis-ci.org/sk-sahu/sig-bio-shiny.svg?branch=master)](https://travis-ci.org/sk-sahu/sig-bio-shiny)
   [![CircleCI](https://circleci.com/gh/sk-sahu/sig-bio-shiny.svg?style=svg)](https://circleci.com/gh/sk-sahu/sig-bio-shiny)
   [![GitHub release (latest by date)](https://img.shields.io/github/v/release/sk-sahu/sig-bio-shiny)](https://github.com/sk-sahu/sig-bio-shiny/releases)
@@ -22,20 +22,20 @@ R >= 3.5
 ## Download
 Download a specific version of the app using wget
 ```bash
-wget https://github.com/sk-sahu/sig-bio-shiny/blob/v0.1/app.R -O sig-bio-shiny-app-v0.1.R
+wget https://github.com/sk-sahu/sig-bio-shiny/blob/v0.2.0/app.R -O sig-bio-shiny-app-v0.2.0.R
 ```
 On the first time of running This will download and install all the required dependency.
 
 ## Run the shiny app
 From your terminal
 ```bash
-Rscript sig-bio-shiny-app-v0.1.R
+Rscript sig-bio-shiny-app-v0.2.0.R
 ```
 Access the app in your browser with output URL.
 
 ### Run with docker
 ```bash
-docker pull sudosk/sig-bio-shiny:v0.1
-docker run --user shiny --rm -p 80:3838 sudosk/sig-bio-shiny:v0.1
+docker pull sudosk/sig-bio-shiny:v0.2.0
+docker run --user shiny --rm -p 80:3838 sudosk/sig-bio-shiny:v0.2.0
 ```
 Accessed app in a browser at http://127.0.0.1

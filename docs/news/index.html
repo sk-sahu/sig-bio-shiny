@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SigBio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
       </span>
     </div>
 
@@ -125,11 +125,34 @@
       <small>Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="sigbio-0-2-0" class="section level1">
+<h1 class="page-header">
+<a href="#sigbio-0-2-0" class="anchor"></a>SigBio 0.2.0</h1>
+<div id="features-added" class="section level3">
+<h3 class="hasAnchor">
+<a href="#features-added" class="anchor"></a>Features Added</h3>
+<ul>
+<li>Now support 2000+ organisms using AnnotationHub interface <a href='https://github.com/sk-sahu/sig-bio-shiny/issues/7'>#7</a></li>
+<li>Pathway view for enriched KEGG pathways added <a href='https://github.com/sk-sahu/sig-bio-shiny/issues/17'>#17</a></li>
+<li>Tables download option is added. It will zip all the tables and download in a single go.</li>
+<li>APIs were created on SigBio so that app.R can be used as a standalone.</li>
+</ul>
+</div>
+<div id="bugs-fixed" class="section level3">
+<h3 class="hasAnchor">
+<a href="#bugs-fixed" class="anchor"></a>Bugs Fixed</h3>
+<ul>
+<li>Library missing in few situations are fixed. All the libraries now loaded from the namespace of SigBio package <a href='https://github.com/sk-sahu/sig-bio-shiny/issues/16'>#16</a></li>
+</ul>
+</div>
+</div>
     <div id="sigbio-0-1" class="section level1">
 <h1 class="page-header">
 <a href="#sigbio-0-1" class="anchor"></a>SigBio 0.1</h1>
 <ul>
 <li>Basic interface added.</li>
+<li>Able to do GO and KEGG Enrichment, plus related plots.</li>
+<li>Supports 19 organism from Biocondutor OrgDb list.</li>
 </ul>
 </div>
   </div>
@@ -138,6 +161,7 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#sigbio-0-2-0">0.2.0</a></li>
         <li><a href="#sigbio-0-1">0.1</a></li>
       </ul>
     </div>
