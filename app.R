@@ -3,6 +3,8 @@
 # Source Code - https://github.com/sk-sahu/sig-bio-shiny
 # Developed and maintain by Sangram Keshari Sahu (https://sksahu.net)
 
+sig-bio-version=0.2.0
+
 message("Checking if SigBio Package is installed...")
 if(!require(SigBio)){
   message("Not Present. Installing...")
