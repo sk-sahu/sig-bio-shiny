@@ -1,0 +1,30 @@
+---
+title: "Overview"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+bibliography: bib/bibliography.bib
+csl: bib/3-biotech.csl
+link-citations: true
+---
+
+# What is Sig-Bio-Shiny?
+
+
+# Background 
+Sig-Bio-Shiny Application uses few of the Biocondutor packages underneath to give an interface for doing significant biology (Such as GO, KEGG, GSE analysis).
+
+* [AnnotationHub] To get annotation information. [@AnnotationHub]
+* [AnnotationDbi] To use some universal APIs for mapping data from OrgDb objects. [@AnnotationDbi]
+* [clusterProfiler] To perform most of the analysis. [@clusterProfiler] and [@clusterProfiler.dplyr]
+* [enrichplot] To plot most plots. [@enrichplot]
+
+[AnnotationDbi]: https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html
+[AnnotationHub]: https://bioconductor.org/packages/release/bioc/html/AnnotationHub.html
+[clusterProfiler]: https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html
+[clusterProfiler-book]: https://yulab-smu.github.io/clusterProfiler-book
+[enrichplot]: https://bioconductor.org/packages/release/bioc/html/enrichplot.html
+
+## Reference
