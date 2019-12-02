@@ -20,9 +20,16 @@ R shiny application for doing significant biology on a set of genes.
 R >= 3.5
 
 ## Download
-Download a specific version of the app using wget
+First you need to install the SigBio package which have the APIs required for most functionality in the app.
+```r
+if (!require(remotes)) { install.packages("remotes") }
+  remotes::install_github("sk-sahu/sig-bio-shiny", 
+                          ref = "v0.2.0")
+```
+
+Download a specific version of the app using wget from terminal
 ```bash
-wget https://github.com/sk-sahu/sig-bio-shiny/blob/v0.2.0/app.R -O sig-bio-shiny-app-v0.2.0.R
+wget https://raw.githubusercontent.com/sk-sahu/sig-bio-shiny/v0.2.0/app.R -O sig-bio-shiny-app-v0.2.0.R
 ```
 On the first time of running This will download and install all the required dependency.
 
