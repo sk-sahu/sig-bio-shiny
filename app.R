@@ -1,3 +1,8 @@
+# Sig-Bio-Shiny Application
+# Home Page - http://sk-sahu.github.io/sig-bio-shiny/
+# Source Code - https://github.com/sk-sahu/sig-bio-shiny
+# Developed and maintain by Sangram Keshari Sahu (https://sksahu.net)
+
 message("Checking if SigBio Package is installed...")
 if(!require(SigBio)){
   message("Not Present. Installing...")
@@ -8,13 +13,11 @@ if(!require(SigBio)){
 }
 
 sigbio_message("Starting the application...")
-#suppressMessages(library(shiny))
-#suppressMessages(library(AnnotationHub))
-sigbio_message("Fetching AnnotationHub database...")
-ah = AnnotationHub()
-orgdb <- query(ah, "OrgDb")
-sigbio_message("KEGG database organism list API fetch...") 
-kegg_list <- kegg_link()
+# Load organisms
+org <- SigBio::load_org()
+ah <- org$ah_obj
+orgdb <- org$ah_orgdb
+kegg_list <- org$kegg_org_list
 
 ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                  tabPanel("Gene-Summary",
@@ -25,7 +28,7 @@ ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                                                        height = "150px", width = "230px",
                                                        value = "
 ENSG00000196611,0.7
-ENSG00000093009,-1.2
+ENSG00000093009,1.2
 ENSG00000109255,-0.3
 ENSG00000134690,0.2
 ENSG00000065328,1.7
@@ -59,7 +62,6 @@ ENSG00000117399,-0.5"),
                               helpText("Note: It may take minutes, depending upon the number of genes. Check progress bar"),
                               tags$hr(),
                               #uiOutput("warning"),
-                              #tags$hr(),
                               textOutput("gene_number_info"),
                               tags$hr(),
                               DT::dataTableOutput(outputId = "gene_number_info_table")
@@ -144,23 +146,9 @@ ENSG00000117399,-0.5"),
                  tabPanel("Help",
                           includeMarkdown(SigBio::app_help())
                  )
-)
-    
-
-# UI ends ----
+) # UI ends ----
 
 # Server starts ----
-
-#suppressMessages(library(AnnotationDbi))
-#suppressMessages(library(clusterProfiler))
-#suppressMessages(library(enrichplot))
-#suppressMessages(library(dplyr))
-#suppressMessages(library(ggplot2))
-#suppressMessages(library(DT))
-#suppressMessages(library(BiocParallel))
-#source("R/wego_plot.R")
-#source("R/gse.R")
-
 server <- function(input, output) {
   
   # For submit of text area input
@@ -174,7 +162,7 @@ server <- function(input, output) {
       # based on user input
       selected_species <- as.character(input$org)
       sigbio_message(paste("Selected org is - ", selected_species))
-      selected_species_orgdb <- query(orgdb, selected_species)
+      selected_species_orgdb <- AnnotationHub::query(orgdb, selected_species)
       org_pkg <- ah[[selected_species_orgdb$ah_id]]
       kegg_org_name <- input$kegg_org_code
       gtf_type <- input$id_type # ensembl or refseq
@@ -182,7 +170,6 @@ server <- function(input, output) {
     output$warning <- renderUI({
       helpText("Note: It may take time for number of genes.")
     })
-    
     
     # take gene list from text area and decode into a vector
     # if foldchange(fc) provided with coma(,) decode that in the if condition
@@ -206,7 +193,7 @@ server <- function(input, output) {
     sigbio_message("Converting input gene list to entrez ids...")
     tryCatch(
       expr = {
-        entrez_ids=mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
+        entrez_ids= AnnotationDbi::mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
         mapped_ids <- mapIds_all(genelist = as.character(gene_list_uprcase),
                                 org_pkg = org_pkg,
                                 gtf_type = gtf_type)
@@ -293,6 +280,7 @@ server <- function(input, output) {
     # plots and their downloads ----
     # wego plot
     output$wego_plot <- renderPlot({
+      suppressMessages(library(dplyr))
       wego_plot(BP=go_bp@result, CC=go_cc@result, MF=go_mf@result)
     })
     # wego plot download
@@ -316,13 +304,13 @@ server <- function(input, output) {
     
     # dotplot
     output$dot_plot_go_bp <- renderPlot({
-      dotplot(go_bp, showCategory=30)
+      enrichplot::dotplot(go_bp, showCategory=30)
     })
     output$dot_plot_go_cc <- renderPlot({
-      dotplot(go_cc, showCategory=30)
+      enrichplot::dotplot(go_cc, showCategory=30)
     })
     output$dot_plot_go_mf <- renderPlot({
-      dotplot(go_mf, showCategory=30)
+      enrichplot::dotplot(go_mf, showCategory=30)
     })
     
     # emapplot (Enrichment map)
@@ -376,12 +364,12 @@ server <- function(input, output) {
     # KEGG ----
     incProgress(6/7, detail = paste("Doing KEGG...")) ##### Progress step 6
     sigbio_message(paste0("Doing enrichKEGG... "))
-    kegg <- enrichKEGG(entrez_ids, 
+    kegg <- clusterProfiler::enrichKEGG(entrez_ids, 
                        organism = kegg_org_name, 
                        pvalueCutoff=input$pval_cutoff, 
                        pAdjustMethod="BH", 
                        qvalueCutoff=input$qval_cutoff)
-    kegg_2 <- setReadable(kegg, OrgDb = org_pkg, keyType = "ENTREZID")
+    kegg_2 <- clusterProfiler::setReadable(kegg, OrgDb = org_pkg, keyType = "ENTREZID")
     # kegg-table 
     output$table_kegg <- DT::renderDataTable({
       kegg_2@result
@@ -413,7 +401,7 @@ server <- function(input, output) {
     
     # kegg-dotplot
     output$dot_plot_kegg <- renderPlot({
-      dotplot(kegg_2, showCategory=30)
+      enrichplot::dotplot(kegg_2, showCategory=30)
     })
     # kegg-emapplot (Enrichment map)ac
     output$enrich_plot_kegg <- renderPlot({
@@ -431,8 +419,6 @@ server <- function(input, output) {
                     organism = kegg_org_name,
                     pval = input$pval_cutoff)
       })
-      # gse-pathway
-      #pathway_gse()
     }else{
       output$cnet_plot_kegg <- renderPlot({
         message_plot()
@@ -441,9 +427,6 @@ server <- function(input, output) {
         message_plot()
       })
     }
-    
-    # gse-pathway
-    #pathway_gse()
     
     # download all the tables
     output$download_tables <- downloadHandler(
