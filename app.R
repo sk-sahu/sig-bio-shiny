@@ -1,3 +1,8 @@
+# Sig-Bio-Shiny Application
+# Home Page - http://sk-sahu.github.io/sig-bio-shiny/
+# Source Code - https://github.com/sk-sahu/sig-bio-shiny
+# Developed and maintain by Sangram Keshari Sahu (https://sksahu.net)
+
 message("Checking if SigBio Package is installed...")
 if(!require(SigBio)){
   message("Not Present. Installing...")
@@ -8,13 +13,11 @@ if(!require(SigBio)){
 }
 
 sigbio_message("Starting the application...")
-#suppressMessages(library(shiny))
-#suppressMessages(library(AnnotationHub))
-sigbio_message("Fetching AnnotationHub database...")
-ah = AnnotationHub()
-orgdb <- query(ah, "OrgDb")
-sigbio_message("KEGG database organism list API fetch...") 
-kegg_list <- kegg_link()
+# Load organisms
+org <- SigBio::load_org()
+ah <- org$ah_obj
+orgdb <- org$ah_orgdb
+kegg_list <- org$kegg_org_list
 
 ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                  tabPanel("Gene-Summary",
@@ -24,24 +27,12 @@ ui <- navbarPage("Sig-Bio", inverse = TRUE, collapsible = TRUE,
                                          textAreaInput("text_area_list", "Gene list or Gene,Foldchnage list:", 
                                                        height = "150px", width = "230px",
                                                        value = "
-ENSG00000049239,23.40
-ENSG00000074800,22.46
-ENSG00000171603,-23.07
-ENSG00000116285,23.09
-ENSG00000116288,8.12
-ENSG00000074800,8.20
-ENSG00000142599,-8.88
-ENSG00000171621,7.65
-ENSG00000162413,8.66
-ENSG00000116273,-7.49
-ENSG00000175756,7.52
-ENSG00000188976,7.22
-ENSG00000234619,8.30
-ENSG00000007923,7.52
-ENSG00000232848,-7.62
-ENSG00000049245,9.70
-ENSG00000131584,8.06
-ENSG00000228463,-6.22"),
+ENSG00000196611,0.7
+ENSG00000093009,1.2
+ENSG00000109255,-0.3
+ENSG00000134690,0.2
+ENSG00000065328,1.7
+ENSG00000117399,-0.5"),
                                          # get org from org_table object
                                          
                                          selectInput("id_type", label = "Input gene-id Type:", selected = "ENSEMBL",
@@ -71,7 +62,6 @@ ENSG00000228463,-6.22"),
                               helpText("Note: It may take minutes, depending upon the number of genes. Check progress bar"),
                               tags$hr(),
                               #uiOutput("warning"),
-                              #tags$hr(),
                               textOutput("gene_number_info"),
                               tags$hr(),
                               DT::dataTableOutput(outputId = "gene_number_info_table")
@@ -143,7 +133,10 @@ ENSG00000228463,-6.22"),
                             tabPanel("Cnet-Plot", 
                                      plotOutput("cnet_plot_kegg")),
                             tabPanel("GSE-Plot", 
-                                     plotOutput("pathway_gse_plot"))
+                                     plotOutput("pathway_gse_plot")),
+                            tabPanel("Path-View", 
+                                     uiOutput("pathview_dropdown"),
+                                     plotOutput("pathview_plot_in_ui"))
                           )
                  ),
                  # Session-info-tab ----
@@ -153,23 +146,9 @@ ENSG00000228463,-6.22"),
                  tabPanel("Help",
                           includeMarkdown(SigBio::app_help())
                  )
-)
-    
-
-# UI ends ----
+) # UI ends ----
 
 # Server starts ----
-
-#suppressMessages(library(AnnotationDbi))
-#suppressMessages(library(clusterProfiler))
-#suppressMessages(library(enrichplot))
-#suppressMessages(library(dplyr))
-#suppressMessages(library(ggplot2))
-#suppressMessages(library(DT))
-#suppressMessages(library(BiocParallel))
-#source("R/wego_plot.R")
-#source("R/gse.R")
-
 server <- function(input, output) {
   
   # For submit of text area input
@@ -183,7 +162,7 @@ server <- function(input, output) {
       # based on user input
       selected_species <- as.character(input$org)
       sigbio_message(paste("Selected org is - ", selected_species))
-      selected_species_orgdb <- query(orgdb, selected_species)
+      selected_species_orgdb <- AnnotationHub::query(orgdb, selected_species)
       org_pkg <- ah[[selected_species_orgdb$ah_id]]
       kegg_org_name <- input$kegg_org_code
       gtf_type <- input$id_type # ensembl or refseq
@@ -194,7 +173,6 @@ server <- function(input, output) {
     
     # take gene list from text area and decode into a vector
     # if foldchange(fc) provided with coma(,) decode that in the if condition
-    #gene_list <- c("ENSG00000012048", "ENSG00000214049", "ENSG00000204682")
     gene_list <- input$text_area_list
     gene_list_split <- unlist(strsplit(gene_list, "\n"))
     gene_list_split <- unique(gene_list_split[gene_list_split != ""])
@@ -215,7 +193,7 @@ server <- function(input, output) {
     sigbio_message("Converting input gene list to entrez ids...")
     tryCatch(
       expr = {
-        entrez_ids=mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
+        entrez_ids= AnnotationDbi::mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
         mapped_ids <- mapIds_all(genelist = as.character(gene_list_uprcase),
                                 org_pkg = org_pkg,
                                 gtf_type = gtf_type)
@@ -261,7 +239,7 @@ server <- function(input, output) {
     })
     # message for main pannel
     output$gene_number_info_table <- DT::renderDataTable({
-      datatable(cbind(gene_list_uprcase, entrez_ids))
+      DT::datatable(cbind(gene_list_uprcase, entrez_ids))
     })
     
     # all maped ids
@@ -302,6 +280,7 @@ server <- function(input, output) {
     # plots and their downloads ----
     # wego plot
     output$wego_plot <- renderPlot({
+      suppressMessages(library(dplyr))
       wego_plot(BP=go_bp@result, CC=go_cc@result, MF=go_mf@result)
     })
     # wego plot download
@@ -325,13 +304,13 @@ server <- function(input, output) {
     
     # dotplot
     output$dot_plot_go_bp <- renderPlot({
-      dotplot(go_bp, showCategory=30)
+      enrichplot::dotplot(go_bp, showCategory=30)
     })
     output$dot_plot_go_cc <- renderPlot({
-      dotplot(go_cc, showCategory=30)
+      enrichplot::dotplot(go_cc, showCategory=30)
     })
     output$dot_plot_go_mf <- renderPlot({
-      dotplot(go_mf, showCategory=30)
+      enrichplot::dotplot(go_mf, showCategory=30)
     })
     
     # emapplot (Enrichment map)
@@ -385,21 +364,46 @@ server <- function(input, output) {
     # KEGG ----
     incProgress(6/7, detail = paste("Doing KEGG...")) ##### Progress step 6
     sigbio_message(paste0("Doing enrichKEGG... "))
-    kegg <- enrichKEGG(entrez_ids, 
+    kegg <- clusterProfiler::enrichKEGG(entrez_ids, 
                        organism = kegg_org_name, 
                        pvalueCutoff=input$pval_cutoff, 
                        pAdjustMethod="BH", 
                        qvalueCutoff=input$qval_cutoff)
-    kegg_2 <- setReadable(kegg, OrgDb = org_pkg, keyType = "ENTREZID")
+    kegg_2 <- clusterProfiler::setReadable(kegg, OrgDb = org_pkg, keyType = "ENTREZID")
     # kegg-table 
     output$table_kegg <- DT::renderDataTable({
       kegg_2@result
     })
+    
+    output$pathview_dropdown <- renderUI({
+      # Copy the line below to make a select box
+      selectInput("path_id", label = "Select from enriched pathway",
+                  choices = kegg_2@result$ID)
+    })
+    
+    # data preparation for next step pathview plot
+    gene_data <- entrez_ids_with_fc$gene_with_fc_vector %>% as.data.frame()
+    rownames(gene_data) <- entrez_ids_with_fc$entrez_ids
+    
+    observe({
+      pathview_plot <- pathview::pathview(gene.data  = gene_data,
+                           pathway.id = input$path_id,
+                           species    = kegg_org_name,
+                           kegg.dir = tempdir()
+                           )
+      # get the png and render
+      output$pathview_plot_in_ui <- renderImage({
+        filename <- normalizePath(file.path('.',
+                                            paste(input$path_id, '.pathview.png', sep='')))
+        list(src = filename)
+      }, deleteFile = FALSE)
+    })
+    
     # kegg-dotplot
     output$dot_plot_kegg <- renderPlot({
-      dotplot(kegg_2, showCategory=30)
+      enrichplot::dotplot(kegg_2, showCategory=30)
     })
-    # kegg-emapplot (Enrichment map)
+    # kegg-emapplot (Enrichment map)ac
     output$enrich_plot_kegg <- renderPlot({
       enrichplot::emapplot(kegg_2)
     })
@@ -415,8 +419,6 @@ server <- function(input, output) {
                     organism = kegg_org_name,
                     pval = input$pval_cutoff)
       })
-      # gse-pathway
-      #pathway_gse()
     }else{
       output$cnet_plot_kegg <- renderPlot({
         message_plot()
@@ -425,9 +427,6 @@ server <- function(input, output) {
         message_plot()
       })
     }
-    
-    # gse-pathway
-    #pathway_gse()
     
     # download all the tables
     output$download_tables <- downloadHandler(

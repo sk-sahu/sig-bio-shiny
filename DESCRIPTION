@@ -20,12 +20,11 @@ Imports:
     ggplot2,
     ggstance,
     reshape2,
-    BiocManager,
-    AnnotationDbi (>= 1.46.1),
-    enrichplot (>= 1.4.0),
     BiocManager (>= 1.30.10),
+    enrichplot (>= 1.4.0),
     AnnotationHub (>= 2.16.1),
     AnnotationDbi (>= 1.46.1),
+    pathview,
     clusterProfiler (>= 3.12.0)
 biocViews: Annotation, Clustering, GeneSetEnrichment, GO, KEGG,
     MultipleComparison, Pathways, Reactome, Visualization

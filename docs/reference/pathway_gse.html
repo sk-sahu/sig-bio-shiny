@@ -12,8 +12,8 @@
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/cosmo/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
@@ -59,7 +59,7 @@ specific to application." />
   <body>
     <div class="container template-reference-topic">
       <header>
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false">
@@ -83,7 +83,7 @@ specific to application." />
   </a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="../articles/SigBio.html">Get started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -93,15 +93,15 @@ specific to application." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/Documentation.html">Documentation</a>
-    </li>
-    <li>
-      <a href="../articles/Orglist.html">Orglist</a>
+      <a href="../articles/orglist.html">Organism List</a>
     </li>
   </ul>
 </li>
 <li>
   <a href="../news/index.html">Changelog</a>
+</li>
+<li>
+  <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -134,11 +134,7 @@ specific to application." />
 specific to application.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pathway_gse</span>(
-  <span class='kw'>id_with_fc_list</span> <span class='kw'>=</span> <span class='no'>entrez_ids_with_fc_vector</span>,
-  <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"hsa"</span>,
-  <span class='kw'>pval</span> <span class='kw'>=</span> <span class='st'>"0.05"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>pathway_gse</span>(<span class='no'>id_with_fc_list</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"hsa"</span>, <span class='kw'>pval</span> <span class='kw'>=</span> <span class='st'>"0.05"</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -146,6 +142,14 @@ specific to application.</p>
     <tr>
       <th>id_with_fc_list</th>
       <td><p>A vector with gene_ids and their fold change. Much like geneList from DOSE pakage</p></td>
+    </tr>
+    <tr>
+      <th>organism</th>
+      <td><p>A kegg org short name</p></td>
+    </tr>
+    <tr>
+      <th>pval</th>
+      <td><p>P-value cut-off</p></td>
     </tr>
     </table>
 

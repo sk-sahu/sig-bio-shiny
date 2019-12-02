@@ -4,14 +4,14 @@
 \alias{pathway_gse}
 \title{Do gene set enrichment}
 \usage{
-pathway_gse(
-  id_with_fc_list = entrez_ids_with_fc_vector,
-  organism = "hsa",
-  pval = "0.05"
-)
+pathway_gse(id_with_fc_list, organism = "hsa", pval = "0.05")
 }
 \arguments{
 \item{id_with_fc_list}{A vector with gene_ids and their fold change. Much like geneList from DOSE pakage}
+
+\item{organism}{A kegg org short name}
+
+\item{pval}{P-value cut-off}
 }
 \value{
 A GSE plot

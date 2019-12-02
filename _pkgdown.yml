@@ -1,25 +1,29 @@
+url: http://sksahu.net/sig-bio-shiny
+
+home:
+  title: sig-bio-shiny home page
+
+authors:
+  Sangram Keshari Sahu:
+    href: https://sksahu.net
+    
+template:
+  params:
+    #bootswatch: cosmo
+
+development:
+  mode: auto
+
 navbar:
+  type: inverse
   structure:
-    left:  [home, intro, reference, articles, tutorials, news]
+    left:  [home, intro, articles, tutorials, news]
     right: [github]
   components:
     home:
       icon: fas fa-home fa-lg
       href: index.html
-    reference:
-      text: Reference
-      href: reference/index.html
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/sk-sahu/sig-bio-shiny
-authors:
-  Sangram Keshari Sahu:
-    href: https://sksahu.net
-components:
-  twitter:
-     icon: "fab fa-twitter fa-lg"
-     href: http://twitter.com/sangram_ksahu
-url: http://sksahu.net/sig-bio-shiny
-template:
-  params:
-    bootswatch: cosmo
+

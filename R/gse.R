@@ -4,6 +4,8 @@
 #' specific to application. 
 #' 
 #' @param id_with_fc_list A vector with gene_ids and their fold change. Much like geneList from DOSE pakage
+#' @param organism A kegg org short name
+#' @param pval P-value cut-off
 #' 
 #' @return A GSE plot
 #' 
@@ -17,7 +19,7 @@
 #load("data/gse_test.RData")
 # same as geneList
 # entrez_ids_with_fc_vector = geneList is a object from DOSE pkg
-pathway_gse <- function(id_with_fc_list = entrez_ids_with_fc_vector, 
+pathway_gse <- function(id_with_fc_list, 
                         organism = "hsa",
                         pval = "0.05"){
   list_for_gse <- as.numeric(levels(id_with_fc_list))[id_with_fc_list]

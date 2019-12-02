@@ -35,7 +35,7 @@ wego_plot <- function(BP=go_table, CC=go_table, MF=go_table){
   
   # make wego style output ----
   wego_style_go <- all_go_data %>% 
-    select(ID, Domain, Count, GeneRatio, Description)
+    dplyr::select(ID, Domain, Count, GeneRatio, Description)
   # get total number of genes 
   total <-as.numeric(gsub("[1-9]/", "", wego_style_go[1,4]))
   wego_style_go <- cbind(wego_style_go[-4], (wego_style_go$Count/total)*100)

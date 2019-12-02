@@ -3,5 +3,7 @@
 #' @import AnnotationHub
 #' @import enrichplot
 #' @import DT
+#' @import pathview
+#' @import dplyr
 #' @export
 NULL
