@@ -23,6 +23,8 @@ ah <- org$ah_obj
 orgdb <- org$ah_orgdb
 kegg_list <- org$kegg_org_list
 
+library(shiny)
+
 ui <- navbarPage(paste0("Sig-Bio v",sigbio.version), inverse = TRUE, collapsible = TRUE,
                  tabPanel("Gene-Summary",
                           sidebarLayout(
