@@ -6,6 +6,13 @@
 \usage{
 mapIds_all(genelist, org_pkg, gtf_type)
 }
+\arguments{
+\item{genelist}{A vector with list of input genes}
+
+\item{org_pkg}{An AnnotationHub OrgDb object}
+
+\item{gtf_type}{Input gene type}
+}
 \description{
 Wrapper funtion to AnnotationDbi::select
 }

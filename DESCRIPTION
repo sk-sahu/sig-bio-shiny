@@ -1,6 +1,6 @@
 Package: SigBio
 Title: Significant Biology on a Gene Set
-Version: 0.1
+Version: 0.2.0
 Description: A genes set from a diffrential experiment or any set of intrest can be explored with multiple aspects in a single place.
 Author: Sangram Keshari Sahu
 Maintainer: Sangram Keshari Sahu <sangramsahu15@gmail.com>  
@@ -20,12 +20,11 @@ Imports:
     ggplot2,
     ggstance,
     reshape2,
-    BiocManager,
-    AnnotationDbi (>= 1.46.1),
-    enrichplot (>= 1.4.0),
     BiocManager (>= 1.30.10),
+    enrichplot (>= 1.4.0),
     AnnotationHub (>= 2.16.1),
     AnnotationDbi (>= 1.46.1),
+    pathview,
     clusterProfiler (>= 3.12.0)
 biocViews: Annotation, Clustering, GeneSetEnrichment, GO, KEGG,
     MultipleComparison, Pathways, Reactome, Visualization

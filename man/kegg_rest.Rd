@@ -6,6 +6,9 @@
 \usage{
 kegg_rest(rest_url)
 }
+\arguments{
+\item{rest_url}{KEGG rest url Endpoint.(https://www.kegg.jp/kegg/rest/keggapi.html)}
+}
 \description{
 Call org list from KEGG rest API
 }

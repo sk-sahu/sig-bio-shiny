@@ -1,4 +1,6 @@
 #' Call org list from KEGG rest API
+#' 
+#' @param rest_url KEGG rest url Endpoint.(https://www.kegg.jp/kegg/rest/keggapi.html)
 #' @import magrittr
 #' @export
 kegg_rest <- function(rest_url) {
@@ -13,6 +15,7 @@ kegg_rest <- function(rest_url) {
   return(res)
 }
 
+#' Links to kegg rest api for org list
 #' @export
 kegg_link <- function(){
   url <- paste0("http://rest.kegg.jp/list/organism", collapse="")

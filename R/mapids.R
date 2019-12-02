@@ -1,9 +1,12 @@
-#suppressMessages(library(AnnotationDbi))
-#suppressMessages(library(reshape2))
-
 #' Wrapper funtion to AnnotationDbi::select
+#' 
+#' @param org_pkg An AnnotationHub OrgDb object
+#' @param genelist A vector with list of input genes
+#' @param gtf_type Input gene type
+#' 
 #' @import AnnotationDbi
 #' @import reshape2
+#' @importFrom stats aggregate
 #' @export
 mapIds_all <- function(genelist, org_pkg, gtf_type) {
   # Get the annotations ----
