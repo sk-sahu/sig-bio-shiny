@@ -26,7 +26,7 @@ R shiny application for doing significant biology on a set of genes.
 This is completely writen in R Shiny (if the name not already referes) and underneeth uses R and Bioconductor packages.
 
 ## Disclaimer
-sig-bio-shiny shiny application along with the SigBio R package is open source and distributed under [GPLv3](http://www.gnu.org/licenses/gpl-3.0.html). This uses KEGG data for few tasks, which is free for Academic uses but other uses may require a license agreement (In details at [KEGG Website](https://www.kegg.jp/kegg/legal.html)). By using this application you follow the respective tool licenses.
+sig-bio-shiny shiny application along with the SigBio R package is an open source effort and distributed under [MIT license](https://opensource.org/licenses/MIT). This uses KEGG data for few tasks, which is free for Academic uses but other uses may require a license agreement (In details at [KEGG Website](https://www.kegg.jp/kegg/legal.html)). By using this application you follow the respective tool licenses. Any developer involved in this DO NOT warrant nor responsible for any legal issues.
 
 ## Requirements
 R >= 3.5
