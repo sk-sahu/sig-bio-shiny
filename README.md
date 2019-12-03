@@ -10,15 +10,23 @@
 
 R shiny application for doing significant biology on a set of genes. 
 
-**Significant Biology** is an important step of any high-throughput sequence analysis. Once you maped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly explore those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this **SigBio** Shiny application. This is platform where with a set of genes you can do **Gene Ontology (GO), KEGG Pathway, Enrichment, Annotation and many things (will be discussed soon).**
-
 * [Demo](#demo)
+* [Introduction](#introduction)
+* [Disclaimer](#disclaimer)
 * [Requirement](#requirements)
 * [Download](#download)
 * [Run the shiny app](#run-the-shiny-app)
 
 ## Demo
 ![](sigbio-v0.2.1.gif)
+
+## Introduction
+**Significant Biology** is an important step of any high-throughput sequence analysis. Once you mapped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly exploring those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this **SigBio** Shiny application. This is platform where with a set of genes you can do **Gene Ontology (GO), KEGG Pathway, Enrichment, Annotation and many things (will be discussed soon).**
+
+This is completely writen in R Shiny (if the name not already referes) and underneeth uses R and Bioconductor packages.
+
+## Disclaimer
+sig-bio-shiny shiny application along with the SigBio R package is open source and distributed under [GPLv3](http://www.gnu.org/licenses/gpl-3.0.html). This uses KEGG data for few tasks, which is free for Academic uses but other uses may require a license agreement (In details at [KEGG Website](https://www.kegg.jp/kegg/legal.html)). By using this application you follow the respective tool licenses.
 
 ## Requirements
 R >= 3.5
