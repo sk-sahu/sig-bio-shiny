@@ -12,9 +12,13 @@ R shiny application for doing significant biology on a set of genes.
 
 **Significant Biology** is an important step of any high-throughput sequence analysis. Once you maped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly explore those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this **SigBio** Shiny application. This is platform where with a set of genes you can do **Gene Ontology (GO), KEGG Pathway, Enrichment, Annotation and many things (will be discussed soon).**
 
-1. [Requirement](#requirements)
-2. [Download](#download)
-4. [Run the shiny app](#run-the-shiny-app)
+* [Demo](#demo)
+* [Requirement](#requirements)
+* [Download](#download)
+* [Run the shiny app](#run-the-shiny-app)
+
+## Demo
+![](sigbio-v0.2.1.gif)
 
 ## Requirements
 R >= 3.5
