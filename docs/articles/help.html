@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Overview • SigBio</title>
+<title>Help • SigBio</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Overview">
+<script src="../pkgdown.js"></script><meta property="og:title" content="Help">
 <meta property="og:description" content="">
 <meta name="twitter:card" content="summary">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -88,60 +88,41 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1>Overview</h1>
+      <h1>Help</h1>
             
             <h4 class="date">04 December, 2019</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/sk-sahu/sig-bio-shiny/blob/master/vignettes/SigBio.Rmd"><code>vignettes/SigBio.Rmd</code></a></small>
-      <div class="hidden name"><code>SigBio.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/sk-sahu/sig-bio-shiny/blob/master/vignettes/help.Rmd"><code>vignettes/help.Rmd</code></a></small>
+      <div class="hidden name"><code>help.Rmd</code></div>
 
     </div>
 
     
     
-<div id="what-is-sig-bio-shiny" class="section level1">
-<h1 class="hasAnchor">
-<a href="#what-is-sig-bio-shiny" class="anchor"></a>What is Sig-Bio-Shiny?</h1>
-</div>
-<div id="background" class="section level1">
-<h1 class="hasAnchor">
-<a href="#background" class="anchor"></a>Background</h1>
-<p>Sig-Bio-Shiny Application uses few of the Biocondutor packages underneath to give an interface for doing significant biology (Such as GO, KEGG, GSE analysis).</p>
-<ul>
-<li>
-<a href="https://bioconductor.org/packages/release/bioc/html/AnnotationHub.html">AnnotationHub</a> To get annotation information. <span class="citation">(Morgan <a href="#ref-AnnotationHub">2019</a>)</span>
-</li>
-<li>
-<a href="https://bioconductor.org/packages/release/bioc/html/AnnotationDbi.html">AnnotationDbi</a> To use some universal APIs for mapping data from OrgDb objects. <span class="citation">(Pagès et al. <a href="#ref-AnnotationDbi">2019</a>)</span>
-</li>
-<li>
-<a href="https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html">clusterProfiler</a> To perform most of the analysis. <span class="citation">(Yu et al. <a href="#ref-clusterProfiler">2012</a>)</span> and <span class="citation">(Yu <a href="#ref-clusterProfiler.dplyr">2019</a><a href="#ref-clusterProfiler.dplyr">a</a>)</span>
-</li>
-<li>
-<a href="https://bioconductor.org/packages/release/bioc/html/enrichplot.html">enrichplot</a> To plot most plots. <span class="citation">(Yu <a href="#ref-enrichplot">2019</a><a href="#ref-enrichplot">b</a>)</span>
-</li>
-</ul>
-<div id="reference" class="section level2 unnumbered">
+<div id="application-running-help" class="section level2">
 <h2 class="hasAnchor">
-<a href="#reference" class="anchor"></a>Reference</h2>
-<div id="refs" class="references">
-<div id="ref-AnnotationHub">
-<p>Morgan M (2019) AnnotationHub: Client to access annotationhub resources</p>
+<a href="#application-running-help" class="anchor"></a>Application Running Help</h2>
+<div id="input-help" class="section level3">
+<h3 class="hasAnchor">
+<a href="#input-help" class="anchor"></a>Input Help</h3>
+<p>Input in text area must be one of given gene-id types from the dropdown menu. (We are working to add more gene-id types)</p>
+<p>If you providing fold change (which is <strong>optional</strong>, only required for certain analysis), include them <strong>separate by a comma</strong>.</p>
+<p>For example (GeneIDs with fold change)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">ENSG00000012048,<span class="fl">4.6</span></a>
+<a class="sourceLine" id="cb1-2" data-line-number="2">ENSG00000214049,<span class="op">-</span><span class="fl">3.7</span></a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">ENSG00000204682,<span class="fl">2.5</span></a></code></pre></div>
 </div>
-<div id="ref-AnnotationDbi">
-<p>Pagès H, Carlson M, Falcon S, Li N (2019) AnnotationDbi: Manipulation of sqlite-based annotations in bioconductor</p>
-</div>
-<div id="ref-clusterProfiler-dplyr">
-<p>Yu G (2019a) ClusterProfiler.dplyr: ’Dplyr’ verbs for ’clusterProfiler’ results</p>
-</div>
-<div id="ref-enrichplot">
-<p>Yu G (2019b) Enrichplot: Visualization of functional enrichment result</p>
-</div>
-<div id="ref-clusterProfiler">
-<p>Yu G, Wang L-G, Han Y, He Q-Y (2012) ClusterProfiler: An r package for comparing biological themes among gene clusters. OMICS: A Journal of Integrative Biology 16:284–287. <a href="https://doi.org/10.1089/omi.2011.0118">https://doi.org/10.1089/omi.2011.0118</a></p>
+<div id="faq" class="section level3">
+<h3 class="hasAnchor">
+<a href="#faq" class="anchor"></a>FAQ</h3>
+<p><strong>Disconnected from the server.</strong></p>
+<p>Please reload and run again. See the progress bar, and let us know here it is getting disconnected.</p>
 </div>
 </div>
-</div>
+<div id="furthere-issuequries" class="section level2">
+<h2 class="hasAnchor">
+<a href="#furthere-issuequries" class="anchor"></a>Furthere Issue/Quries</h2>
+<p>Ask them here - <a href="https://github.com/sk-sahu/sig-bio-shiny/issues/new" class="uri">https://github.com/sk-sahu/sig-bio-shiny/issues/new</a></p>
 </div>
   </div>
 
@@ -151,12 +132,8 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#what-is-sig-bio-shiny">What is Sig-Bio-Shiny?</a></li>
-      <li>
-<a href="#background">Background</a><ul class="nav nav-pills nav-stacked">
-<li><a href="#reference">Reference</a></li>
-      </ul>
-</li>
+<li><a href="#application-running-help">Application Running Help</a></li>
+      <li><a href="#furthere-issuequries">Furthere Issue/Quries</a></li>
       </ul>
 </div>
       </div>

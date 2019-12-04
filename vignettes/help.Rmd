@@ -1,0 +1,30 @@
+---
+title: "Help"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output: 
+  html_document:
+    toc: true
+    toc_depth: 3
+---
+
+## Application Running Help
+### Input Help
+Input in text area must be one of given gene-id types from the dropdown menu. (We are working to add more gene-id types)
+
+If you providing fold change (which is **optional**, only required for certain analysis), include them **separate by a comma**.
+
+For example (GeneIDs with fold change)
+```{r, eval=FALSE}
+ENSG00000012048,4.6
+ENSG00000214049,-3.7
+ENSG00000204682,2.5
+```
+
+### FAQ
+
+**Disconnected from the server.**
+
+Please reload and run again. See the progress bar, and let us know here it is getting disconnected.
+
+## Furthere Issue/Quries
+Ask them here - https://github.com/sk-sahu/sig-bio-shiny/issues/new

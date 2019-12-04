@@ -3,6 +3,7 @@ pkgdown: 1.4.1
 pkgdown_sha: ~
 articles:
   SigBio: SigBio.html
+  help: help.html
   orglist: orglist.html
 urls:
   reference: http://sksahu.net/sig-bio-shiny/reference
