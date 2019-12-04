@@ -1,29 +1,30 @@
-url: http://sksahu.net/sig-bio-shiny
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-home:
-  title: sig-bio-shiny home page
+language: R
+sudo: false
+cache: packages
 
-authors:
-  Sangram Keshari Sahu:
-    href: https://sksahu.net
+warnings_are_errors: false
+
+bioc_packages:
+    - BiocCheck
     
-template:
-  params:
-    #bootswatch: cosmo
+before_install:
+    - Rscript -e 'install.packages("remotes")'
+    - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
 
-development:
-  mode: auto
+r_build_args: "--no-manual --no-resave-data"
+r_check_args: "--no-build-vignettes --no-manual --timings"
 
-navbar:
-  type: inverse
-  structure:
-    left:  [home, intro, articles, tutorials, news]
-    right: [github]
-  components:
-    home:
-      icon: fas fa-home fa-lg
-      href: index.html
-    github:
-      icon: fab fa-github fa-lg
-      href: https://github.com/sk-sahu/sig-bio-shiny
+before_cache: Rscript -e 'remotes::install_cran("pkgdown")'
+deploy:
+  provider: script
+  script: Rscript -e 'pkgdown::deploy_site_github()'
+  skip_cleanup: true
 
+r_packages:
+  - covr
+
+after_success:
+  - Rscript -e 'covr::codecov()'
+  - Rscript -e 'covr::coveralls()'
