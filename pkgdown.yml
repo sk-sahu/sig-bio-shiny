@@ -1,0 +1,11 @@
+pandoc: '2.2'
+pkgdown: 1.4.1
+pkgdown_sha: ~
+articles:
+  SigBio: SigBio.html
+  help: help.html
+  orglist: orglist.html
+urls:
+  reference: http://sk-sahu.github.io/sig-bio-shiny/reference
+  article: http://sk-sahu.github.io/sig-bio-shiny/articles
+
