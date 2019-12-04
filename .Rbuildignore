@@ -6,3 +6,4 @@
 ^\.Rproj\.user$
 ^Makefile$
 ^Jenkinsfile$
+^docs$
