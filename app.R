@@ -175,7 +175,8 @@ server <- function(input, output) {
       selected_species <- as.character(input$org)
       sigbio_message(paste("Selected org is - ", selected_species))
       selected_species_orgdb <- AnnotationHub::query(orgdb, selected_species)
-      org_pkg <- ah[[selected_species_orgdb$ah_id]]
+      sigbio_message("Selected org AnnotationHub ID - ", selected_species_orgdb$ah_id[1])
+      org_pkg <- ah[[selected_species_orgdb$ah_id[1]]]
       kegg_org_name <- input$kegg_org_code
       gtf_type <- input$id_type # ensembl or refseq
       
@@ -304,7 +305,7 @@ server <- function(input, output) {
         paste('wego_plot.png', sep='')
       },
       content = function(file) {
-        ggsave(file, plot = wego_plot_download(), device = "png", width = 12, height = 10)
+        ggplot2::ggsave(file, plot = wego_plot_download(), device = "png", width = 12, height = 10)
       }
     )
     # wego plot download button
@@ -387,30 +388,32 @@ server <- function(input, output) {
       kegg_2@result
     })
     
-    output$pathview_dropdown <- renderUI({
-      # Copy the line below to make a select box
-      selectInput("path_id", label = "Select from enriched pathway",
-                  choices = kegg_2@result$ID)
-    })
-    
-    # data preparation for next step pathview plot
-    gene_data <- entrez_ids_with_fc$gene_with_fc_vector %>% as.data.frame()
-    rownames(gene_data) <- entrez_ids_with_fc$entrez_ids
-    
-    observe({
-      suppressMessages(library(pathview))
-      pathview_plot <- pathview::pathview(gene.data  = gene_data,
-                           pathway.id = input$path_id,
-                           species    = kegg_org_name,
-                           kegg.dir = tempdir()
-                           )
-      # get the png and render
-      output$pathview_plot_in_ui <- renderImage({
-        filename <- normalizePath(file.path('.',
-                                            paste(input$path_id, '.pathview.png', sep='')))
-        list(src = filename)
-      }, deleteFile = FALSE)
-    })
+    if (all(grepl(",", gene_list_split))){
+      output$pathview_dropdown <- renderUI({
+        # Copy the line below to make a select box
+        selectInput("path_id", label = "Select from enriched pathway",
+                    choices = kegg_2@result$ID)
+      })
+      
+      # data preparation for next step pathview plot
+      gene_data <- entrez_ids_with_fc$gene_with_fc_vector %>% as.data.frame()
+      rownames(gene_data) <- entrez_ids_with_fc$entrez_ids
+      
+      observe({
+        suppressMessages(library(pathview))
+        pathview_plot <- pathview::pathview(gene.data  = gene_data,
+                             pathway.id = input$path_id,
+                             species    = kegg_org_name,
+                             kegg.dir = tempdir()
+                             )
+        # get the png and render
+        output$pathview_plot_in_ui <- renderImage({
+          filename <- normalizePath(file.path('.',
+                                              paste(input$path_id, '.pathview.png', sep='')))
+          list(src = filename)
+        }, deleteFile = FALSE)
+      })
+    }
     
     # kegg-dotplot
     output$dot_plot_kegg <- renderPlot({
