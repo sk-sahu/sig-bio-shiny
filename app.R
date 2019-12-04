@@ -152,11 +152,11 @@ ENSG00000117399,-0.5"),
                           verbatimTextOutput("sessioninfo")
                  ),
                  tabPanel("Help",
-                          includeMarkdown(SigBio::app_help())
+                          includeHTML("https://sk-sahu.github.io/sig-bio-shiny/articles/help.html")
                  ),
                  tabPanel("About",
                           icon = icon("info-circle") ,
-                          includeMarkdown("")
+                          includeHTML("https://sk-sahu.github.io/sig-bio-shiny/articles/SigBio.html")
                  )
 ) # UI ends ----
 

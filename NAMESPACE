@@ -2,7 +2,6 @@
 
 export("%>%")
 export()
-export(app_help)
 export(kegg_link)
 export(kegg_rest)
 export(load_org)

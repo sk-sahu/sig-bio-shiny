@@ -54,6 +54,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/help.html">Help</a>
+    </li>
+    <li>
       <a href="articles/orglist.html">Organism List</a>
     </li>
   </ul>
@@ -90,12 +93,30 @@
 <!-- badges: start -->
 
 <p>R shiny application for doing significant biology on a set of genes.</p>
-<p><strong>Significant Biology</strong> is an important step of any high-throughput sequence analysis. Once you maped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly explore those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this <strong>SigBio</strong> Shiny application. This is platform where with a set of genes you can do <strong>Gene Ontology (GO), KEGG Pathway, Enrichment, Annotation and many things (will be discussed soon).</strong></p>
-<ol>
+<ul>
+<li><a href="#demo">Demo</a></li>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#disclaimer">Disclaimer</a></li>
 <li><a href="#requirements">Requirement</a></li>
 <li><a href="#download">Download</a></li>
 <li><a href="#run-the-shiny-app">Run the shiny app</a></li>
-</ol>
+</ul>
+<div id="demo" class="section level2">
+<h2 class="hasAnchor">
+<a href="#demo" class="anchor"></a>Demo</h2>
+<p><img src="sigbio-v0.2.1.gif"></p>
+</div>
+<div id="introduction" class="section level2">
+<h2 class="hasAnchor">
+<a href="#introduction" class="anchor"></a>Introduction</h2>
+<p><strong>Significant Biology</strong> is an important step of any high-throughput sequence analysis. Once you mapped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly exploring those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this <strong>SigBio</strong> Shiny application. This is platform where with a set of genes you can do <strong>Gene Ontology (GO), KEGG Pathway, Enrichment, Annotation and many things (will be discussed soon).</strong></p>
+<p>This is completely writen in R Shiny (if the name not already referes) and underneeth uses R and Bioconductor packages.</p>
+</div>
+<div id="disclaimer" class="section level2">
+<h2 class="hasAnchor">
+<a href="#disclaimer" class="anchor"></a>Disclaimer</h2>
+<p>sig-bio-shiny shiny application along with the SigBio R package is an open source effort and distributed under <a href="https://opensource.org/licenses/MIT">MIT license</a>. This uses KEGG data for few tasks, which is free for Academic uses but other uses may require a license agreement (In details at <a href="https://www.kegg.jp/kegg/legal.html">KEGG Website</a>). By using this application you follow the respective tool licenses. Any developer involved in this DO NOT warrant nor responsible for any legal issues.</p>
+</div>
 <div id="requirements" class="section level2">
 <h2 class="hasAnchor">
 <a href="#requirements" class="anchor"></a>Requirements</h2>

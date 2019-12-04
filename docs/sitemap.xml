@@ -4,9 +4,6 @@
     <loc>http://sksahu.net/sig-bio-shiny/index.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/reference/app_help.html</loc>
-  </url>
-  <url>
     <loc>http://sksahu.net/sig-bio-shiny/reference/kegg_link.html</loc>
   </url>
   <url>
@@ -35,6 +32,9 @@
   </url>
   <url>
     <loc>http://sksahu.net/sig-bio-shiny/articles/SigBio.html</loc>
+  </url>
+  <url>
+    <loc>http://sksahu.net/sig-bio-shiny/articles/help.html</loc>
   </url>
   <url>
     <loc>http://sksahu.net/sig-bio-shiny/articles/orglist.html</loc>
