@@ -2,6 +2,8 @@
 
 export("%>%")
 export()
+export(app_get_input)
+export(do_enrichGO)
 export(kegg_link)
 export(kegg_rest)
 export(load_org)
