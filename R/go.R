@@ -1,3 +1,12 @@
+#' Do enrichGO
+#' 
+#' This is a wrapper function to do \code{\link[clusterProfiler]{enrichGO}} on 
+#' all ontology terms and convert the gene IDs to gene symbles.
+#' 
+#' @param ... Arguments pass to \code{\link[clusterProfiler]{enrichGO}} and 
+#'  \code{\link[clusterProfiler]{setReadable}}
+#'
+#' @return A list of enrichGO objects
 #' @import clusterProfiler
 #' @export
 do_enrichGO <- function(...){

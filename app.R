@@ -20,7 +20,7 @@ suppressMessages(library(SigBio))
 
 sigbio_message("Starting the application...")
 # Load organisms
-org <- SigBio::load_org()
+org <- SigBio::app_getOrg()
 ah <- org$ah_obj
 orgdb <- org$ah_orgdb
 kegg_list <- org$kegg_org_list
@@ -181,7 +181,7 @@ server <- function(input, output) {
       gtf_type <- input$id_type # ensembl or refseq
       
     # get user input and parse
-    text_area_input <- SigBio::app_get_input(input$text_area_list)
+    text_area_input <- SigBio::app_getInput(input$text_area_list)
     gene_list_uprcase <- text_area_input$gene_list
     gene_with_fc_df <- text_area_input$gene_list_with_fc
     
@@ -191,7 +191,7 @@ server <- function(input, output) {
     tryCatch(
       expr = {
         entrez_ids= AnnotationDbi::mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
-        mapped_ids <- mapIds_all(genelist = as.character(gene_list_uprcase),
+        mapped_ids <- do_selectIds(genelist = as.character(gene_list_uprcase),
                                 org_pkg = org_pkg,
                                 gtf_type = gtf_type)
       },
@@ -327,15 +327,7 @@ server <- function(input, output) {
       enrichplot::emapplot(go_mf)
     })
     
-    # if foldchnage not provided give this message
-    message_plot <- function(){
-      par(mar = c(0,0,0,0))
-      plot(c(0, 1), c(0, 1), ann = F, bty = 'n', type = 'n', xaxt = 'n', yaxt = 'n')
-      text(x = 0.5, y = 0.5, paste("Insufficient data for this plot.\n",
-                                   "You need to provide foldchange for this."), 
-           cex = 1.6, col = "black")
-      par(mar = c(5, 4, 4, 2) + 0.1)
-    }
+    
     
     # if foldchange provided
     if (!is.null(text_area_input$gene_list_with_fc)){
@@ -354,13 +346,13 @@ server <- function(input, output) {
       })
     }else{
       output$cnet_plot_go_bp <- renderPlot({
-        message_plot()
+        app_noFCmsgPlot()
       })
       output$cnet_plot_go_cc <- renderPlot({
-        message_plot()
+        app_noFCmsgPlot()
       })
       output$cnet_plot_go_mf <- renderPlot({
-        message_plot()
+        app_noFCmsgPlot()
       })
     }
     
@@ -421,16 +413,16 @@ server <- function(input, output) {
       })
       output$pathway_gse_plot <- renderPlot({
         # gse-pathway
-        pathway_gse(id_with_fc_list = entrez_ids_with_fc_vector, 
+        do_gseKEGG_plot(id_with_fc_list = entrez_ids_with_fc_vector, 
                     organism = kegg_org_name,
                     pval = input$pval_cutoff)
       })
     }else{
       output$cnet_plot_kegg <- renderPlot({
-        message_plot()
+        app_noFCmsgPlot()
       })
       output$pathway_gse_plot <- renderPlot({
-        message_plot()
+        app_noFCmsgPlot()
       })
     }
     

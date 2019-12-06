@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Links to kegg rest api for org list — kegg_link • SigBio</title>
+<title>Do pathway GSE (gene set enrichment) Plot — do_gseKEGG_plot • SigBio</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,9 @@
 
 
 
-<meta property="og:title" content="Links to kegg rest api for org list — kegg_link" />
-<meta property="og:description" content="Links to kegg rest api for org list" />
+<meta property="og:title" content="Do pathway GSE (gene set enrichment) Plot — do_gseKEGG_plot" />
+<meta property="og:description" content="Wraper function to gseKEGG with some extra functionality
+specific to application." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,23 +127,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Links to kegg rest api for org list</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/R/kegg.R'><code>R/kegg.R</code></a></small>
-    <div class="hidden name"><code>kegg_link.Rd</code></div>
+    <h1>Do pathway GSE (gene set enrichment) Plot</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/R/gse_plots.R'><code>R/gse_plots.R</code></a></small>
+    <div class="hidden name"><code>do_gseKEGG_plot.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Links to kegg rest api for org list</p>
+    <p>Wraper function to <code><a href='https://rdrr.io/pkg/clusterProfiler/man/gseKEGG.html'>gseKEGG</a></code> with some extra functionality
+specific to application.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>kegg_link</span>()</pre>
+    <pre class="usage"><span class='fu'>do_gseKEGG_plot</span>(<span class='no'>id_with_fc_list</span>, <span class='kw'>organism</span> <span class='kw'>=</span> <span class='st'>"hsa"</span>, <span class='kw'>pval</span> <span class='kw'>=</span> <span class='st'>"0.05"</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>id_with_fc_list</th>
+      <td><p>A vector with gene_ids and their fold change. Much like geneList from DOSE pakage</p></td>
+    </tr>
+    <tr>
+      <th>organism</th>
+      <td><p>A kegg org short name</p></td>
+    </tr>
+    <tr>
+      <th>pval</th>
+      <td><p>P-value cut-off</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A GSE plot</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
     </ul>
 
   </div>

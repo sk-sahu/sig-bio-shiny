@@ -1,3 +1,5 @@
+#' Get input
+#' 
 #' Takes user input and parse into list, which can be used by SigBio application.
 #' 
 #' @param gene_string This a string with only gene ids separated by new line character.
@@ -15,10 +17,10 @@
 #' ENSG00000065328,1.7
 #' ENSG00000117399,-0.5"
 #' 
-#' app_get_input(input)
+#' app_getInput(input)
 #' 
 #' @export
-app_get_input <- function(gene_string){
+app_getInput <- function(gene_string){
   gene_list_split <- unlist(strsplit(gene_string, "\n"))
   gene_list_split <- unique(gene_list_split[gene_list_split != ""])
   
