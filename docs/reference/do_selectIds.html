@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Links to kegg rest api for org list — kegg_link • SigBio</title>
+<title>select all — do_selectIds • SigBio</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Links to kegg rest api for org list — kegg_link" />
-<meta property="og:description" content="Links to kegg rest api for org list" />
+<meta property="og:title" content="select all — do_selectIds" />
+<meta property="og:description" content="Wrapper funtion to select" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,23 +126,44 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Links to kegg rest api for org list</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/R/kegg.R'><code>R/kegg.R</code></a></small>
-    <div class="hidden name"><code>kegg_link.Rd</code></div>
+    <h1>select all</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/R/convert_ids.R'><code>R/convert_ids.R</code></a></small>
+    <div class="hidden name"><code>do_selectIds.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Links to kegg rest api for org list</p>
+    <p>Wrapper funtion to <code><a href='https://rdrr.io/pkg/AnnotationDbi/man/AnnotationDb-class.html'>select</a></code></p>
     </div>
 
-    <pre class="usage"><span class='fu'>kegg_link</span>()</pre>
+    <pre class="usage"><span class='fu'>do_selectIds</span>(<span class='no'>genelist</span>, <span class='no'>org_pkg</span>, <span class='no'>gtf_type</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>genelist</th>
+      <td><p>A vector with list of input genes</p></td>
+    </tr>
+    <tr>
+      <th>org_pkg</th>
+      <td><p>An AnnotationHub OrgDb object</p></td>
+    </tr>
+    <tr>
+      <th>gtf_type</th>
+      <td><p>Input gene type</p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A dataframe with selected IDs</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
     </ul>
 
   </div>

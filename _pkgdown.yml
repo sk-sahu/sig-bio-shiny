@@ -26,3 +26,14 @@ navbar:
     github:
       icon: fab fa-github fa-lg
       href: https://github.com/sk-sahu/sig-bio-shiny
+      
+reference:
+- title: Used by the app
+  contents:
+  - starts_with("app_")
+- title: Wrapper APIs for respective functions
+  contents:
+  - starts_with("do_")
+  
+  
+      

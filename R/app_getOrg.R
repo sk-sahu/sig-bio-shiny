@@ -1,7 +1,11 @@
-#' Load organism list using AnnotationHub and KEGG rest API
+#' Get organism
+#' 
+#' Fetch all the organism list using AnnotationHub interface and KEGG rest API
+#' 
 #' @import AnnotationHub
+#' 
 #' @export
-load_org <- function(){
+app_getOrg <- function(){
   sigbio_message("Fetching AnnotationHub database...")
   ah = AnnotationHub::AnnotationHub()
   orgdb <- AnnotationHub::query(ah, "OrgDb")

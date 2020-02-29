@@ -8,7 +8,8 @@ sigbio.version='0.2.1'
 message("Running Sig-Bio-Shiny v", sigbio.version, " | ",date())
 message("Checking if SigBio v", sigbio.version, " Package is installed...")
 
-if("SigBio" %in% rownames(installed.packages()) && packageVersion("SigBio") != sigbio.version){
+if("SigBio" %in% rownames(installed.packages()) && 
+   packageVersion("SigBio") != sigbio.version){
   options(repos = c(CRAN = "http://cran.rstudio.com"))
   if (!require(remotes)) { install.packages("remotes") }
   remotes::install_github("sk-sahu/sig-bio-shiny", 
@@ -19,7 +20,7 @@ suppressMessages(library(SigBio))
 
 sigbio_message("Starting the application...")
 # Load organisms
-org <- SigBio::load_org()
+org <- SigBio::app_getOrg()
 ah <- org$ah_obj
 orgdb <- org$ah_orgdb
 kegg_list <- org$kegg_org_list
@@ -30,8 +31,8 @@ ui <- navbarPage(paste0("Sig-Bio v",sigbio.version), inverse = TRUE, collapsible
                  tabPanel("Gene-Summary",
                           sidebarLayout(
                             sidebarPanel(width = 3,
-                                         # For text area input 
-                                         textAreaInput("text_area_list", "Gene list or Gene,Foldchnage list:", 
+                                         textAreaInput("text_area_list", 
+                                                       label = "[Gene] or [Gene,Foldchnage] list:", 
                                                        height = "150px", width = "230px",
                                                        value = "
 ENSG00000196611,0.7
@@ -40,13 +41,13 @@ ENSG00000109255,-0.3
 ENSG00000134690,0.2
 ENSG00000065328,1.7
 ENSG00000117399,-0.5"),
-                                         # get org from org_table object
-                                         
                                          selectInput("id_type", label = "Input gene-id Type:", selected = "ENSEMBL",
                                                      choices=c("ENSEMBL", "REFSEQ", "ENTREZID")),
                                          selectInput("org", label = "Organism:", selected = "Homo sapiens",
                                                      choices=orgdb$species),
-                                         selectInput("kegg_org_code", label = "KEGG Organism Short Name:", selected = "hsa",
+                                         selectInput("kegg_org_code", 
+                                                     label = "KEGG Organism Short Name:",
+                                                     selected = "hsa",
                                                      choices=kegg_list$org_code),
                                          helpText("Get your KEGG Organism short name from here - https://www.genome.jp/kegg/catalog/org_list.html"),
                                          numericInput("pval_cutoff", label = "pvalue-CutOff", 
@@ -69,7 +70,6 @@ ENSG00000117399,-0.5"),
                             mainPanel(
                               helpText("Note: It may take minutes, depending upon the number of genes. Check progress bar"),
                               tags$hr(),
-                              #uiOutput("warning"),
                               textOutput("gene_number_info"),
                               tags$hr(),
                               DT::dataTableOutput(outputId = "gene_number_info_table")
@@ -152,11 +152,11 @@ ENSG00000117399,-0.5"),
                           verbatimTextOutput("sessioninfo")
                  ),
                  tabPanel("Help",
-                          includeHTML("https://sk-sahu.github.io/sig-bio-shiny/articles/help.html")
+                          includeHTML("")
                  ),
                  tabPanel("About",
                           icon = icon("info-circle") ,
-                          includeHTML("https://sk-sahu.github.io/sig-bio-shiny/articles/SigBio.html")
+                          includeHTML("")
                  )
 ) # UI ends ----
 
@@ -180,26 +180,10 @@ server <- function(input, output) {
       kegg_org_name <- input$kegg_org_code
       gtf_type <- input$id_type # ensembl or refseq
       
-    output$warning <- renderUI({
-      helpText("Note: It may take time for number of genes.")
-    })
-    
-    # take gene list from text area and decode into a vector
-    # if foldchange(fc) provided with coma(,) decode that in the if condition
-    gene_list <- input$text_area_list
-    gene_list_split <- unlist(strsplit(gene_list, "\n"))
-    gene_list_split <- unique(gene_list_split[gene_list_split != ""])
-    
-    if (all(grepl(",", gene_list_split)))
-        {
-          gene_list_split_2 <- unlist(strsplit(as.character(gene_list_split), ","))
-          gene_with_fc <- matrix(gene_list_split_2, ncol = 2, byrow = TRUE)
-          colnames(gene_with_fc) <- c("gene_list", "fc")
-          gene_with_fc_df <- as.data.frame(gene_with_fc)
-          gene_list_uprcase <- toupper(gene_with_fc_df$gene_list)
-    } else{
-      gene_list_uprcase <- toupper(gene_list_split)
-    }
+    # get user input and parse
+    text_area_input <- SigBio::app_getInput(input$text_area_list)
+    gene_list_uprcase <- text_area_input$gene_list
+    gene_with_fc_df <- text_area_input$gene_list_with_fc
     
     incProgress(2/7, detail = paste("Getting Org Database...")) ##### Progress step 2
     # Conver genelist to ENTREZIDs
@@ -207,7 +191,7 @@ server <- function(input, output) {
     tryCatch(
       expr = {
         entrez_ids= AnnotationDbi::mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
-        mapped_ids <- mapIds_all(genelist = as.character(gene_list_uprcase),
+        mapped_ids <- do_selectIds(genelist = as.character(gene_list_uprcase),
                                 org_pkg = org_pkg,
                                 gtf_type = gtf_type)
       },
@@ -226,7 +210,7 @@ server <- function(input, output) {
     
     # If FoldChnage provided 
     # Create a geneList with genes and log2FC for few plots
-    if (all(grepl(",", gene_list_split)))
+    if (!is.null(text_area_input$gene_list_with_fc))
     {
       gene_with_fc_vector <- gene_with_fc_df[,2]
       names(gene_with_fc_vector) = as.character(gene_with_fc_df[,1])
@@ -260,23 +244,29 @@ server <- function(input, output) {
       as.data.frame(mapped_ids)
     })
     
-    
     # Gene Ontology ----
-    gene_ontology <- function(go_type = "BP"){
-      sigbio_message(paste0("Doing enrichGO for: ", go_type))
-      go_obj <- clusterProfiler::enrichGO(entrez_ids, OrgDb = org_pkg,
-                                      keyType = "ENTREZID",ont = go_type, 
-                                      pvalueCutoff=input$pval_cutoff, qvalueCutoff=input$qval_cutoff)
-      sigbio_message("Converting entrezids to readable gene ids (gene symbles) ")
-      go_obj_2 <- clusterProfiler::setReadable(go_obj, OrgDb = org_pkg, keyType = "ENTREZID")
-      return(go_obj_2)
-    }
-    incProgress(3/7, detail = paste("Doing Gene Ontology for: BP...")) ##### Progress step 3
-    go_bp <- gene_ontology(go_type = "BP")
-    incProgress(4/7, detail = paste("Doing Gene Ontology for: CC...")) ##### Progress step 4
-    go_cc <- gene_ontology(go_type = "CC")
-    incProgress(5/7, detail = paste("Doing Gene Ontology for: MF...")) ##### Progress step 5
-    go_mf <- gene_ontology(go_type = "MF")
+    # do_enrichGO <- function(go_type = ""){
+    #   sigbio_message(paste0("Doing enrichGO for: ", go_type))
+    #   go_obj <- clusterProfiler::enrichGO(entrez_ids, OrgDb = org_pkg,
+    #                                   keyType = "ENTREZID",ont = go_type,
+    #                                   pvalueCutoff=input$pval_cutoff, qvalueCutoff=input$qval_cutoff)
+    #   sigbio_message("Converting entrezids to readable gene ids (gene symbles) ")
+    #   go_obj_2 <- clusterProfiler::setReadable(go_obj, OrgDb = org_pkg, keyType = "ENTREZID")
+    #   return(go_obj_2)
+    # }
+    # incProgress(3/7, detail = paste("Doing Gene Ontology for: BP...")) ##### Progress step 3
+    # go_bp <- do_enrichGO(go_type = "BP")
+    # incProgress(4/7, detail = paste("Doing Gene Ontology for: CC...")) ##### Progress step 4
+    # go_cc <- do_enrichGO(go_type = "CC")
+    # incProgress(5/7, detail = paste("Doing Gene Ontology for: MF...")) ##### Progress step 5
+    # go_mf <- do_enrichGO(go_type = "MF")
+    
+    enrichGO_res <- do_enrichGO(gene = entrez_ids, OrgDb = org_pkg,
+                                pvalueCutoff=input$pval_cutoff, 
+                                qvalueCutoff=input$qval_cutoff)
+    go_bp <- enrichGO_res$go_bp
+    go_cc <- enrichGO_res$go_cc
+    go_mf <- enrichGO_res$go_mf
     
     # All Outputs ----
     # tables
@@ -310,7 +300,7 @@ server <- function(input, output) {
     )
     # wego plot download button
     output$download_wego_plot_button <- renderUI({
-      if(!is.null(gene_list)) {
+      if(!is.null(text_area_input$gene_list)) {
         downloadButton("download_wego_plot", "Download Wego Plot")
       }
     })
@@ -337,18 +327,10 @@ server <- function(input, output) {
       enrichplot::emapplot(go_mf)
     })
     
-    # if foldchnage not provided give this message
-    message_plot <- function(){
-      par(mar = c(0,0,0,0))
-      plot(c(0, 1), c(0, 1), ann = F, bty = 'n', type = 'n', xaxt = 'n', yaxt = 'n')
-      text(x = 0.5, y = 0.5, paste("Insufficient data for this plot.\n",
-                                   "You need to provide foldchange for this."), 
-           cex = 1.6, col = "black")
-      par(mar = c(5, 4, 4, 2) + 0.1)
-    }
+    
     
     # if foldchange provided
-    if (all(grepl(",", gene_list_split))){
+    if (!is.null(text_area_input$gene_list_with_fc)){
       # cnetplot (Gene Concept Network)
       output$cnet_plot_go_bp <- renderPlot({
       enrichplot::cnetplot(go_bp, foldChange=entrez_ids_with_fc_vector, 
@@ -364,13 +346,13 @@ server <- function(input, output) {
       })
     }else{
       output$cnet_plot_go_bp <- renderPlot({
-        message_plot()
+        app_noFCmsgPlot()
       })
       output$cnet_plot_go_cc <- renderPlot({
-        message_plot()
+        app_noFCmsgPlot()
       })
       output$cnet_plot_go_mf <- renderPlot({
-        message_plot()
+        app_noFCmsgPlot()
       })
     }
     
@@ -388,7 +370,7 @@ server <- function(input, output) {
       kegg_2@result
     })
     
-    if (all(grepl(",", gene_list_split))){
+    if (!is.null(text_area_input$gene_list_with_fc)){
       output$pathview_dropdown <- renderUI({
         # Copy the line below to make a select box
         selectInput("path_id", label = "Select from enriched pathway",
@@ -423,7 +405,7 @@ server <- function(input, output) {
     output$enrich_plot_kegg <- renderPlot({
       enrichplot::emapplot(kegg_2)
     })
-    if (all(grepl(",", gene_list_split))){
+    if (!is.null(text_area_input$gene_list_with_fc)){
       # cnetplot (Gene Concept Network)
       output$cnet_plot_kegg <- renderPlot({
         enrichplot::cnetplot(kegg_2, foldChange=entrez_ids_with_fc_vector, 
@@ -431,16 +413,16 @@ server <- function(input, output) {
       })
       output$pathway_gse_plot <- renderPlot({
         # gse-pathway
-        pathway_gse(id_with_fc_list = entrez_ids_with_fc_vector, 
+        do_gseKEGG_plot(id_with_fc_list = entrez_ids_with_fc_vector, 
                     organism = kegg_org_name,
                     pval = input$pval_cutoff)
       })
     }else{
       output$cnet_plot_kegg <- renderPlot({
-        message_plot()
+        app_noFCmsgPlot()
       })
       output$pathway_gse_plot <- renderPlot({
-        message_plot()
+        app_noFCmsgPlot()
       })
     }
     

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Links to kegg rest api for org list — kegg_link • SigBio</title>
+<title>Do enrichGO — do_enrichGO • SigBio</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,9 @@
 
 
 
-<meta property="og:title" content="Links to kegg rest api for org list — kegg_link" />
-<meta property="og:description" content="Links to kegg rest api for org list" />
+<meta property="og:title" content="Do enrichGO — do_enrichGO" />
+<meta property="og:description" content="This is a wrapper function to do enrichGO on 
+all ontology terms and convert the gene IDs to gene symbles." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -126,23 +127,38 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Links to kegg rest api for org list</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/R/kegg.R'><code>R/kegg.R</code></a></small>
-    <div class="hidden name"><code>kegg_link.Rd</code></div>
+    <h1>Do enrichGO</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/R/go.R'><code>R/go.R</code></a></small>
+    <div class="hidden name"><code>do_enrichGO.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Links to kegg rest api for org list</p>
+    <p>This is a wrapper function to do <code><a href='https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html'>enrichGO</a></code> on 
+all ontology terms and convert the gene IDs to gene symbles.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>kegg_link</span>()</pre>
+    <pre class="usage"><span class='fu'>do_enrichGO</span>(<span class='no'>...</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>Arguments pass to <code><a href='https://rdrr.io/pkg/clusterProfiler/man/enrichGO.html'>enrichGO</a></code> and 
+<code><a href='https://rdrr.io/pkg/clusterProfiler/man/reexports.html'>setReadable</a></code></p></td>
+    </tr>
+    </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>A list of enrichGO objects</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
     </ul>
 
   </div>

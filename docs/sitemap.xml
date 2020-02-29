@@ -1,42 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/index.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/index.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/reference/kegg_link.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_getInput.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/reference/kegg_rest.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_getOrg.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/reference/load_org.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_noFCmsgPlot.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/reference/mapIds_all.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/do_enrichGO.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/reference/pathway_gse.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/do_gseKEGG_plot.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/reference/pipe.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/do_selectIds.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/reference/run.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/kegg_link.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/reference/sigbio_message.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/kegg_rest.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/reference/wego_plot.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/articles/SigBio.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/run.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/articles/help.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/sigbio_message.html</loc>
   </url>
   <url>
-    <loc>http://sksahu.net/sig-bio-shiny/articles/orglist.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/wego_plot.html</loc>
+  </url>
+  <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/articles/SigBio.html</loc>
+  </url>
+  <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/articles/help.html</loc>
+  </url>
+  <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/articles/orglist.html</loc>
   </url>
 </urlset>
