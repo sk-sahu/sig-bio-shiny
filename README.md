@@ -12,6 +12,7 @@ An application interface for doing Significant Biology on a set of Gene
 
 * [Demo](#demo)
 * [Introduction](#introduction)
+* [DataFlow](#dataflow)
 * [Disclaimer](#disclaimer)
 * [Requirement](#requirements)
 * [Download](#download)
@@ -24,6 +25,9 @@ An application interface for doing Significant Biology on a set of Gene
 **Significant Biology** is an important step of any high-throughput sequence analysis. Once you mapped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly exploring those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this **SigBio** Shiny application interface. This is platform where with a set of genes you can do **Gene mapping Annotation, Enrichment Analysis of Gene Ontology (GO), KEGG Pathway and many things (which will be discussed soon).**
 
 Completely made using R and Bioconductor. No manual database dump required, which make deployment simple with a single R Script. It takes full advantage of AnnotationHub package to get annotation for the selected organism and do enrichment analysis on top of it using ClusterProfiler.  AnnotationHub makes sure you always get the lastest annotation from public databases. 
+
+## DataFlow
+![](https://vectr.com/sksahu/cIcdhZe42.png?width=640&height=640&select=cIcdhZe42page0)
 
 ## Disclaimer
 sig-bio-shiny shiny application along with the SigBio R package is an open source effort and distributed under [MIT license](https://opensource.org/licenses/MIT). This uses KEGG data for few tasks, which is free for Academic uses but other uses may require a license agreement (In details at [KEGG Website](https://www.kegg.jp/kegg/legal.html)). By using this application you follow the respective tool licenses. Any developer involved in this DO NOT warrant nor responsible for any legal issues.
