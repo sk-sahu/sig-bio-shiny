@@ -1,6 +1,6 @@
 Package: SigBio
 Title: Significant Biology on a Gene Set
-Version: 0.2.1
+Version: 0.2.2
 Description: A genes set from a diffrential experiment or any set of intrest can be explored with multiple aspects in a single place.
 Author: Sangram Keshari Sahu
 Maintainer: Sangram Keshari Sahu <sangramsahu15@gmail.com>  
@@ -29,7 +29,7 @@ Imports:
 biocViews: Annotation, Clustering, GeneSetEnrichment, GO, KEGG,
     MultipleComparison, Pathways, Reactome, Visualization
 Remotes: YuLab-SMU/clusterProfiler.dplyr
-Suggests:   
+Suggests: 
     covr,
     devtools,
     knitr,
@@ -38,4 +38,4 @@ VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US
 LazyData: true
-RoxygenNote: 7.0.1
+RoxygenNote: 7.0.2

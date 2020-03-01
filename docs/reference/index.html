@@ -67,7 +67,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SigBio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -138,58 +138,54 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-used-by-the-app" class="hasAnchor"><a href="#section-used-by-the-app" class="anchor"></a>Used by the app</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
       <tr>
         
         <td>
-          <p><code><a href="kegg_link.html">kegg_link()</a></code> </p>
+          <p><code><a href="app_getInput.html">app_getInput()</a></code> </p>
         </td>
-        <td><p>Links to kegg rest api for org list</p></td>
+        <td><p>Get input</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="kegg_rest.html">kegg_rest()</a></code> </p>
+          <p><code><a href="app_getOrg.html">app_getOrg()</a></code> </p>
         </td>
-        <td><p>Call org list from KEGG rest API</p></td>
+        <td><p>Get organism</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="load_org.html">load_org()</a></code> </p>
+          <p><code><a href="app_noFCmsgPlot.html">app_noFCmsgPlot()</a></code> </p>
         </td>
-        <td><p>Load organism list using AnnotationHub and KEGG rest API</p></td>
+        <td><p>No Fold Change message plot</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-wrapper-apis-for-respective-functions" class="hasAnchor"><a href="#section-wrapper-apis-for-respective-functions" class="anchor"></a>Wrapper APIs for respective functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="do_enrichGO.html">do_enrichGO()</a></code> </p>
+        </td>
+        <td><p>Do enrichGO</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="mapIds_all.html">mapIds_all()</a></code> </p>
+          <p><code><a href="do_gseKEGG_plot.html">do_gseKEGG_plot()</a></code> </p>
         </td>
-        <td><p>Wrapper funtion to AnnotationDbi::select</p></td>
+        <td><p>Do pathway GSE (gene set enrichment) Plot</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="pathway_gse.html">pathway_gse()</a></code> </p>
+          <p><code><a href="do_selectIds.html">do_selectIds()</a></code> </p>
         </td>
-        <td><p>Do gene set enrichment</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="run.html">run()</a></code> </p>
-        </td>
-        <td><p>Running SigBio locally</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sigbio_message.html">sigbio_message()</a></code> </p>
-        </td>
-        <td><p>Custom message for Sig-Bio-Shiny-App</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="wego_plot.html">wego_plot()</a></code> </p>
-        </td>
-        <td><p>Plot WEGO</p></td>
+        <td><p>select all</p></td>
       </tr>
     </tbody>
     </table>
@@ -198,7 +194,8 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-      <li><a href="#section-all-functions">All functions</a></li>
+      <li><a href="#section-used-by-the-app">Used by the app</a></li>
+      <li><a href="#section-wrapper-apis-for-respective-functions">Wrapper APIs for respective functions</a></li>
     </ul>
   </div>
 </div>

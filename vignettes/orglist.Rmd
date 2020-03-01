@@ -27,7 +27,7 @@ DT::datatable(df)
 All the kegg organism short name got through kegg rest api
 
 ```{r kegg_org_list}
-source("../R/get_kegg.R")
+source("../R/kegg.R")
 kegg_list <- kegg_link()
 DT::datatable(kegg_list)
 ```

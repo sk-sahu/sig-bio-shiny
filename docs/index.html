@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">SigBio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
 <a href="#sig-bio-shiny" class="anchor"></a>sig-bio-shiny</h1></div>
 <!-- badges: start -->
 
-<p>R shiny application for doing significant biology on a set of genes.</p>
+<p>An application interface for doing Significant Biology on a set of Gene</p>
 <ul>
 <li><a href="#demo">Demo</a></li>
 <li><a href="#introduction">Introduction</a></li>
@@ -109,8 +109,8 @@
 <div id="introduction" class="section level2">
 <h2 class="hasAnchor">
 <a href="#introduction" class="anchor"></a>Introduction</h2>
-<p><strong>Significant Biology</strong> is an important step of any high-throughput sequence analysis. Once you mapped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly exploring those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this <strong>SigBio</strong> Shiny application. This is platform where with a set of genes you can do <strong>Gene Ontology (GO), KEGG Pathway, Enrichment, Annotation and many things (will be discussed soon).</strong></p>
-<p>This is completely writen in R Shiny (if the name not already referes) and underneeth uses R and Bioconductor packages.</p>
+<p><strong>Significant Biology</strong> is an important step of any high-throughput sequence analysis. Once you mapped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly exploring those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this <strong>SigBio</strong> Shiny application interface. This is platform where with a set of genes you can do <strong>Gene mapping Annotation, Enrichment Analysis of Gene Ontology (GO), KEGG Pathway and many things (which will be discussed soon).</strong></p>
+<p>Completely made using R and Bioconductor. No manual database dump required, which make deployment simple with a single R Script. It takes full advantage of AnnotationHub package to get annotation for the selected organism and do enrichment analysis on top of it using ClusterProfiler. AnnotationHub makes sure you always get the lastest annotation from public databases.</p>
 </div>
 <div id="disclaimer" class="section level2">
 <h2 class="hasAnchor">
@@ -125,25 +125,25 @@
 <div id="download" class="section level2">
 <h2 class="hasAnchor">
 <a href="#download" class="anchor"></a>Download</h2>
-<p>First you need to install the SigBio package which have the APIs required for most functionality in the app.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(remotes)) { <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>) }</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">  remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"sk-sahu/sig-bio-shiny"</span>, </a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">                          <span class="dt">ref =</span> <span class="st">"v0.2.1"</span>)</a></code></pre></div>
+<p>First you need to install the SigBio package which have all the APIs required for most functionality in the shiny app.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" title="1"><span class="cf">if</span> (<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/library.html">require</a></span>(remotes)) { <span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>) }</a>
+<a class="sourceLine" id="cb1-2" title="2">  remotes<span class="op">::</span><span class="kw"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"sk-sahu/sig-bio-shiny"</span>, </a>
+<a class="sourceLine" id="cb1-3" title="3">                          <span class="dt">ref =</span> <span class="st">"v0.2.2"</span>)</a></code></pre></div>
 <p>Download a specific version of the app using wget from terminal</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="fu">wget</span> https://raw.githubusercontent.com/sk-sahu/sig-bio-shiny/v0.2.1/app.R -O sig-bio-shiny-app-v0.2.1.R</a></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb2-1" title="1"><span class="fu">wget</span> https://raw.githubusercontent.com/sk-sahu/sig-bio-shiny/v0.2.2/app.R -O sig-bio-shiny-app-v0.2.2.R</a></code></pre></div>
 <p>On the first time of running This will download and install all the required dependency.</p>
 </div>
 <div id="run-the-shiny-app" class="section level2">
 <h2 class="hasAnchor">
 <a href="#run-the-shiny-app" class="anchor"></a>Run the shiny app</h2>
 <p>From your terminal</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="ex">Rscript</span> sig-bio-shiny-app-v0.2.1.R</a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb3-1" title="1"><span class="ex">Rscript</span> sig-bio-shiny-app-v0.2.2.R</a></code></pre></div>
 <p>Access the app in your browser with output URL.</p>
 <div id="run-with-docker" class="section level3">
 <h3 class="hasAnchor">
 <a href="#run-with-docker" class="anchor"></a>Run with docker</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="ex">docker</span> pull sudosk/sig-bio-shiny:v0.2.1</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="ex">docker</span> run --user shiny --rm -p 80:3838 sudosk/sig-bio-shiny:v0.2.1</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><a class="sourceLine" id="cb4-1" title="1"><span class="ex">docker</span> pull sudosk/sig-bio-shiny:v0.2.2</a>
+<a class="sourceLine" id="cb4-2" title="2"><span class="ex">docker</span> run --user shiny --rm -p 80:3838 sudosk/sig-bio-shiny:v0.2.2</a></code></pre></div>
 <p>Accessed app in a browser at <a href="http://127.0.0.1" class="uri">http://127.0.0.1</a></p>
 </div>
 </div>

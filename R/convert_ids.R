@@ -1,14 +1,18 @@
-#' Wrapper funtion to AnnotationDbi::select
+#' select all
+#' 
+#' Wrapper funtion to \code{\link[AnnotationDbi]{select}}
 #' 
 #' @param org_pkg An AnnotationHub OrgDb object
 #' @param genelist A vector with list of input genes
 #' @param gtf_type Input gene type
 #' 
+#' @return A dataframe with selected IDs 
+#' 
 #' @import AnnotationDbi
 #' @import reshape2
 #' @importFrom stats aggregate
 #' @export
-mapIds_all <- function(genelist, org_pkg, gtf_type) {
+do_selectIds <- function(genelist, org_pkg, gtf_type) {
   # Get the annotations ----
   genelist_ano <- AnnotationDbi::select(org_pkg, 
                                         keys = genelist, 
@@ -76,10 +80,10 @@ mapIds_all <- function(genelist, org_pkg, gtf_type) {
 #                            "NM_001290839.1"))
 # org_pkg <- ah[["AH72312"]]
 # gtf_type = "REFSEQ"
-# mapped <- mapIds_all(genelist = as.character(genelist), org_pkg = org_pkg, gtf_type = gtf_type)
+# mapped <- do_selectIds(genelist = as.character(genelist), org_pkg = org_pkg, gtf_type = gtf_type)
 # 
 # # for human
 # org_pkg <- ah[["AH70572"]]
 # genelist <- as.character(c("ENSG00000012048", "ENSG00000214049", "ENSG00000204682"))
 # gtf_type = "ENSEMBL"
-# mapped <- mapIds_all(genelist = as.character(genelist), org_pkg = org_pkg, gtf_type = gtf_type)
+# mapped <- do_selectIds(genelist = as.character(genelist), org_pkg = org_pkg, gtf_type = gtf_type)

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Call KEGG rest API — kegg_rest • SigBio</title>
+<title>Get input — app_get_input • SigBio</title>
 
 
 <!-- jquery -->
@@ -35,8 +35,8 @@
 
 
 
-<meta property="og:title" content="Call KEGG rest API — kegg_rest" />
-<meta property="og:description" content="Call KEGG rest API" />
+<meta property="og:title" content="Get input — app_get_input" />
+<meta property="og:description" content="Takes user input and parse into list, which can be used by SigBio application." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -69,7 +69,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">SigBio</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -126,32 +126,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Call KEGG rest API</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/R/kegg.R'><code>R/kegg.R</code></a></small>
-    <div class="hidden name"><code>kegg_rest.Rd</code></div>
+    <h1>Get input</h1>
+    <small class="dont-index">Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/R/app_get_input.R'><code>R/app_get_input.R</code></a></small>
+    <div class="hidden name"><code>app_get_input.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Call KEGG rest API</p>
+    <p>Takes user input and parse into list, which can be used by SigBio application.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>kegg_rest</span>(<span class='no'>rest_url</span>)</pre>
+    <pre class="usage"><span class='fu'>app_get_input</span>(<span class='no'>gene_string</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>rest_url</th>
-      <td><p>KEGG rest url Endpoint.(https://www.kegg.jp/kegg/rest/keggapi.html)</p></td>
+      <th>gene_string</th>
+      <td><p>This a string with only gene ids separated by new line character.
+Optionally it also accepts fold change (fc) next to each gene separated by coma.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>This returns a list containing
+  * Gene vector
+  * Gene with fc. If fc not provided. this is NULL.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>input</span> <span class='kw'>&lt;-</span> <span class='st'>"ENSG00000196611,0.7
+ENSG00000093009,1.2
+ENSG00000109255,-0.3
+ENSG00000134690,0.2
+ENSG00000065328,1.7
+ENSG00000117399,-0.5"</span>
+
+<span class='fu'>app_get_input</span>(<span class='no'>input</span>)</div><div class='output co'>#&gt; <span class='error'>Error in app_get_input(input): could not find function "app_get_input"</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
+      <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

@@ -1,3 +1,4 @@
+#' @title Anot
 #' Importing packages for the app
 #' 
 #' @import AnnotationHub

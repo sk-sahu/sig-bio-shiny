@@ -5,9 +5,9 @@ output:
   html_document:
     toc: true
     toc_depth: 3
-bibliography: bib/bibliography.bib
-csl: bib/3-biotech.csl
-link-citations: true
+#bibliography: bib/bibliography.bib
+#csl: bib/3-biotech.csl
+#link-citations: true
 ---
 
 # What is Sig-Bio-Shiny?
