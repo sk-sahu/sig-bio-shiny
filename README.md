@@ -8,7 +8,7 @@
   [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sudosk/sig-bio-shiny)](https://hub.docker.com/repository/docker/sudosk/sig-bio-shiny/builds)
 <!-- badges: end -->
 
-R shiny application for doing significant biology on a set of genes. 
+An application interface for doing Significant Biology on a set of Gene
 
 * [Demo](#demo)
 * [Introduction](#introduction)
@@ -21,9 +21,9 @@ R shiny application for doing significant biology on a set of genes.
 ![](sigbio-v0.2.1.gif)
 
 ## Introduction
-**Significant Biology** is an important step of any high-throughput sequence analysis. Once you mapped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly exploring those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this **SigBio** Shiny application. This is platform where with a set of genes you can do **Gene Ontology (GO), KEGG Pathway, Enrichment, Annotation and many things (will be discussed soon).**
+**Significant Biology** is an important step of any high-throughput sequence analysis. Once you mapped and/or assembled sequenced reads followed by feature(gene/isoform) quantification and/or diffrential analysis you will end up with set of genes. Quickly exploring those genes from diffrent aspect what gives an idea about the Biology they involved in. Here comes this **SigBio** Shiny application interface. This is platform where with a set of genes you can do **Gene mapping Annotation, Enrichment Analysis of Gene Ontology (GO), KEGG Pathway and many things (which will be discussed soon).**
 
-This is completely writen in R Shiny (if the name not already referes) and underneeth uses R and Bioconductor packages.
+Completely made using R and Bioconductor. No manual database dump required, which make deployment simple with a single R Script. It takes full advantage of AnnotationHub package to get annotation for the selected organism and do enrichment analysis on top of it using ClusterProfiler.  AnnotationHub makes sure you always get the lastest annotation from public databases. 
 
 ## Disclaimer
 sig-bio-shiny shiny application along with the SigBio R package is an open source effort and distributed under [MIT license](https://opensource.org/licenses/MIT). This uses KEGG data for few tasks, which is free for Academic uses but other uses may require a license agreement (In details at [KEGG Website](https://www.kegg.jp/kegg/legal.html)). By using this application you follow the respective tool licenses. Any developer involved in this DO NOT warrant nor responsible for any legal issues.
@@ -32,7 +32,7 @@ sig-bio-shiny shiny application along with the SigBio R package is an open sourc
 R >= 3.5
 
 ## Download
-First you need to install the SigBio package which have the APIs required for most functionality in the app.
+First you need to install the SigBio package which have all the APIs required for most functionality in the shiny app.
 ```r
 if (!require(remotes)) { install.packages("remotes") }
   remotes::install_github("sk-sahu/sig-bio-shiny", 
