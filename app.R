@@ -3,7 +3,7 @@
 # Source Code - https://github.com/sk-sahu/sig-bio-shiny
 # Developed and maintain by Sangram Keshari Sahu (https://sksahu.net)
 
-sigbio.version='0.2.1'
+sigbio.version='0.2.2'
 
 message("Running Sig-Bio-Shiny v", sigbio.version, " | ",date())
 message("Checking if SigBio v", sigbio.version, " Package is installed...")
@@ -55,8 +55,8 @@ ENSG00000117399,-0.5"),
                                          numericInput("qval_cutoff", label = "qvalue-CutOff", 
                                                       value = 1, min=0.001, max=1),
                                          hr(),
-                                         helpText("After submit it may take minutes. Check Progress bar in right
-                                                  side cornor"),
+                                         helpText("After submit it may take 1-2 minutes. Check Progress bar in right
+                                                  side cornor."),
                                          
                                          actionButton("submit", label =  "Submit",
                                                       icon = icon("angle-double-right")),
@@ -68,7 +68,7 @@ ENSG00000117399,-0.5"),
                                          # actionButton("submit_2", label =  "Submit Uploaded")
                             ),
                             mainPanel(
-                              helpText("Note: It may take minutes, depending upon the number of genes. Check progress bar"),
+                              helpText("Note: After submit it may take 1-2 minutes. Check Progress bar in right side cornor."),
                               tags$hr(),
                               textOutput("gene_number_info"),
                               tags$hr(),
@@ -244,23 +244,7 @@ server <- function(input, output) {
       as.data.frame(mapped_ids)
     })
     
-    # Gene Ontology ----
-    # do_enrichGO <- function(go_type = ""){
-    #   sigbio_message(paste0("Doing enrichGO for: ", go_type))
-    #   go_obj <- clusterProfiler::enrichGO(entrez_ids, OrgDb = org_pkg,
-    #                                   keyType = "ENTREZID",ont = go_type,
-    #                                   pvalueCutoff=input$pval_cutoff, qvalueCutoff=input$qval_cutoff)
-    #   sigbio_message("Converting entrezids to readable gene ids (gene symbles) ")
-    #   go_obj_2 <- clusterProfiler::setReadable(go_obj, OrgDb = org_pkg, keyType = "ENTREZID")
-    #   return(go_obj_2)
-    # }
-    # incProgress(3/7, detail = paste("Doing Gene Ontology for: BP...")) ##### Progress step 3
-    # go_bp <- do_enrichGO(go_type = "BP")
-    # incProgress(4/7, detail = paste("Doing Gene Ontology for: CC...")) ##### Progress step 4
-    # go_cc <- do_enrichGO(go_type = "CC")
-    # incProgress(5/7, detail = paste("Doing Gene Ontology for: MF...")) ##### Progress step 5
-    # go_mf <- do_enrichGO(go_type = "MF")
-    
+    # gene ontology
     enrichGO_res <- do_enrichGO(gene = entrez_ids, OrgDb = org_pkg,
                                 pvalueCutoff=input$pval_cutoff, 
                                 qvalueCutoff=input$qval_cutoff)
