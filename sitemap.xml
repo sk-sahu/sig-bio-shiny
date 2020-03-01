@@ -4,19 +4,28 @@
     <loc>http://sk-sahu.github.io/sig-bio-shiny/index.html</loc>
   </url>
   <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_getInput.html</loc>
+  </url>
+  <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_getOrg.html</loc>
+  </url>
+  <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_noFCmsgPlot.html</loc>
+  </url>
+  <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/do_enrichGO.html</loc>
+  </url>
+  <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/do_gseKEGG_plot.html</loc>
+  </url>
+  <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/do_selectIds.html</loc>
+  </url>
+  <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/kegg_link.html</loc>
   </url>
   <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/kegg_rest.html</loc>
-  </url>
-  <url>
-    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/load_org.html</loc>
-  </url>
-  <url>
-    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/mapIds_all.html</loc>
-  </url>
-  <url>
-    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/pathway_gse.html</loc>
   </url>
   <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/pipe.html</loc>
