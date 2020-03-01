@@ -32,18 +32,13 @@ sig-bio-shiny shiny application along with the SigBio R package is an open sourc
 R >= 3.5
 
 ## Download
-First you need to install the SigBio package which have all the APIs required for most functionality in the shiny app.
-```r
-if (!require(remotes)) { install.packages("remotes") }
-  remotes::install_github("sk-sahu/sig-bio-shiny", 
-                          ref = "v0.2.2")
-```
-
 Download a specific version of the app using wget from terminal
 ```bash
 wget https://raw.githubusercontent.com/sk-sahu/sig-bio-shiny/v0.2.2/app.R -O sig-bio-shiny-app-v0.2.2.R
 ```
 On the first time of running This will download and install all the required dependency.
+
+If application lunch fails, [FAQ](#faq) 
 
 ## Run the shiny app
 From your terminal
@@ -58,3 +53,11 @@ docker pull sudosk/sig-bio-shiny:v0.2.2
 docker run --user shiny --rm -p 80:3838 sudosk/sig-bio-shiny:v0.2.2
 ```
 Accessed app in a browser at http://127.0.0.1
+
+## FAQ
+If application lunch fails, you need to install the SigBio package manually which have all the APIs required for most functionality in this shiny app. In R
+```r
+if (!require(remotes)) { install.packages("remotes") }
+  remotes::install_github("sk-sahu/sig-bio-shiny", 
+                          ref = "v0.2.2")
+```
