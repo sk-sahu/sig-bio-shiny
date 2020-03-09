@@ -1,3 +1,7 @@
+# SigBio 0.2.3
+
+* Few dependency version bump. As a result memory footprint decreased.
+
 # SigBio 0.2.2
 
 * No drastic changes in app behaviour but much of code improvement.
