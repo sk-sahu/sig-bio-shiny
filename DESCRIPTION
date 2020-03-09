@@ -1,6 +1,6 @@
 Package: SigBio
 Title: Significant Biology on a Gene Set
-Version: 0.2.2
+Version: 0.2.3
 Description: A genes set from a diffrential experiment or any set of intrest can be explored with multiple aspects in a single place.
 Author: Sangram Keshari Sahu
 Maintainer: Sangram Keshari Sahu <sangramsahu15@gmail.com>  
@@ -8,7 +8,7 @@ License: MIT + file LICENSE
 URL: https://github.com/sk-sahu/sig-bio-shiny
 BugReports: https://github.com/sk-sahu/sig-bio-shiny/issues
 Depends: 
-    R (>= 3.0),
+    R (>= 3.0)
 Imports:
     shiny,
     rmarkdown,
@@ -21,14 +21,19 @@ Imports:
     ggstance,
     reshape2,
     BiocManager (>= 1.30.10),
-    enrichplot (>= 1.4.0),
-    AnnotationHub (>= 2.16.1),
-    AnnotationDbi (>= 1.46.1),
-    pathview,
-    clusterProfiler (>= 3.12.0)
+    AnnotationHub,
+    AnnotationDbi,
+    pathview (>= 1.24.0),
+    clusterProfiler (>= 3.15.2),
+    DOSE (>= 3.13.1),
+    enrichplot (>= 1.7.1),
 biocViews: Annotation, Clustering, GeneSetEnrichment, GO, KEGG,
     MultipleComparison, Pathways, Reactome, Visualization
-Remotes: YuLab-SMU/clusterProfiler.dplyr
+Remotes: 
+    YuLab-SMU/clusterProfiler.dplyr,
+    YuLab-SMU/clusterProfiler,
+    YuLab-SMU/DOSE,
+    YuLab-SMU/enrichplot,
 Suggests: 
     covr,
     devtools,
