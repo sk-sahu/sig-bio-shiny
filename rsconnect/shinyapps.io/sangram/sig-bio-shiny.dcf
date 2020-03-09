@@ -4,10 +4,10 @@ username:
 account: sangram
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
-appId: 1536601
-bundleId: 2631890
+appId: 1922665
+bundleId: 2863684
 url: https://sangram.shinyapps.io/sig-bio-shiny/
-when: 1575276399.03305
+when: 1583747996.3996
 asMultiple: FALSE
 asStatic: FALSE
-ignoredFiles: .appveyor.yml|DESCRIPTION|Dockerfile|LICENSE|NAMESPACE|NEWS.md|_pkgdown.yml|.Rbuildignore|.RData|README.md|.travis.yml|.circleci/config.yml|data/gse_test.RData|.github/PULL_REQUEST_TEMPLATE/release-template.md|inst/CITATION|inst/extdata/help.md|tests/testthat.R|tests/testthat/test_load_data.R|tests/testthat/test_mapid_all.R|vignettes/orglist.Rmd|vignettes/SigBio.Rmd|vignettes/bib/3-biotech.csl|vignettes/bib/bibliography.bib|docs|man|R
+ignoredFiles: .appveyor.yml|deploy_note.md|DESCRIPTION|Dockerfile|LICENSE|NAMESPACE|NEWS.md|_pkgdown.yml|.Rbuildignore|.RData|README.md|sigbio-v0.2.1.gif|.travis.yml|.circleci/config.yml|data/gse_test.RData|.github/PULL_REQUEST_TEMPLATE/release-template.md|inst/CITATION|tests/testthat.R|tests/testthat/test_app_get_input.R|tests/testthat/test_load_data.R|tests/testthat/test_mapid_all.R|vignettes/help.Rmd|vignettes/orglist.Rmd|vignettes/SigBio.Rmd|vignettes/bib/3-biotech.csl|vignettes/bib/bibliography.bib|docs|man|R
