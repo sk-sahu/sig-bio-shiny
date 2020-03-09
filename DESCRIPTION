@@ -24,16 +24,16 @@ Imports:
     AnnotationHub,
     AnnotationDbi,
     pathview (>= 1.24.0),
-    clusterProfiler (>= 3.15.2),
     DOSE (>= 3.13.1),
     enrichplot (>= 1.7.1),
+    clusterProfiler (>= 3.15.2),
 biocViews: Annotation, Clustering, GeneSetEnrichment, GO, KEGG,
     MultipleComparison, Pathways, Reactome, Visualization
 Remotes: 
     YuLab-SMU/clusterProfiler.dplyr,
-    YuLab-SMU/clusterProfiler,
     YuLab-SMU/DOSE,
     YuLab-SMU/enrichplot,
+    YuLab-SMU/clusterProfiler,
 Suggests: 
     covr,
     devtools,

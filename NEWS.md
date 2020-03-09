@@ -1,4 +1,4 @@
-# SigBio 0.2.2
+# SigBio 0.2.3
 
 * Few dependency version bump. As a result memory footprint decreased.
 

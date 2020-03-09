@@ -36,25 +36,25 @@ First you need to install the SigBio package which have all the APIs required fo
 ```r
 if (!require(remotes)) { install.packages("remotes") }
   remotes::install_github("sk-sahu/sig-bio-shiny", 
-                          ref = "v0.2.2")
+                          ref = "v0.2.3")
 ```
 
 Download a specific version of the app using wget from terminal
 ```bash
-wget https://raw.githubusercontent.com/sk-sahu/sig-bio-shiny/v0.2.2/app.R -O sig-bio-shiny-app-v0.2.2.R
+wget https://raw.githubusercontent.com/sk-sahu/sig-bio-shiny/v0.2.3/app.R -O sig-bio-shiny-app-v0.2.3.R
 ```
 On the first time of running This will download and install all the required dependency.
 
 ## Run the shiny app
 From your terminal
 ```bash
-Rscript sig-bio-shiny-app-v0.2.2.R
+Rscript sig-bio-shiny-app-v0.2.3.R
 ```
 Access the app in your browser with output URL.
 
 ### Run with docker
 ```bash
-docker pull sudosk/sig-bio-shiny:v0.2.2
-docker run --user shiny --rm -p 80:3838 sudosk/sig-bio-shiny:v0.2.2
+docker pull sudosk/sig-bio-shiny:v0.2.3
+docker run --user shiny --rm -p 80:3838 sudosk/sig-bio-shiny:v0.2.3
 ```
 Accessed app in a browser at http://127.0.0.1
