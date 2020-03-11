@@ -1,4 +1,4 @@
-# sig-bio-shiny
+# sig-bio-shiny <img src="inst/figures/sigbio_logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
   [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
