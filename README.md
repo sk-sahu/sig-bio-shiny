@@ -19,6 +19,12 @@ An application interface for doing Significant Biology on a set of Gene
 * [Run the shiny app](#run-the-shiny-app)
 
 ## Demo
+For now this application requires atleast 4 GB of system memory. So couldn't able to host on shinyapps.io but instead with generous help of Rstudio now this project Rstudio Cloud instace is 4GB. So you can simply login with follwing project link, Open the `sig-bio-shiny.R` and click on Run App button. 
+
+### [Try SigBio-Shiny in Rstudio-Cloud](https://rstudio.cloud/project/1023160)
+
+Bellow is a screen recoding of what can be done with the SigBio interface - 
+
 ![](sigbio-v0.2.1.gif)
 
 ## Introduction
