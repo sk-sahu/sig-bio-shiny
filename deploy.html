@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get input — app_getInput • SigBio</title>
+<title>Deploy Notes • SigBio</title>
 
 
 <!-- jquery -->
@@ -18,8 +18,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
 
 <!-- bootstrap-toc -->
-<link rel="stylesheet" href="../bootstrap-toc.css">
-<script src="../bootstrap-toc.js"></script>
+<link rel="stylesheet" href="bootstrap-toc.css">
+<script src="bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
@@ -33,14 +33,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
-<link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script>
+<link href="pkgdown.css" rel="stylesheet">
+<script src="pkgdown.js"></script>
 
 
 
 
-<meta property="og:title" content="Get input — app_getInput" />
-<meta property="og:description" content="Takes user input and parse into list, which can be used by SigBio application." />
+<meta property="og:title" content="Deploy Notes" />
 
 
 
@@ -59,7 +58,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-topic">
+    <div class="container template-title-body">
       <header>
       <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
   <div class="container">
@@ -71,7 +70,7 @@
         <span class="icon-bar"></span>
       </button>
       <span class="navbar-brand">
-        <a class="navbar-link" href="../index.html">SigBio</a>
+        <a class="navbar-link" href="index.html">SigBio</a>
         <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.3</span>
       </span>
     </div>
@@ -79,13 +78,13 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="../index.html">
+  <a href="index.html">
     <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="../articles/SigBio.html">Get started</a>
+  <a href="articles/SigBio.html">Get started</a>
 </li>
 <li class="dropdown">
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -95,18 +94,18 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/help.html">Help</a>
+      <a href="articles/help.html">Help</a>
     </li>
     <li>
-      <a href="../articles/orglist.html">Organism List</a>
+      <a href="articles/orglist.html">Organism List</a>
     </li>
   </ul>
 </li>
 <li>
-  <a href="../news/index.html">Changelog</a>
+  <a href="news/index.html">Changelog</a>
 </li>
 <li>
-  <a href="../reference/index.html">Reference</a>
+  <a href="reference/index.html">Reference</a>
 </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
@@ -127,64 +126,27 @@
       </header>
 
 <div class="row">
-  <div class="col-md-9 contents">
+  <div class="contents col-md-9">
     <div class="page-header">
-    <h1>Get input</h1>
-    <small class="dont-index">Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/R/app_getInput.R'><code>R/app_getInput.R</code></a></small>
-    <div class="hidden name"><code>app_getInput.Rd</code></div>
+      <h1>Deploy Notes</h1>
     </div>
 
-    <div class="ref-description">
-    <p>Takes user input and parse into list, which can be used by SigBio application.</p>
-    </div>
+<div id="deploy-notes" class="section level1">
 
-    <pre class="usage"><span class='fu'>app_getInput</span>(<span class='no'>gene_string</span>)</pre>
+<p>Whenever depolying to shinyapps.io - <a href="https://support.bioconductor.org/p/107298/">Ref</a></p>
+<div class="sourceCode" id="cb1"><html><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">repos</span> <span class="kw">=</span> <span class="kw pkg">BiocManager</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/repositories.html">repositories</a></span>())</pre></html></div>
+</div>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>gene_string</th>
-      <td><p>This a string with only gene ids separated by new line character.
-Optionally it also accepts fold change (fc) next to each gene separated by coma.</p></td>
-    </tr>
-    </table>
-
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
-
-    <p>This returns a list containing
-  * Gene vector
-  * Gene with fc. If fc not provided. this is NULL.</p>
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>input</span> <span class='kw'>&lt;-</span> <span class='st'>"ENSG00000196611,0.7
-ENSG00000093009,1.2
-ENSG00000109255,-0.3
-ENSG00000134690,0.2
-ENSG00000065328,1.7
-ENSG00000117399,-0.5"</span>
-
-<span class='fu'>app_getInput</span>(<span class='no'>input</span>)</div><div class='output co'>#&gt; $gene_list
-#&gt; [1] "ENSG00000196611" "ENSG00000093009" "ENSG00000109255" "ENSG00000134690"
-#&gt; [5] "ENSG00000065328" "ENSG00000117399"
-#&gt; 
-#&gt; $gene_list_with_fc
-#&gt;         gene_list   fc
-#&gt; 1 ENSG00000196611  0.7
-#&gt; 2 ENSG00000093009  1.2
-#&gt; 3 ENSG00000109255 -0.3
-#&gt; 4 ENSG00000134690  0.2
-#&gt; 5 ENSG00000065328  1.7
-#&gt; 6 ENSG00000117399 -0.5
-#&gt; </div><div class='input'>
-</div></pre>
   </div>
+
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>
     </nav>
   </div>
+
 </div>
+
 
 
       <footer>
