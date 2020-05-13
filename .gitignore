@@ -3,5 +3,5 @@
 .RData
 .Ruserdata
 sig-bio-shiny.Rproj
-*.png
+./*.png
 rsconnect/
