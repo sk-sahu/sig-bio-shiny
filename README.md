@@ -6,6 +6,7 @@
   [![Build Status](https://travis-ci.org/sk-sahu/sig-bio-shiny.svg?branch=master)](https://travis-ci.org/sk-sahu/sig-bio-shiny)
   [![CircleCI](https://circleci.com/gh/sk-sahu/sig-bio-shiny.svg?style=svg)](https://circleci.com/gh/sk-sahu/sig-bio-shiny)
   [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sudosk/sig-bio-shiny)](https://hub.docker.com/repository/docker/sudosk/sig-bio-shiny/builds)
+[![R build status](https://github.com/sk-sahu/sig-bio-shiny/workflows/R-CMD-check/badge.svg)](https://github.com/sk-sahu/sig-bio-shiny/actions?workflow=R-CMD-check)
 <!-- badges: end -->
 
 An application suite/interface for doing Significant Biology on a set of Gene
