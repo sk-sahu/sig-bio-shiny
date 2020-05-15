@@ -23,7 +23,7 @@ Imports:
     BiocManager (>= 1.30.10),
     AnnotationHub,
     AnnotationDbi,
-    pathview (>= 1.24.0),
+    pathview,
     DOSE (>= 3.13.1),
     enrichplot (>= 1.7.1),
     clusterProfiler (>= 3.15.2),
