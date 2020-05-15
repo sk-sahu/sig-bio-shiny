@@ -25,6 +25,14 @@ ah <- org$ah_obj
 orgdb <- org$ah_orgdb
 kegg_list <- org$kegg_org_list
 
+example_genelist <- "
+ENSG00000196611,0.7
+ENSG00000093009,1.2
+ENSG00000109255,-0.3
+ENSG00000134690,0.2
+ENSG00000065328,1.7
+ENSG00000117399,-0.5"
+
 library(shiny)
 
 ui <- navbarPage(paste0("Sig-Bio v",sigbio.version), inverse = TRUE, collapsible = TRUE,
@@ -34,13 +42,7 @@ ui <- navbarPage(paste0("Sig-Bio v",sigbio.version), inverse = TRUE, collapsible
                                          textAreaInput("text_area_list", 
                                                        label = "[Gene] or [Gene,Foldchnage] list:", 
                                                        height = "150px", width = "230px",
-                                                       value = "
-ENSG00000196611,0.7
-ENSG00000093009,1.2
-ENSG00000109255,-0.3
-ENSG00000134690,0.2
-ENSG00000065328,1.7
-ENSG00000117399,-0.5"),
+                                                       value = example_genelist),
                                          selectInput("id_type", label = "Input gene-id Type:", selected = "ENSEMBL",
                                                      choices=c("ENSEMBL", "REFSEQ", "ENTREZID")),
                                          selectInput("org", label = "Organism:", selected = "Homo sapiens",
@@ -62,10 +64,6 @@ ENSG00000117399,-0.5"),
                                                       icon = icon("angle-double-right")),
                                          tags$hr(),
                                          
-                                         # For file input
-                                         # fileInput("file1", "Or upload from a (.txt) file",
-                                         #           multiple = FALSE, width = "250px"),
-                                         # actionButton("submit_2", label =  "Submit Uploaded")
                             ),
                             mainPanel(
                               helpText("Note: After submit it may take 1-2 minutes. Check Progress bar in right side cornor."),
@@ -79,73 +77,17 @@ ENSG00000117399,-0.5"),
                  
                  # mapped ids
                  tabPanel("Mapped Ids",
-                            DT::dataTableOutput(outputId = "mapped_ids_table")
+                          mapids_ui("mapids")
                  ),
                  
                  # gene ontology
                  tabPanel("Gene Ontology",
-                          
-                              plotOutput("wego_plot"),
-                              downloadButton('download_tables', 'Download all tables'),
-                              uiOutput("download_wego_plot_button"),
-                              tabsetPanel(
-                                tabPanel("Biological Process",
-                                         tabsetPanel(
-                                           tabPanel("GO-Table",
-                                                    DT::dataTableOutput(outputId = "table_go_bp")),
-                                           tabPanel("Dot-Plot", 
-                                                    plotOutput("dot_plot_go_bp")),
-                                           tabPanel("Enrich-Plot",
-                                                    plotOutput("enrich_plot_go_bp")),
-                                           tabPanel("Cnet-Plot", 
-                                                    plotOutput("cnet_plot_go_bp"))
-                                         )
-                                ),
-                                tabPanel("Cellular Component",
-                                         tabsetPanel(
-                                           tabPanel("GO-Table",
-                                                    DT::dataTableOutput(outputId = "table_go_cc")),
-                                           tabPanel("Dot-Plot", 
-                                                    plotOutput("dot_plot_go_cc")),
-                                           tabPanel("Enrich-Plot",
-                                                    plotOutput("enrich_plot_go_cc")),
-                                           tabPanel("Cnet-Plot", 
-                                                    plotOutput("cnet_plot_go_cc"))
-                                         )
-                                ),
-                                tabPanel("Molecular Functions",
-                                         tabsetPanel(
-                                           tabPanel("GO-Table",
-                                                    DT::dataTableOutput(outputId = "table_go_mf")),
-                                           tabPanel("Dot-Plot", 
-                                                    plotOutput("dot_plot_go_mf")),
-                                           tabPanel("Enrich-Plot",
-                                                    plotOutput("enrich_plot_go_mf")),
-                                           tabPanel("Cnet-Plot", 
-                                                    plotOutput("cnet_plot_go_mf"))
-                                         )
-                                )
-                              )
-                            
-
+                          enrichGO_ui("enrichgo")
                  ),
+                 
                  # KEGG-Tab ----
                  tabPanel("KEGG",
-                          tabsetPanel(
-                            tabPanel("KEGG-Table",
-                                     DT::dataTableOutput(outputId = "table_kegg")),
-                            tabPanel("Dot-Plot", 
-                                     plotOutput("dot_plot_kegg")),
-                            tabPanel("Enrich-Plot",
-                                     plotOutput("enrich_plot_kegg")),
-                            tabPanel("Cnet-Plot", 
-                                     plotOutput("cnet_plot_kegg")),
-                            tabPanel("GSE-Plot", 
-                                     plotOutput("pathway_gse_plot")),
-                            tabPanel("Path-View", 
-                                     uiOutput("pathview_dropdown"),
-                                     plotOutput("pathview_plot_in_ui"))
-                          )
+                          enrichKEGG_ui("enrichkegg")
                  ),
                  # Session-info-tab ----
                  tabPanel("Session info",
@@ -240,176 +182,31 @@ server <- function(input, output) {
     })
     
     # all maped ids
-    output$mapped_ids_table <- DT::renderDataTable({
-      as.data.frame(mapped_ids)
-    })
+    callModule(mapids_server,"mapids", mapped_ids)
     
     # gene ontology
-    enrichGO_res <- do_enrichGO(gene = entrez_ids, OrgDb = org_pkg,
-                                pvalueCutoff=input$pval_cutoff, 
-                                qvalueCutoff=input$qval_cutoff)
-    go_bp <- enrichGO_res$go_bp
-    go_cc <- enrichGO_res$go_cc
-    go_mf <- enrichGO_res$go_mf
-    
-    # All Outputs ----
-    # tables
-    output$table_go_bp <- DT::renderDataTable({
-      go_bp@result
-    })
-    output$table_go_cc <- DT::renderDataTable({
-      go_cc@result
-    })
-    output$table_go_mf <- DT::renderDataTable({
-      go_mf@result
-    })
-    
-    # plots and their downloads ----
-    # wego plot
-    output$wego_plot <- renderPlot({
-      suppressMessages(library(dplyr))
-      wego_plot(BP=go_bp@result, CC=go_cc@result, MF=go_mf@result)
-    })
-    # wego plot download
-    wego_plot_download <- reactive({
-      wego_plot(BP=go_bp@result, CC=go_cc@result, MF=go_mf@result)
-    })
-    output$download_wego_plot <- downloadHandler(
-      filename = function() {
-        paste('wego_plot.png', sep='')
-      },
-      content = function(file) {
-        ggplot2::ggsave(file, plot = wego_plot_download(), device = "png", width = 12, height = 10)
-      }
-    )
-    # wego plot download button
-    output$download_wego_plot_button <- renderUI({
-      if(!is.null(text_area_input$gene_list)) {
-        downloadButton("download_wego_plot", "Download Wego Plot")
-      }
-    })
-    
-    # dotplot
-    output$dot_plot_go_bp <- renderPlot({
-      enrichplot::dotplot(go_bp, showCategory=30)
-    })
-    output$dot_plot_go_cc <- renderPlot({
-      enrichplot::dotplot(go_cc, showCategory=30)
-    })
-    output$dot_plot_go_mf <- renderPlot({
-      enrichplot::dotplot(go_mf, showCategory=30)
-    })
-    
-    # emapplot (Enrichment map)
-    output$enrich_plot_go_bp <- renderPlot({
-      enrichplot::emapplot(go_bp)
-    })
-    output$enrich_plot_go_cc <- renderPlot({
-      enrichplot::emapplot(go_cc)
-    })
-    output$enrich_plot_go_mf <- renderPlot({
-      enrichplot::emapplot(go_mf)
-    })
-    
-    
-    
-    # if foldchange provided
-    if (!is.null(text_area_input$gene_list_with_fc)){
-      # cnetplot (Gene Concept Network)
-      output$cnet_plot_go_bp <- renderPlot({
-      enrichplot::cnetplot(go_bp, foldChange=entrez_ids_with_fc_vector, 
-                           circular = TRUE, colorEdge = TRUE)
-      })
-      output$cnet_plot_go_cc <- renderPlot({
-        enrichplot::cnetplot(go_cc, foldChange=entrez_ids_with_fc_vector, 
-                             circular = TRUE, colorEdge = TRUE)
-      })
-      output$cnet_plot_go_mf <- renderPlot({
-        enrichplot::cnetplot(go_mf, foldChange=entrez_ids_with_fc_vector, 
-                             circular = TRUE, colorEdge = TRUE)
-      })
-    }else{
-      output$cnet_plot_go_bp <- renderPlot({
-        app_noFCmsgPlot()
-      })
-      output$cnet_plot_go_cc <- renderPlot({
-        app_noFCmsgPlot()
-      })
-      output$cnet_plot_go_mf <- renderPlot({
-        app_noFCmsgPlot()
-      })
-    }
+    callModule(enrichGO_server,"enrichgo", 
+               gene_list = text_area_input$gene_list,
+               gene_list_with_fc = text_area_input$gene_list_with_fc,
+               entrez_ids_with_fc_vector = entrez_ids_with_fc_vector,
+               entrez_ids = entrez_ids, 
+               org_pkg = org_pkg,
+               pval_cutoff = input$pval_cutoff,
+               qval_cutoff = input$qval_cutoff)
     
     # KEGG ----
     incProgress(6/7, detail = paste("Doing KEGG...")) ##### Progress step 6
     sigbio_message(paste0("Doing enrichKEGG... "))
-    kegg <- clusterProfiler::enrichKEGG(entrez_ids, 
-                       organism = kegg_org_name, 
-                       pvalueCutoff=input$pval_cutoff, 
-                       pAdjustMethod="BH", 
-                       qvalueCutoff=input$qval_cutoff)
-    kegg_2 <- clusterProfiler::setReadable(kegg, OrgDb = org_pkg, keyType = "ENTREZID")
-    # kegg-table 
-    output$table_kegg <- DT::renderDataTable({
-      kegg_2@result
-    })
-    
-    if (!is.null(text_area_input$gene_list_with_fc)){
-      output$pathview_dropdown <- renderUI({
-        # Copy the line below to make a select box
-        selectInput("path_id", label = "Select from enriched pathway",
-                    choices = kegg_2@result$ID)
-      })
-      
-      # data preparation for next step pathview plot
-      gene_data <- entrez_ids_with_fc$gene_with_fc_vector %>% as.data.frame()
-      rownames(gene_data) <- entrez_ids_with_fc$entrez_ids
-      
-      observe({
-        suppressMessages(library(pathview))
-        pathview_plot <- pathview::pathview(gene.data  = gene_data,
-                             pathway.id = input$path_id,
-                             species    = kegg_org_name,
-                             kegg.dir = tempdir()
-                             )
-        # get the png and render
-        output$pathview_plot_in_ui <- renderImage({
-          filename <- normalizePath(file.path('.',
-                                              paste(input$path_id, '.pathview.png', sep='')))
-          list(src = filename)
-        }, deleteFile = FALSE)
-      })
-    }
-    
-    # kegg-dotplot
-    output$dot_plot_kegg <- renderPlot({
-      enrichplot::dotplot(kegg_2, showCategory=30)
-    })
-    # kegg-emapplot (Enrichment map)ac
-    output$enrich_plot_kegg <- renderPlot({
-      enrichplot::emapplot(kegg_2)
-    })
-    if (!is.null(text_area_input$gene_list_with_fc)){
-      # cnetplot (Gene Concept Network)
-      output$cnet_plot_kegg <- renderPlot({
-        enrichplot::cnetplot(kegg_2, foldChange=entrez_ids_with_fc_vector, 
-                             circular = TRUE, colorEdge = TRUE)
-      })
-      output$pathway_gse_plot <- renderPlot({
-        # gse-pathway
-        do_gseKEGG_plot(id_with_fc_list = entrez_ids_with_fc_vector, 
-                    organism = kegg_org_name,
-                    pval = input$pval_cutoff)
-      })
-    }else{
-      output$cnet_plot_kegg <- renderPlot({
-        app_noFCmsgPlot()
-      })
-      output$pathway_gse_plot <- renderPlot({
-        app_noFCmsgPlot()
-      })
-    }
-    
+    callModule(enrichKEGG_server,"enrichkegg", 
+               gene_list_with_fc = text_area_input$gene_list_with_fc,
+               entrez_ids_with_fc_vector = entrez_ids_with_fc_vector,
+               entrez_ids_with_fc = entrez_ids_with_fc,
+               entrez_ids = entrez_ids,
+               org_pkg = org_pkg,
+               kegg_org_name = kegg_org_name,
+               pval_cutoff = input$pval_cutoff,
+               qval_cutoff = input$qval_cutoff)
+
     # download all the tables
     output$download_tables <- downloadHandler(
       filename = function(){

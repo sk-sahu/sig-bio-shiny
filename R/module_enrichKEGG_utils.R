@@ -11,6 +11,7 @@
 #' 
 #' @import magrittr
 #' @import clusterProfiler
+#' @import clusterProfiler.dplyr
 #' @importFrom forcats fct_reorder
 #' @importFrom ggstance geom_barh
 #' @importFrom ggplot2 ggplot

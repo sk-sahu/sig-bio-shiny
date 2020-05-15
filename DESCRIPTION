@@ -27,6 +27,7 @@ Imports:
     DOSE (>= 3.13.1),
     enrichplot (>= 1.7.1),
     clusterProfiler (>= 3.15.2),
+    clusterProfiler.dplyr,
 biocViews: Annotation, Clustering, GeneSetEnrichment, GO, KEGG,
     MultipleComparison, Pathways, Reactome, Visualization
 Remotes: 

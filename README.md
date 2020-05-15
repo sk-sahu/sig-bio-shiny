@@ -8,7 +8,7 @@
   [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sudosk/sig-bio-shiny)](https://hub.docker.com/repository/docker/sudosk/sig-bio-shiny/builds)
 <!-- badges: end -->
 
-An application interface for doing Significant Biology on a set of Gene
+An application suite/interface for doing Significant Biology on a set of Gene
 
 * [Demo](#demo)
 * [Introduction](#introduction)

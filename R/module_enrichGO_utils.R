@@ -1,3 +1,30 @@
+#' Do enrichGO
+#' 
+#' This is a wrapper function to do \code{\link[clusterProfiler]{enrichGO}} on 
+#' all ontology terms and convert the gene IDs to gene symbles.
+#' 
+#' @param ... Arguments pass to \code{\link[clusterProfiler]{enrichGO}} and 
+#'  \code{\link[clusterProfiler]{setReadable}}
+#'
+#' @return A list of enrichGO objects
+#' @import clusterProfiler
+#' @export
+do_enrichGO <- function(...){
+  go_obj <- list()
+  go_obj_2 <- list()
+  dots <- list(...)
+  for(ont in c("BP", "CC", "MF")){
+    sigbio_message(paste0("Doing enrichGO for: ", ont))
+    go_obj[[ont]] <- clusterProfiler::enrichGO(keyType = "ENTREZID",ont = ont, ...)
+    #print(go_obj[ont])
+    sigbio_message("Converting entrezids to readable gene ids (gene symbles) ")
+    go_obj_2[[ont]] <- clusterProfiler::setReadable(go_obj[[ont]], OrgDb = dots$OrgDb, keyType = "ENTREZID")
+  }
+  return(list("go_bp" = go_obj_2$BP,
+              "go_cc" = go_obj_2$CC,
+              "go_mf" = go_obj_2$MF))
+}
+
 # the arguments are result data frames returned by clusterProfiler::enrichGO objects
 # it retuns a ploting object
 
@@ -16,9 +43,6 @@
 #' @import forcats
 #'
 #' @export
-#suppressMessages(library(dplyr))
-#suppressMessages(library(ggplot2))
-#suppressMessages(library(forcats))
 
 wego_plot <- function(BP=go_table, CC=go_table, MF=go_table){
   
@@ -87,6 +111,6 @@ wego_plot <- function(BP=go_table, CC=go_table, MF=go_table){
           panel.background = element_rect(fill = "white", colour = "grey50")) +
     ## Add a title to the plot
     labs(x = NULL, title = "Gene Ontology")
-          
+  
   return(wego_alike_plot)
 }
