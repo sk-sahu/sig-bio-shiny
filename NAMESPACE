@@ -2,9 +2,9 @@
 
 export("%>%")
 export()
-export(app_getInput)
 export(app_getOrg)
 export(app_noFCmsgPlot)
+export(app_parse_textarea)
 export(do_enrichGO)
 export(do_gseKEGG_plot)
 export(do_selectIds)

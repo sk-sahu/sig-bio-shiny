@@ -11,10 +11,10 @@ enrichKEGG_ui <- function(id, label = "enrichKEGG") {
       tabPanel("Cnet-Plot", 
                plotOutput(ns("cnet_plot_kegg"))),
       tabPanel("GSE-Plot", 
-               plotOutput(ns("pathway_gse_plot"))),
-      tabPanel("Path-View", 
-               uiOutput(ns("pathview_dropdown")),
-               plotOutput(ns("pathview_plot_in_ui")))
+               plotOutput(ns("pathway_gse_plot")))
+      # tabPanel("Path-View", 
+      #          uiOutput(ns("pathview_dropdown")),
+      #          plotOutput(ns("pathview_plot_in_ui")))
     )
   )
 }
@@ -63,19 +63,19 @@ enrichKEGG_server <- function(input,
     gene_data <- entrez_ids_with_fc$gene_with_fc_vector %>% as.data.frame()
     rownames(gene_data) <- entrez_ids_with_fc$entrez_ids
     
-    observe({
-      pathview_plot <- pathview::pathview(gene.data  = gene_data,
-                                          pathway.id = input$path_id,
-                                          species    = kegg_org_name,
-                                          kegg.dir = tempdir()
-      )
-      # get the png and render
-      output$pathview_plot_in_ui <- renderImage({
-        filename <- normalizePath(file.path('.',
-                                            paste(input$path_id, '.pathview.png', sep='')))
-        list(src = filename)
-      }, deleteFile = FALSE)
-    })
+    # observe({
+    #   pathview_plot <- pathview::pathview(gene.data  = gene_data,
+    #                                       pathway.id = input$path_id,
+    #                                       species    = kegg_org_name,
+    #                                       kegg.dir = tempdir()
+    #   )
+    #   # get the png and render
+    #   output$pathview_plot_in_ui <- renderImage({
+    #     filename <- normalizePath(file.path('.',
+    #                                         paste(input$path_id, '.pathview.png', sep='')))
+    #     list(src = filename)
+    #   }, deleteFile = FALSE)
+    # })
   }
   
   # kegg-dotplot
