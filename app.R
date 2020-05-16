@@ -82,36 +82,39 @@ ui <- dashboardPage(
              
              actionButton("submit", label =  "Submit",
                           icon = icon("angle-double-right")),
-             textOutput("gene_number_info"),
-             DT::dataTableOutput(outputId = "gene_number_info_table")
-             ),
-      
+             ###### Validate UI #########
+             app_input_validate_ui("input_validate")
+      ),
+
       # mapped ids
-    tabItem("mapped-ids",
-               mapids_ui("mapids")
+      tabItem("mapped-ids",
+                mapids_ui("mapids")
       ),
       
       # gene ontology
-    tabItem("gene-ontology",
-               enrichGO_ui("enrichgo")
+      tabItem("gene-ontology",
+                enrichGO_ui("enrichgo")
       ),
       
       # KEGG-Tab ----
-    tabItem("kegg",
-               enrichKEGG_ui("enrichkegg")
+      tabItem("kegg",
+                enrichKEGG_ui("enrichkegg")
       ),
+
       # Session-info-tab ----
-    tabItem("session-info",
-               verbatimTextOutput("sessioninfo")
+      tabItem("session-info",
+                verbatimTextOutput("sessioninfo")
       ),
-    tabItem("help",
-               includeHTML("")
+
+      tabItem("help",
+                  includeHTML("")
       ),
-    tabItem("about",
-               icon = icon("info-circle") ,
-               includeHTML("")
+
+      tabItem("about",
+                icon = icon("info-circle") ,
+                includeHTML("")
       )
-  )
+    )
   ),
                  
 ) # UI ends ----
@@ -127,145 +130,75 @@ server <- function(input, output) {
       
       incProgress(1/7, detail = paste("Getting Org Database...")) ##### Progress step 1
       
-      # based on user input
-      selected_species <- as.character(input$org)
-      sigbio_message(paste("Selected org is - ", selected_species))
-      selected_species_orgdb <- AnnotationHub::query(orgdb, selected_species)
-      sigbio_message("Selected org AnnotationHub ID - ", selected_species_orgdb$ah_id[1])
-      org_pkg <- ah[[selected_species_orgdb$ah_id[1]]]
-      kegg_org_name <- input$kegg_org_code
-      gtf_type <- input$id_type # ensembl or refseq
+      app_input <- callModule(app_input_validate_server, "input_validate",
+                             input_org = input$org,
+                             input_orgdb = orgdb,
+                             input_ah = ah,
+                             input_kegg_org_code = input$kegg_org_code,
+                             input_id_type = input$id_type,
+                             input_text_area_list = input$text_area_list)
+    
+      # all maped ids
+      callModule(mapids_server, "mapids", 
+                gene_list_uprcase = app_input$gene_list_uprcase,
+                org_pkg = app_input$org_pkg,
+                gtf_type = app_input$gtf_type)
       
-    # get user input and parse
-    text_area_input <- SigBio::app_getInput(input$text_area_list)
-    gene_list_uprcase <- text_area_input$gene_list
-    gene_with_fc_df <- text_area_input$gene_list_with_fc
-    
-    incProgress(2/7, detail = paste("Getting Org Database...")) ##### Progress step 2
-    # Conver genelist to ENTREZIDs
-    sigbio_message("Converting input gene list to entrez ids...")
-    tryCatch(
-      expr = {
-        entrez_ids= AnnotationDbi::mapIds(org_pkg, as.character(gene_list_uprcase), 'ENTREZID', gtf_type)
-        mapped_ids <- do_selectIds(genelist = as.character(gene_list_uprcase),
-                                org_pkg = org_pkg,
-                                gtf_type = gtf_type)
-      },
-      error = function(e){ 
-        sigbio_message("The gene-id type and input list are not matching.")
-        stop()
-      },
-      warning = function(w){
-        sigbio_message("The gene-id type and input list are not matching.")
-        stop()
-      }
-    )
-    
-    print("After Gene List converted into EntrezIDs (head): ")
-    print(head(entrez_ids))
-    
-    # If FoldChnage provided 
-    # Create a geneList with genes and log2FC for few plots
-    if (!is.null(text_area_input$gene_list_with_fc))
-    {
-      gene_with_fc_vector <- gene_with_fc_df[,2]
-      names(gene_with_fc_vector) = as.character(gene_with_fc_df[,1])
-      #gene_with_fc_vector = sort(gene_with_fc_vector, decreasing = TRUE)
-      # Conver genelist in gene_with_fc_vector to ENTREZIDs
-      entrez_ids_with_fc <- data.frame(entrez_ids, gene_with_fc_vector = gene_with_fc_vector[names(entrez_ids)])
-      entrez_ids_with_fc_table <- entrez_ids_with_fc # for display only
-      entrez_ids_with_fc_table$input_list <- names(entrez_ids) # for display only
-      entrez_ids_with_fc <- na.omit(entrez_ids_with_fc)
-      entrez_ids_with_fc_vector <- entrez_ids_with_fc[,2]
-      names(entrez_ids_with_fc_vector) <- entrez_ids_with_fc[,1]
-    }
-    
-    # for message in main tab
-    input_gene_number <- length(gene_list_uprcase)
-    proceed_gene_number <- length(na.omit(entrez_ids))
-    output$gene_number_info <- renderText({ 
-      paste("Done!",
-            "Total Number of Input genes: ", input_gene_number,
-            "| Total Number of proceed further: ", proceed_gene_number,
-            "| Reason could be entrez id not found. Check the table bellow.",
-            sep="\n")
-    })
-    # message for main pannel
-    output$gene_number_info_table <- DT::renderDataTable({
-      DT::datatable(cbind(gene_list_uprcase, entrez_ids))
-    })
-    
-    # all maped ids
-    callModule(mapids_server,"mapids", mapped_ids)
-    
-    # gene ontology
-    callModule(enrichGO_server,"enrichgo", 
-               gene_list = text_area_input$gene_list,
-               gene_list_with_fc = text_area_input$gene_list_with_fc,
-               entrez_ids_with_fc_vector = entrez_ids_with_fc_vector,
-               entrez_ids = entrez_ids, 
-               org_pkg = org_pkg,
-               pval_cutoff = input$pval_cutoff,
-               qval_cutoff = input$qval_cutoff)
-    
-    # KEGG ----
-    incProgress(6/7, detail = paste("Doing KEGG...")) ##### Progress step 6
-    sigbio_message(paste0("Doing enrichKEGG... "))
-    callModule(enrichKEGG_server,"enrichkegg", 
-               gene_list_with_fc = text_area_input$gene_list_with_fc,
-               entrez_ids_with_fc_vector = entrez_ids_with_fc_vector,
-               entrez_ids_with_fc = entrez_ids_with_fc,
-               entrez_ids = entrez_ids,
-               org_pkg = org_pkg,
-               kegg_org_name = kegg_org_name,
-               pval_cutoff = input$pval_cutoff,
-               qval_cutoff = input$qval_cutoff)
+      # gene ontology
+      callModule(enrichGO_server, "enrichgo", 
+                gene_list = app_input$gene_list_uprcase,
+                gene_list_with_fc = app_input$gene_list_with_fc,
+                entrez_ids_with_fc_vector = app_input$entrez_ids_with_fc_vector,
+                entrez_ids = app_input$entrez_ids, 
+                org_pkg = app_input$org_pkg,
+                pval_cutoff = input$pval_cutoff,
+                qval_cutoff = input$qval_cutoff)
+      
+      # KEGG ----
+      incProgress(6/7, detail = paste("Doing KEGG...")) ##### Progress step 6
+      sigbio_message(paste0("Doing enrichKEGG... "))
+      callModule(enrichKEGG_server, "enrichkegg", 
+                gene_list_with_fc = app_input$gene_list_with_fc,
+                entrez_ids_with_fc_vector = app_input$entrez_ids_with_fc_vector,
+                entrez_ids_with_fc = app_input$entrez_ids_with_fc,
+                entrez_ids = app_input$entrez_ids,
+                org_pkg = app_input$org_pkg,
+                kegg_org_name = app_input$kegg_org_name,
+                pval_cutoff = input$pval_cutoff,
+                qval_cutoff = input$qval_cutoff)
 
-    # download all the tables
-    output$download_tables <- downloadHandler(
-      filename = function(){
-        paste0("SigBio_tables.zip")
-      },
-      content = function(file){
-        #go to a temp dir to avoid permission issues
-        owd <- setwd(tempdir())
-        on.exit(setwd(owd))
-        
-        fs <- c("go_bp.tsv", "go_cc.tsv", "go_mf.tsv", "kegg.tsv", "MappedIDs.tsv")
-        write.table(go_bp@result, file = "go_bp.tsv", sep = "\t", row.names = FALSE)
-        write.table(go_cc@result, file = "go_cc.tsv", sep = "\t", row.names = FALSE)
-        write.table(go_mf@result, file = "go_mf.tsv", sep = "\t", row.names = FALSE)
-        write.table(kegg_2@result, file = "kegg.tsv", sep = "\t", row.names = FALSE)
-        write.table(mapped_ids, file = "MappedIDs.tsv", sep = "\t", row.names = FALSE)
-        
-        zip(zipfile=file, files=fs)
-      },
-      contentType = "application/zip"
-    )
-    
-    sigbio_message("Finished. Check your browser for results.")
-    incProgress(7/7, detail = paste("Finished.")) ##### Progress step 7
-    
-    output$sessioninfo <- renderPrint({
-      sessionInfo()
-    })
+      # download all the tables
+      output$download_tables <- downloadHandler(
+        filename = function(){
+          paste0("SigBio_tables.zip")
+        },
+        content = function(file){
+          #go to a temp dir to avoid permission issues
+          owd <- setwd(tempdir())
+          on.exit(setwd(owd))
+          
+          fs <- c("go_bp.tsv", "go_cc.tsv", "go_mf.tsv", "kegg.tsv", "MappedIDs.tsv")
+          write.table(go_bp@result, file = "go_bp.tsv", sep = "\t", row.names = FALSE)
+          write.table(go_cc@result, file = "go_cc.tsv", sep = "\t", row.names = FALSE)
+          write.table(go_mf@result, file = "go_mf.tsv", sep = "\t", row.names = FALSE)
+          write.table(kegg_2@result, file = "kegg.tsv", sep = "\t", row.names = FALSE)
+          write.table(mapped_ids, file = "MappedIDs.tsv", sep = "\t", row.names = FALSE)
+          
+          zip(zipfile=file, files=fs)
+        },
+        contentType = "application/zip"
+      )
+      
+      sigbio_message("Finished. Check your browser for results.")
+      incProgress(7/7, detail = paste("Finished.")) ##### Progress step 7
+      
+      output$sessioninfo <- renderPrint({
+        sessionInfo()
+      })
     
     }) # withProgress ends here
   }) # textbox area submit button observeEvent() end.
-  
-  # For submit of file upload
-  # observeEvent(input$submit_2, {
-  #   
-  #   validate(
-  #     need(input$file1 != "", "Please upload a file")
-  #   )
-  #   
-  #   gene_sortlist <- input$file1
-  #   gene_ids <- read.csv(gene_sortlist$datapath, header = FALSE)
-  #   gene_ids_uprcase <- toupper(gene_ids$V1)
-  #   
-  # })
-}
+} # serer ends ----
 
 # Run the application 
 shinyApp(ui = ui, server = server)

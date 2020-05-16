@@ -5,8 +5,10 @@ mapids_ui <- function(id, label = "Mapped Ids") {
   )
 }
 
-mapids_server <- function(input, output, session, mapped_ids) {
-  mapped_ids <- mapped_ids
+mapids_server <- function(input, output, session, gene_list_uprcase, org_pkg, gtf_type) {
+  mapped_ids <- do_selectIds(genelist = as.character(gene_list_uprcase),
+                             org_pkg = org_pkg,
+                             gtf_type = gtf_type)
   output$mapped_ids_table <- DT::renderDataTable({
     as.data.frame(mapped_ids)
   })
