@@ -1,10 +1,12 @@
 enrichGO_ui <- function(id, label = "enrichGO") {
   ns <- NS(id)
   tagList(
-    plotOutput(ns("wego_plot")),
-    #downloadButton(ns('download_tables', 'Download all tables')),
-    uiOutput(ns("download_wego_plot_button")),
     tabsetPanel(
+      tabPanel("All",
+        plotOutput(ns("wego_plot")),
+        #downloadButton(ns('download_tables', 'Download all tables')),
+        uiOutput(ns("download_wego_plot_button"))
+      ),
       tabPanel("Biological Process",
                tabsetPanel(
                  tabPanel("GO-Table",

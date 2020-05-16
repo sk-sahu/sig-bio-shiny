@@ -34,72 +34,86 @@ ENSG00000065328,1.7
 ENSG00000117399,-0.5"
 
 library(shiny)
+library(shinydashboard)
 
-ui <- navbarPage(paste0("Sig-Bio v",sigbio.version), inverse = TRUE, collapsible = TRUE,
-                 tabPanel("Gene-Summary",
-                          sidebarLayout(
-                            sidebarPanel(width = 3,
-                                         textAreaInput("text_area_list", 
-                                                       label = "[Gene] or [Gene,Foldchnage] list:", 
-                                                       height = "150px", width = "230px",
-                                                       value = example_genelist),
-                                         selectInput("id_type", label = "Input gene-id Type:", selected = "ENSEMBL",
-                                                     choices=c("ENSEMBL", "REFSEQ", "ENTREZID")),
-                                         selectInput("org", label = "Organism:", selected = "Homo sapiens",
-                                                     choices=orgdb$species),
-                                         selectInput("kegg_org_code", 
-                                                     label = "KEGG Organism Short Name:",
-                                                     selected = "hsa",
-                                                     choices=kegg_list$org_code),
-                                         helpText("Get your KEGG Organism short name from here - https://www.genome.jp/kegg/catalog/org_list.html"),
-                                         numericInput("pval_cutoff", label = "pvalue-CutOff", 
-                                                      value = 1, min=0.001, max=1),
-                                         numericInput("qval_cutoff", label = "qvalue-CutOff", 
-                                                      value = 1, min=0.001, max=1),
-                                         hr(),
-                                         helpText("After submit it may take 1-2 minutes. Check Progress bar in right
+ui <- dashboardPage(
+  dashboardHeader(title = paste0("Sig-Bio v",sigbio.version)),
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("Input", tabName = "input", icon = icon("dashboard")),
+      menuItem("Mapped Ids", tabName = "mapped-ids", icon = icon("dashboard")),
+      menuItem("Gene Ontology", tabName = "gene-ontology", icon = icon("dashboard")),
+      menuItem("KEGG", tabName = "kegg", icon = icon("dashboard")),
+      menuItem("session-info", tabName = "session-info", icon = icon("dashboard")),
+      menuItem("Help", tabName = "help", icon = icon("dashboard")),
+      menuItem("About", tabName = "about", icon = icon("dashboard"))
+    )
+  ),
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = "input",
+              fluidRow(
+                box(title = "Gene Input", 
+                  textAreaInput("text_area_list", 
+                                label = "[Gene] or [Gene,Foldchnage] list:", 
+                                height = "150px", width = "230px",
+                                value = example_genelist),
+                  selectInput("id_type", label = "Input gene-id Type:", selected = "ENSEMBL",
+                              choices=c("ENSEMBL", "REFSEQ", "ENTREZID"))
+                ),
+                box(title = "Organism Input",
+                  selectInput("org", label = "Organism:", selected = "Homo sapiens",
+                              choices=orgdb$species),
+                  selectInput("kegg_org_code", 
+                              label = "KEGG Organism Short Name:",
+                              selected = "hsa",
+                              choices=kegg_list$org_code),
+                              helpText("Get your KEGG Organism short name from here - https://www.genome.jp/kegg/catalog/org_list.html")
+                ),
+                box(title = "Significant Values Input",
+                  numericInput("pval_cutoff", label = "pvalue-CutOff", 
+                               value = 1, min=0.001, max=1),
+                  numericInput("qval_cutoff", label = "qvalue-CutOff", 
+                               value = 1, min=0.001, max=1)
+                ),
+              ),
+             helpText("After submit it may take 1-2 minutes. Check Progress bar in right
                                                   side cornor."),
-                                         
-                                         actionButton("submit", label =  "Submit",
-                                                      icon = icon("angle-double-right")),
-                                         tags$hr(),
-                                         
-                            ),
-                            mainPanel(
-                              helpText("Note: After submit it may take 1-2 minutes. Check Progress bar in right side cornor."),
-                              tags$hr(),
-                              textOutput("gene_number_info"),
-                              tags$hr(),
-                              DT::dataTableOutput(outputId = "gene_number_info_table")
-                            ) # mainpanel end.
-                          )
-                 ),
+             
+             actionButton("submit", label =  "Submit",
+                          icon = icon("angle-double-right")),
+             textOutput("gene_number_info"),
+             DT::dataTableOutput(outputId = "gene_number_info_table")
+             ),
+      
+      # mapped ids
+    tabItem("mapped-ids",
+               mapids_ui("mapids")
+      ),
+      
+      # gene ontology
+    tabItem("gene-ontology",
+               enrichGO_ui("enrichgo")
+      ),
+      
+      # KEGG-Tab ----
+    tabItem("kegg",
+               enrichKEGG_ui("enrichkegg")
+      ),
+      # Session-info-tab ----
+    tabItem("session-info",
+               verbatimTextOutput("sessioninfo")
+      ),
+    tabItem("help",
+               includeHTML("")
+      ),
+    tabItem("about",
+               icon = icon("info-circle") ,
+               includeHTML("")
+      )
+  )
+  ),
                  
-                 # mapped ids
-                 tabPanel("Mapped Ids",
-                          mapids_ui("mapids")
-                 ),
-                 
-                 # gene ontology
-                 tabPanel("Gene Ontology",
-                          enrichGO_ui("enrichgo")
-                 ),
-                 
-                 # KEGG-Tab ----
-                 tabPanel("KEGG",
-                          enrichKEGG_ui("enrichkegg")
-                 ),
-                 # Session-info-tab ----
-                 tabPanel("Session info",
-                          verbatimTextOutput("sessioninfo")
-                 ),
-                 tabPanel("Help",
-                          includeHTML("")
-                 ),
-                 tabPanel("About",
-                          icon = icon("info-circle") ,
-                          includeHTML("")
-                 )
 ) # UI ends ----
 
 # Server starts ----
