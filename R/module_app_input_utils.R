@@ -9,17 +9,7 @@
 #'   * Gene vector
 #'   * Gene with fc. If fc not provided. this is NULL.
 #'   
-#' @examples 
-#' input <- "ENSG00000196611,0.7
-#' ENSG00000093009,1.2
-#' ENSG00000109255,-0.3
-#' ENSG00000134690,0.2
-#' ENSG00000065328,1.7
-#' ENSG00000117399,-0.5"
 #' 
-#' app_parse_textarea(input)
-#' 
-#' @export
 app_parse_textarea <- function(gene_string){
   gene_list_split <- unlist(strsplit(gene_string, "\n"))
   gene_list_split <- unique(gene_list_split[gene_list_split != ""])
@@ -40,19 +30,13 @@ app_parse_textarea <- function(gene_string){
 }
 
 
-#' Get organism
-#' 
-#' Fetch all the organism list using AnnotationHub interface and KEGG rest API
-#' 
-#' @import AnnotationHub
-#' 
-#' @export
+# Fetch all the organism list using AnnotationHub interface and KEGG rest API
 app_getOrg <- function(){
   SigBio:::sigbio_message("Fetching AnnotationHub database...")
   ah = AnnotationHub::AnnotationHub()
   orgdb <- AnnotationHub::query(ah, "OrgDb")
   SigBio:::sigbio_message("KEGG database organism list API fetch...") 
-  kegg_org_list <- SigBio::kegg_link()
+  kegg_org_list <- SigBio:::kegg_link()
   org <- list( "ah_obj" = ah,
                "ah_orgdb" = orgdb,
                "kegg_org_list" = kegg_org_list)
@@ -64,8 +48,7 @@ app_getOrg <- function(){
 #' 
 #' @param rest_url KEGG rest url Endpoint.(https://www.kegg.jp/kegg/rest/keggapi.html)
 #' @import magrittr
-#' @export
-kegg_rest <- function(rest_url) {
+.kegg_rest <- function(rest_url) {
   content <- tryCatch(suppressWarnings(readLines(rest_url)), error=function(e) NULL)
   if (is.null(content))
     return(content)
@@ -78,10 +61,9 @@ kegg_rest <- function(rest_url) {
 }
 
 #' Links to kegg rest api for org list
-#' @export
 kegg_link <- function(){
   url <- paste0("http://rest.kegg.jp/list/organism", collapse="")
-  kegg_rest(url)
+  .kegg_rest(url)
 }
 
 #kegg_list <- kegg_link()

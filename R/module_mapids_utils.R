@@ -8,10 +8,7 @@
 #' 
 #' @return A dataframe with selected IDs 
 #' 
-#' @import AnnotationDbi
-#' @import reshape2
 #' @importFrom stats aggregate
-#' @export
 do_selectIds <- function(genelist, org_pkg, gtf_type) {
   # Get the annotations ----
   genelist_ano <- AnnotationDbi::select(org_pkg, 
@@ -47,7 +44,7 @@ do_selectIds <- function(genelist, org_pkg, gtf_type) {
                                                keytype = gtf_type)
     colnames(genelist_ano_path)[1] <- "gene_ids"
     
-    genelist_ano_path_reshaped <- aggregate(. ~ gene_ids, 
+    genelist_ano_path_reshaped <- stats::aggregate(. ~ gene_ids, 
                                             genelist_ano_path, 
                                             toString)
   }else{

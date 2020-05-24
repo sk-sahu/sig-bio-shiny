@@ -9,14 +9,6 @@
 #' 
 #' @return A GSE plot
 #' 
-#' @import magrittr
-#' @import clusterProfiler
-#' @import clusterProfiler.dplyr
-#' @importFrom forcats fct_reorder
-#' @importFrom ggstance geom_barh
-#' @importFrom ggplot2 ggplot
-#'
-#' @export
 #load("data/gse_test.RData")
 # same as geneList
 # entrez_ids_with_fc_vector = geneList is a object from DOSE pkg
@@ -37,7 +29,7 @@ do_gseKEGG_plot <- function(id_with_fc_list,
     clusterProfiler.dplyr::group_by(sign(NES)) %>% 
     clusterProfiler.dplyr::slice(1:5)
   
-  ggplot(y, aes(NES, forcats::fct_reorder(Description, NES), fill=qvalues), showCategory=10) + 
+  ggplot2::ggplot(y, aes(NES, forcats::fct_reorder(Description, NES), fill=qvalues), showCategory=10) + 
     ggstance::geom_barh(stat='identity') + 
     scale_fill_continuous(low='red', high='blue', guide=guide_colorbar(reverse=TRUE)) + 
     theme_minimal() + xlab("Normalized Enrichment Score (NES)") + ylab(NULL)

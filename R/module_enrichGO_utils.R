@@ -7,8 +7,6 @@
 #'  \code{\link[clusterProfiler]{setReadable}}
 #'
 #' @return A list of enrichGO objects
-#' @import clusterProfiler
-#' @export
 do_enrichGO <- function(...){
   go_obj <- list()
   go_obj_2 <- list()
@@ -42,7 +40,6 @@ do_enrichGO <- function(...){
 #' @import ggplot2
 #' @import forcats
 #'
-#' @export
 
 wego_plot <- function(BP=go_table, CC=go_table, MF=go_table){
   
