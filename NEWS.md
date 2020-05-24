@@ -1,10 +1,20 @@
+# SigBio 0.3.0
+
+* UI changed to the shiny dashboard.
+* Shiny isolated modular approach adopted.
+* files and functions further streamlined.
+
+# SigBio 0.2.4
+
+* Zenodo integration for DOI generate. 
+
 # SigBio 0.2.3
 
 * Few dependency version bump. As a result memory footprint decreased.
 
 # SigBio 0.2.2
 
-* No drastic changes in app behaviour but much of code improvement.
+* No drastic changes in app behavior but much of code improvement.
 * Function names streamlined to be behave more like API naming for improve readability.
 * More core functions taken out of shiny script(app.R) to the package(SigBio).
 

@@ -8,6 +8,10 @@ output:
 #bibliography: bib/bibliography.bib
 #csl: bib/3-biotech.csl
 #link-citations: true
+vignette: >
+  %\VignetteIndexEntry{1. Basic Overview}
+  %\VignetteEncoding{UTF-8}  
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 # What is Sig-Bio-Shiny?

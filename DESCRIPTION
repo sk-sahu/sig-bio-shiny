@@ -1,7 +1,7 @@
 Package: SigBio
-Title: Significant Biology on a Gene Set
-Version: 0.2.3
-Description: A genes set from a diffrential experiment or any set of intrest can be explored with multiple aspects in a single place.
+Title: Exploration and Significant Biology on a Gene Set.
+Version: 0.3.0
+Description: An interactive application suite/interface for doing Exploration and Significant Biology on a set of Gene.
 Author: Sangram Keshari Sahu
 Maintainer: Sangram Keshari Sahu <sangramsahu15@gmail.com>  
 License: MIT + file LICENSE
@@ -23,10 +23,11 @@ Imports:
     BiocManager (>= 1.30.10),
     AnnotationHub,
     AnnotationDbi,
-    pathview (>= 1.24.0),
+    pathview,
     DOSE (>= 3.13.1),
     enrichplot (>= 1.7.1),
     clusterProfiler (>= 3.15.2),
+    clusterProfiler.dplyr,
 biocViews: Annotation, Clustering, GeneSetEnrichment, GO, KEGG,
     MultipleComparison, Pathways, Reactome, Visualization
 Remotes: 
@@ -38,7 +39,7 @@ Suggests:
     covr,
     devtools,
     knitr,
-    testthat
+    testthat,
 VignetteBuilder: knitr
 Encoding: UTF-8
 Language: en-US

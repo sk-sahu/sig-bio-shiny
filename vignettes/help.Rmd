@@ -5,6 +5,10 @@ output:
   html_document:
     toc: true
     toc_depth: 3
+vignette: >
+  %\VignetteIndexEntry{3. Help page}
+  %\VignetteEncoding{UTF-8}  
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ## Application Running Help
