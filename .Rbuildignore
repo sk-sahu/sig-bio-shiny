@@ -1,3 +1,12 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^\.github/workflows/R-CMD-check\.yaml$
+^CODE_OF_CONDUCT\.md$
+.circleci/*
+.github/*
+rsconnect/*
+.travis.yml
+.appveyor.yml
+Dockerfile
+_pkgdown.yml
+deploy.md

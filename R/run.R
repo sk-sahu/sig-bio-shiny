@@ -4,7 +4,7 @@
 #' @return SigBio shinny app
 #'
 #' @export
-run <- function() {
-  appDir <- system.file("app", package = "EcoGEx")
+runApp <- function() {
+  appDir <- system.file("app", package = "SigBio")
   shiny::runApp(appDir, launch.browser = TRUE)
 }

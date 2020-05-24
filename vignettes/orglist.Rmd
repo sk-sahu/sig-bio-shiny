@@ -4,6 +4,10 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
   html_document:
     #toc: false
+vignette: >
+  %\VignetteIndexEntry{2. Organism List table}
+  %\VignetteEncoding{UTF-8}  
+  %\VignetteEngine{knitr::rmarkdown}
 ---
 
 ```{r setup, include=FALSE}
@@ -27,7 +31,7 @@ DT::datatable(df)
 All the kegg organism short name got through kegg rest api
 
 ```{r kegg_org_list}
-source("../R/kegg.R")
+source("../R/module_app_input_utils.R")
 kegg_list <- kegg_link()
 DT::datatable(kegg_list)
 ```

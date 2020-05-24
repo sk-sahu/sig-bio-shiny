@@ -1,3 +1,7 @@
+# SigBio 0.2.4
+
+* Zenodo integration for DOI generate. 
+
 # SigBio 0.2.3
 
 * Few dependency version bump. As a result memory footprint decreased.

@@ -21,22 +21,10 @@ NULL
 #' @usage lhs \%>\% rhs
 NULL
 
-#' Custom message for Sig-Bio-Shiny-App
-#' @param msg The message from app
-#' @param ... Additional param to \code{\link[base]{paste}}
-#' @export
 sigbio_message <- function(msg, ...){
   message(paste("[SigBio]", msg))
 }
 
-
-#' No Fold Change message plot
-#' 
-#' This function is used by the app when no Fold Chnage is provided.
-#' 
-#' @return This returns a plot obejct with a message.
-#'
-#' @export
 app_noFCmsgPlot <- function(){
   par(mar = c(0,0,0,0))
   plot(c(0, 1), c(0, 1), ann = F, bty = 'n', type = 'n', xaxt = 'n', yaxt = 'n')
