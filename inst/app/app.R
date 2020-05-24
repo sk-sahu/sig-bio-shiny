@@ -18,7 +18,7 @@ if("SigBio" %in% rownames(installed.packages()) &&
 
 suppressMessages(library(SigBio))
 
-sigbio_message("Starting the application...")
+SigBio:::sigbio_message("Starting the application...")
 # Load organisms
 org <- SigBio::app_getOrg()
 ah <- org$ah_obj
@@ -83,7 +83,7 @@ ui <- dashboardPage(
              actionButton("submit", label =  "Submit",
                           icon = icon("angle-double-right")),
              ###### Validate UI #########
-             app_input_validate_ui("input_validate")
+             SigBio:::app_input_validate_ui("input_validate")
       ),
 
       # mapped ids
@@ -142,7 +142,7 @@ server <- function(input, output) {
       
       incProgress(1/7, detail = paste("Getting Org Database...")) ##### Progress step 1
       
-      validated_app_input <- callModule(app_input_validate_server, "input_validate",
+      validated_app_input <- callModule(SigBio:::app_input_validate_server, "input_validate",
                              input_org = input$org,
                              input_orgdb = orgdb,
                              input_ah = ah,
@@ -190,7 +190,7 @@ server <- function(input, output) {
     # KEGG ----
     if(input$tabs=="kegg"){
       incProgress(6/7, detail = paste("Doing KEGG...")) ##### Progress step 6
-      sigbio_message(paste0("Doing enrichKEGG... "))
+      SigBio:::sigbio_message(paste0("Doing enrichKEGG... "))
       callModule(enrichKEGG_server, "enrichkegg",
                 gene_list_with_fc = app_input$gene_list_with_fc,
                 entrez_ids_with_fc_vector = app_input$entrez_ids_with_fc_vector,
@@ -225,7 +225,7 @@ server <- function(input, output) {
         contentType = "application/zip"
       )
 
-      sigbio_message("Finished. Check your browser for results.")
+      SigBio:::sigbio_message("Finished. Check your browser for results.")
       incProgress(7/7, detail = paste("Finished.")) ##### Progress step 7
 
       output$sessioninfo <- renderPrint({

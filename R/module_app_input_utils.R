@@ -48,10 +48,10 @@ app_parse_textarea <- function(gene_string){
 #' 
 #' @export
 app_getOrg <- function(){
-  sigbio_message("Fetching AnnotationHub database...")
+  SigBio:::sigbio_message("Fetching AnnotationHub database...")
   ah = AnnotationHub::AnnotationHub()
   orgdb <- AnnotationHub::query(ah, "OrgDb")
-  sigbio_message("KEGG database organism list API fetch...") 
+  SigBio:::sigbio_message("KEGG database organism list API fetch...") 
   kegg_org_list <- SigBio::kegg_link()
   org <- list( "ah_obj" = ah,
                "ah_orgdb" = orgdb,
