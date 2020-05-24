@@ -7,12 +7,11 @@
   [![CircleCI](https://circleci.com/gh/sk-sahu/sig-bio-shiny.svg?style=svg)](https://circleci.com/gh/sk-sahu/sig-bio-shiny)
 [![R build status](https://github.com/sk-sahu/sig-bio-shiny/workflows/R-CMD-check/badge.svg)](https://github.com/sk-sahu/sig-bio-shiny/actions?workflow=R-CMD-check)
 [![Docker Cloud Build Status](https://img.shields.io/docker/cloud/build/sudosk/sig-bio-shiny)](https://hub.docker.com/repository/docker/sudosk/sig-bio-shiny/builds)
-[![DOI](https://zenodo.org/badge/220482361.svg)](https://zenodo.org/badge/latestdoi/220482361)
 <!-- badges: end -->
 
 An interactive application suite/interface for doing Exploration and Significant Biology on a set of Genes.
 
-![]([sigbio-v0.2.1.gif](https://github.com/sk-sahu/sig-bio-shiny/blob/master/sigbio-v0.2.1.gif))
+![](https://github.com/sk-sahu/sig-bio-shiny/blob/master/sigbio-v0.2.1.gif)
 
 Note: Above is a screen recoding of SigBio-v0.2.1 (Few thing what you seeing in this recoding might be different when you download a recent version, as this project is going under rapid changes).
 
