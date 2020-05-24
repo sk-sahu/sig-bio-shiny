@@ -4,13 +4,10 @@
     <loc>http://sk-sahu.github.io/sig-bio-shiny/index.html</loc>
   </url>
   <url>
-    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_getInput.html</loc>
-  </url>
-  <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_getOrg.html</loc>
   </url>
   <url>
-    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_noFCmsgPlot.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_parse_textarea.html</loc>
   </url>
   <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/do_enrichGO.html</loc>
@@ -22,6 +19,9 @@
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/do_selectIds.html</loc>
   </url>
   <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/entrez_ids_with_fc_vector.html</loc>
+  </url>
+  <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/kegg_link.html</loc>
   </url>
   <url>
@@ -31,10 +31,7 @@
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/pipe.html</loc>
   </url>
   <url>
-    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/run.html</loc>
-  </url>
-  <url>
-    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/sigbio_message.html</loc>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/runApp.html</loc>
   </url>
   <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/wego_plot.html</loc>

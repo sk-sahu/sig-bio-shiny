@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Call KEGG rest API — kegg_rest • SigBio</title>
+<title>Parse text area — app_parse_textarea • SigBio</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Call KEGG rest API — kegg_rest" />
-<meta property="og:description" content="Call KEGG rest API" />
+<meta property="og:title" content="Parse text area — app_parse_textarea" />
+<meta property="og:description" content="Takes user input and parse into list, which can be used by SigBio application." />
 
 
 
@@ -129,27 +129,55 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Call KEGG rest API</h1>
+    <h1>Parse text area</h1>
     <small class="dont-index">Source: <a href='https://github.com/sk-sahu/sig-bio-shiny/blob/master/R/module_app_input_utils.R'><code>R/module_app_input_utils.R</code></a></small>
-    <div class="hidden name"><code>kegg_rest.Rd</code></div>
+    <div class="hidden name"><code>app_parse_textarea.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Call KEGG rest API</p>
+    <p>Takes user input and parse into list, which can be used by SigBio application.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>kegg_rest</span>(<span class='no'>rest_url</span>)</pre>
+    <pre class="usage"><span class='fu'>app_parse_textarea</span>(<span class='no'>gene_string</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>rest_url</th>
-      <td><p>KEGG rest url Endpoint.(https://www.kegg.jp/kegg/rest/keggapi.html)</p></td>
+      <th>gene_string</th>
+      <td><p>This a string with only gene ids separated by new line character.
+Optionally it also accepts fold change (fc) next to each gene separated by coma.</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>This returns a list containing
+  * Gene vector
+  * Gene with fc. If fc not provided. this is NULL.</p>
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>input</span> <span class='kw'>&lt;-</span> <span class='st'>"ENSG00000196611,0.7
+ENSG00000093009,1.2
+ENSG00000109255,-0.3
+ENSG00000134690,0.2
+ENSG00000065328,1.7
+ENSG00000117399,-0.5"</span>
+
+<span class='fu'>app_parse_textarea</span>(<span class='no'>input</span>)</div><div class='output co'>#&gt; $gene_list
+#&gt; [1] "ENSG00000196611" "ENSG00000093009" "ENSG00000109255" "ENSG00000134690"
+#&gt; [5] "ENSG00000065328" "ENSG00000117399"
+#&gt; 
+#&gt; $gene_list_with_fc
+#&gt;         gene_list   fc
+#&gt; 1 ENSG00000196611  0.7
+#&gt; 2 ENSG00000093009  1.2
+#&gt; 3 ENSG00000109255 -0.3
+#&gt; 4 ENSG00000134690  0.2
+#&gt; 5 ENSG00000065328  1.7
+#&gt; 6 ENSG00000117399 -0.5
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
