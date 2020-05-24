@@ -14,7 +14,7 @@
 
 # SigBio 0.2.2
 
-* No drastic changes in app behaviour but much of code improvement.
+* No drastic changes in app behavior but much of code improvement.
 * Function names streamlined to be behave more like API naming for improve readability.
 * More core functions taken out of shiny script(app.R) to the package(SigBio).
 

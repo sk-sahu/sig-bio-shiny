@@ -12,17 +12,16 @@
 
 An interactive application suite/interface for doing Exploration and Significant Biology on a set of Genes.
 
-
 ![](sigbio-v0.2.1.gif)
 
-Above is a screen recoding of what can be done with the SigBio interface.
+Note: Above is a screen recoding of SigBio-v0.2.1 (Few thing what you seeing in this recoding might be different when you download a recent version, as this project is going under rapid changes).
 
 <details><summary>Try yourself?</summary>
 <p>
 
 Do it in your own computer system by following [installation instructions](#installation) or try one of the following methods.
 
-For now this application requires atleast 4 GB of system memory. So couldn't able to host on shinyapps.io but instead with generous help of Rstudio now this project Rstudio Cloud instace is 4GB. So you can simply login with follwing project link and follow [run instructions](#run-the-app). 
+For now this application requires atleast 4 GB of system memory. So couldn't able to host on shinyapps.io but instead with generous help of RStudio now this project Rstudio Cloud instance is 4GB. So you can simply login with following project link and follow [run instructions](#run-the-app). 
 
 [Try SigBio-Shiny in Rstudio-Cloud](https://rstudio.cloud/project/1023160)
 
