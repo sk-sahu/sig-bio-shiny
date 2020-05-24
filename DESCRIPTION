@@ -1,6 +1,6 @@
 Package: SigBio
 Title: Exploration and Significant Biology on a Gene Set.
-Version: 0.2.4
+Version: 0.3.0
 Description: An interactive application suite/interface for doing Exploration and Significant Biology on a set of Gene.
 Author: Sangram Keshari Sahu
 Maintainer: Sangram Keshari Sahu <sangramsahu15@gmail.com>  

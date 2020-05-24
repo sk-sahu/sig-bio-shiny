@@ -1,3 +1,9 @@
+# SigBio 0.3.0
+
+* UI changed to the shiny dashboard.
+* Shiny isolated modular approach adopted.
+* files and functions further streamlined.
+
 # SigBio 0.2.4
 
 * Zenodo integration for DOI generate. 

@@ -3,7 +3,7 @@
 # Source Code - https://github.com/sk-sahu/sig-bio-shiny
 # Developed and maintain by Sangram Keshari Sahu (https://sksahu.net)
 
-sigbio.version='0.2.4'
+sigbio.version='0.3.0'
 
 message("Running Sig-Bio-Shiny v", sigbio.version, " | ",date())
 message("Checking if SigBio v", sigbio.version, " Package is installed...")
