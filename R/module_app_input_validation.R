@@ -25,7 +25,7 @@ app_input_validate_server <- function(input,
   gtf_type <- input_id_type # ensembl or refseq
   
   # get user input and parse
-  text_area_input <- SigBio::app_parse_textarea(input_text_area_list)
+  text_area_input <- SigBio:::app_parse_textarea(input_text_area_list)
   gene_list_uprcase <- text_area_input$gene_list
   gene_with_fc_df <- text_area_input$gene_list_with_fc
   

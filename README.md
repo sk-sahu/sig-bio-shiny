@@ -12,7 +12,7 @@
 
 An interactive application suite/interface for doing Exploration and Significant Biology on a set of Genes.
 
-![](sigbio-v0.2.1.gif)
+![]([sigbio-v0.2.1.gif](https://github.com/sk-sahu/sig-bio-shiny/blob/master/sigbio-v0.2.1.gif))
 
 Note: Above is a screen recoding of SigBio-v0.2.1 (Few thing what you seeing in this recoding might be different when you download a recent version, as this project is going under rapid changes).
 
@@ -53,7 +53,7 @@ After downstream analysis of gene expression data, the end results are often a s
 
 Trying to solve these problems sig-bio-shiny is made. Completely made using R and Bioconductor. No manual database dump required, which make deployment simple with a single R Script. It takes full advantage of AnnotationHub package to get latest annotation for the selected organism and do statistical analysis on top of it using various well known packages.
 
-![](inst/figures/sig-bio-shiny-structure.png)
+![](https://github.com/sk-sahu/sig-bio-shiny/blob/master/inst/figures/sig-bio-shiny-structure.png)
 
 ## Features
 

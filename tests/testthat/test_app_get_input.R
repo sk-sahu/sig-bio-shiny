@@ -6,5 +6,5 @@ ENSG00000065328,1.7
 ENSG00000117399,-0.5"
 
 test_that("Input gene list is working cool", {
-  expect_length(app_parse_textarea(gene_string), 2)
+  expect_length(SigBio:::app_parse_textarea(gene_string), 2)
 })

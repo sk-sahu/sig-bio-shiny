@@ -66,7 +66,7 @@ enrichGO_server <- function(input,
   pval_cutoff <- pval_cutoff
   qval_cutoff <- qval_cutoff
   
-  enrichGO_res <- do_enrichGO(gene = entrez_ids, OrgDb = org_pkg,
+  enrichGO_res <- SigBio:::do_enrichGO(gene = entrez_ids, OrgDb = org_pkg,
                               pvalueCutoff = pval_cutoff, 
                               qvalueCutoff = qval_cutoff)
   go_bp <- enrichGO_res$go_bp
@@ -88,11 +88,11 @@ enrichGO_server <- function(input,
   # plots and their downloads ----
   # wego plot
   output$wego_plot <- renderPlot({
-    wego_plot(BP=go_bp@result, CC=go_cc@result, MF=go_mf@result)
+    SigBio:::wego_plot(BP=go_bp@result, CC=go_cc@result, MF=go_mf@result)
   })
   # wego plot download
   wego_plot_download <- reactive({
-    wego_plot(BP=go_bp@result, CC=go_cc@result, MF=go_mf@result)
+    SigBio:::wego_plot(BP=go_bp@result, CC=go_cc@result, MF=go_mf@result)
   })
   output$download_wego_plot <- downloadHandler(
     filename = function() {

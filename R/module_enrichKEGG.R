@@ -94,7 +94,7 @@ enrichKEGG_server <- function(input,
     })
     output$pathway_gse_plot <- renderPlot({
       # gse-pathway
-      do_gseKEGG_plot(id_with_fc_list = entrez_ids_with_fc_vector, 
+      SigBio:::do_gseKEGG_plot(id_with_fc_list = entrez_ids_with_fc_vector, 
                       organism = kegg_org_name,
                       pval = pval_cutoff)
     })

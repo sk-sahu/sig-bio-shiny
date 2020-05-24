@@ -20,7 +20,7 @@ suppressMessages(library(SigBio))
 
 SigBio:::sigbio_message("Starting the application...")
 # Load organisms
-org <- SigBio::app_getOrg()
+org <- SigBio:::app_getOrg()
 ah <- org$ah_obj
 orgdb <- org$ah_orgdb
 kegg_list <- org$kegg_org_list
@@ -88,17 +88,17 @@ ui <- dashboardPage(
 
       # mapped ids
       tabItem("mapped-ids",
-                mapids_ui("mapids")
+                SigBio:::mapids_ui("mapids")
       ),
       
       # gene ontology
       tabItem("gene-ontology",
-                enrichGO_ui("enrichgo")
+                SigBio:::enrichGO_ui("enrichgo")
       ),
       
       # KEGG-Tab ----
       tabItem("kegg",
-                enrichKEGG_ui("enrichkegg")
+                SigBio:::enrichKEGG_ui("enrichkegg")
       ),
 
       # Session-info-tab ----
@@ -169,7 +169,7 @@ server <- function(input, output) {
     
     # all maped ids
     if(input$tabs=="mapped-ids"){
-        callModule(mapids_server, "mapids", 
+        callModule(SigBio:::mapids_server, "mapids", 
                   gene_list_uprcase = app_input$gene_list_uprcase,
                   org_pkg = app_input$org_pkg,
                   gtf_type = app_input$gtf_type)
@@ -177,7 +177,7 @@ server <- function(input, output) {
     
     # gene ontology
     if(input$tabs=="gene-ontology"){
-      callModule(enrichGO_server, "enrichgo",
+      callModule(SigBio:::enrichGO_server, "enrichgo",
                 gene_list = app_input$gene_list_uprcase,
                 gene_list_with_fc = app_input$gene_list_with_fc,
                 entrez_ids_with_fc_vector = app_input$entrez_ids_with_fc_vector,
@@ -191,7 +191,7 @@ server <- function(input, output) {
     if(input$tabs=="kegg"){
       incProgress(6/7, detail = paste("Doing KEGG...")) ##### Progress step 6
       SigBio:::sigbio_message(paste0("Doing enrichKEGG... "))
-      callModule(enrichKEGG_server, "enrichkegg",
+      callModule(SigBio:::enrichKEGG_server, "enrichkegg",
                 gene_list_with_fc = app_input$gene_list_with_fc,
                 entrez_ids_with_fc_vector = app_input$entrez_ids_with_fc_vector,
                 entrez_ids_with_fc = app_input$entrez_ids_with_fc,

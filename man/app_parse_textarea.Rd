@@ -18,14 +18,3 @@ This returns a list containing
 \description{
 Takes user input and parse into list, which can be used by SigBio application.
 }
-\examples{
-input <- "ENSG00000196611,0.7
-ENSG00000093009,1.2
-ENSG00000109255,-0.3
-ENSG00000134690,0.2
-ENSG00000065328,1.7
-ENSG00000117399,-0.5"
-
-app_parse_textarea(input)
-
-}
