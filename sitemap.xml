@@ -4,9 +4,6 @@
     <loc>http://sk-sahu.github.io/sig-bio-shiny/index.html</loc>
   </url>
   <url>
-    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_getOrg.html</loc>
-  </url>
-  <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/app_parse_textarea.html</loc>
   </url>
   <url>
@@ -19,13 +16,13 @@
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/do_selectIds.html</loc>
   </url>
   <url>
+    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/dot-kegg_rest.html</loc>
+  </url>
+  <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/entrez_ids_with_fc_vector.html</loc>
   </url>
   <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/kegg_link.html</loc>
-  </url>
-  <url>
-    <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/kegg_rest.html</loc>
   </url>
   <url>
     <loc>http://sk-sahu.github.io/sig-bio-shiny/reference/pipe.html</loc>
