@@ -21,10 +21,12 @@ NULL
 #' @usage lhs \%>\% rhs
 NULL
 
+#' @export
 sigbio_message <- function(msg, ...){
   message(paste("[SigBio]", msg))
 }
 
+#' @export
 app_noFCmsgPlot <- function(){
   par(mar = c(0,0,0,0))
   plot(c(0, 1), c(0, 1), ann = F, bty = 'n', type = 'n', xaxt = 'n', yaxt = 'n')
