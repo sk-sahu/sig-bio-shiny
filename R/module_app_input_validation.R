@@ -17,9 +17,9 @@ app_input_validate_server <- function(input,
                             input_text_area_list){
   # get org information based on user input
   selected_species <- as.character(input_org)
-  sigbio_message(paste("Selected org is - ", selected_species))
+  SigBio:::sigbio_message(paste("Selected org is - ", selected_species))
   selected_species_orgdb <- AnnotationHub::query(input_orgdb, selected_species)
-  sigbio_message("Selected org AnnotationHub ID - ", selected_species_orgdb$ah_id[1])
+  SigBio:::sigbio_message("Selected org AnnotationHub ID - ", selected_species_orgdb$ah_id[1])
   org_pkg <- input_ah[[selected_species_orgdb$ah_id[1]]]
   kegg_org_name <- input_kegg_org_code
   gtf_type <- input_id_type # ensembl or refseq
@@ -30,7 +30,7 @@ app_input_validate_server <- function(input,
   gene_with_fc_df <- text_area_input$gene_list_with_fc
   
   ############ Entrez ID convertion starts #########
-  sigbio_message("Converting input gene list to entrez ids...")
+  SigBio:::sigbio_message("Converting input gene list to entrez ids...")
   
   converted_id <- convert_entrez_check(gene_list_uprcase = gene_list_uprcase,
                                        gene_with_fc_df = gene_with_fc_df,

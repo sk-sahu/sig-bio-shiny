@@ -148,13 +148,13 @@ enrichGO_server <- function(input,
     })
   }else{
     output$cnet_plot_go_bp <- renderPlot({
-      app_noFCmsgPlot()
+      SigBio:::app_noFCmsgPlot()
     })
     output$cnet_plot_go_cc <- renderPlot({
-      app_noFCmsgPlot()
+      SigBio:::app_noFCmsgPlot()
     })
     output$cnet_plot_go_mf <- renderPlot({
-      app_noFCmsgPlot()
+      SigBio:::app_noFCmsgPlot()
     })
   }
 }

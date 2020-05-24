@@ -100,10 +100,10 @@ enrichKEGG_server <- function(input,
     })
   }else{
     output$cnet_plot_kegg <- renderPlot({
-      app_noFCmsgPlot()
+      SigBio:::app_noFCmsgPlot()
     })
     output$pathway_gse_plot <- renderPlot({
-      app_noFCmsgPlot()
+      SigBio:::app_noFCmsgPlot()
     })
   }
 }
