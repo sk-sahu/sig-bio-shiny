@@ -5,14 +5,6 @@
 
 ---
 
-# Release
-
-## Release Version
-Mention release version here with [Semantic Versioning 2.0.0](https://semver.org/)
-
-## Release Description (for ChnageLog)
-Clearly mention what features added or Bugs fixed. The same should be Changed in [NEWS.md]
-
 ## Release Checklist
 * [ ] Version modified in [DESCRIPTION]
 * [ ] Version modified in [app.R]
