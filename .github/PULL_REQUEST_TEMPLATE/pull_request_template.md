@@ -1,3 +1,12 @@
+---
+name: Pull Request
+about: PR template
+title: "[PR]"
+labels: ''
+assignees: ''
+
+---
+
 # Fixes
 
 ## Changes proposed in this pull request
