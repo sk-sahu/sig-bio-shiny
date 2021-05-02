@@ -15,17 +15,15 @@ An interactive application suite/interface for doing Exploration and Significant
 
 Note: Above is a screen recoding of SigBio-v0.2.1 (Few thing what you seeing in this recoding might be different when you download a recent version, as this project is going under rapid changes).
 
-<details><summary>Try yourself?</summary>
-<p>
+Try yourself?
+
+Few note before you start using - 
+* The application will take a while to start as initially, because it try to fetch and set up the basic database.
+* Few componets of this application requires atleast 4 GB of system memory. So It might crash if no sufficient memory availbile.
 
 Do it in your own computer system by following [installation instructions](#installation) or try one of the following methods.
 
-For now this application requires atleast 4 GB of system memory. So couldn't able to host on shinyapps.io but instead with generous help of RStudio now this project Rstudio Cloud instance is 4GB. So you can simply login with following project link and follow [run instructions](#run-the-app). 
-
-[Try SigBio-Shiny in Rstudio-Cloud](https://rstudio.cloud/project/1023160)
-
-</p>
-</details>
+A demo instance - https://sksahu.shinyapps.io/sigbio/ (the above note applies to this as well)
 
 ---
 
@@ -44,13 +42,17 @@ Table Of Content
     - [Developers Notes](#developers-notes)
     - [Code of Conduct](#code-of-conduct)
 
-## Overview
+<details><summary><h2> Overview </h2></summary>
+<p>
 
 The main motivation is to provide an easy interface to explore a Gene-set, without worrying about getting an organism database or conversion between particular R object which can be input to an available awesome R/Bioconductor package.
 
 After downstream analysis of gene expression data, the end results are often a set of genes (may be a list of clustered genes, up/down regulated genes). To know their biological significance on a particular context (gene ontology or pathway) lot of statistical analysis available (Gene set enrichment, Over representation). Some awesome Bioconductor packages are developed for this purpose, But often the entry point might be difficult in some cases (mostly because of a particular input type). Also, besides that specifically for non-model organism it is little challenging.
 
 Trying to solve these problems sig-bio-shiny is made. Completely made using R and Bioconductor. No manual database dump required, which make deployment simple with a single R Script. It takes full advantage of AnnotationHub package to get latest annotation for the selected organism and do statistical analysis on top of it using various well known packages.
+
+</p>
+</details>
 
 ![](https://github.com/sk-sahu/sig-bio-shiny/blob/master/inst/figures/sig-bio-shiny-structure.png)
 
@@ -119,25 +121,9 @@ Accessed app in a browser at http://127.0.0.1
 
 ## Contribution 
 
-First of all thank you for your interest in contributing to this project :) 
+This is an open project. Please feel to contribute.
 
-If you want to fix/report any bugs or add an extra module then please follow developer notes bellow. This will help us to maintain a specific structure to the project.
-
-### Developers Notes
-
-<details><summary> Expand </summary>
-<p>
-Try to keep `app.R` file minimal, only with essential lines of code. For each module, Server and UI functions should specify in a single R script (Example: `module_modulename.R`) and additional required functions for that modules should be in another file (Example: `module_modulename_utils.R`)
-
-I'll extend this section in more detail. Till then please feel free to contact for more details.
-
-Whenever depolying to shinyapps.io - [Ref](https://support.bioconductor.org/p/107298/)
-
-```R
-options(repos = BiocManager::repositories()) 
-```
-</p>
-</details>
+Here is a [guide for start with contributing](http://sk-sahu.github.io/sig-bio-shiny/CONTRIBUTING.html).
 
 ### Code of Conduct
   
