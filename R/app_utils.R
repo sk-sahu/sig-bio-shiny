@@ -33,3 +33,7 @@ app_noFCmsgPlot <- function(){
        cex = 1.6, col = "black")
   par(mar = c(5, 4, 4, 2) + 0.1)
 }
+
+about_md <- function(){
+  return(paste0(find.package("SigBio"), "/app/about.md"))
+}

@@ -33,6 +33,8 @@ ENSG00000134690,0.2
 ENSG00000065328,1.7
 ENSG00000117399,-0.5"
 
+default_gene_type <- "ENSEMBL"
+
 library(shiny)
 library(shinydashboard)
 
@@ -44,9 +46,8 @@ ui <- dashboardPage(
       menuItem("Mapped Ids", tabName = "mapped-ids", icon = icon("dashboard")),
       menuItem("Gene Ontology", tabName = "gene-ontology", icon = icon("dashboard")),
       menuItem("KEGG", tabName = "kegg", icon = icon("dashboard")),
-      menuItem("session-info", tabName = "session-info", icon = icon("dashboard")),
-      menuItem("Help", tabName = "help", icon = icon("dashboard")),
-      menuItem("About", tabName = "about", icon = icon("dashboard"))
+      menuItem("Session-info", tabName = "session-info", icon = icon("dashboard")),
+      menuItem("About", tabName = "about", icon = icon("info-circle"))
     )
   ),
   dashboardBody(
@@ -58,7 +59,7 @@ ui <- dashboardPage(
                                 label = "[Gene] or [Gene,Foldchnage] list:", 
                                 height = "150px", width = "230px",
                                 value = example_genelist),
-                  selectInput("id_type", label = "Input gene-id Type:", selected = "ENSEMBL",
+                  selectInput("id_type", label = "Input gene-id Type:", selected = default_gene_type,
                               choices=c("ENSEMBL", "REFSEQ", "ENTREZID"))
                 ),
                 box(title = "Organism Input",
@@ -106,13 +107,8 @@ ui <- dashboardPage(
                 verbatimTextOutput("sessioninfo")
       ),
 
-      tabItem("help",
-                  includeHTML("")
-      ),
-
       tabItem("about",
-                icon = icon("info-circle") ,
-                includeHTML("")
+                includeMarkdown(SigBio:::about_md())
       )
     )
   )
@@ -142,7 +138,7 @@ server <- function(input, output) {
       
       incProgress(1/7, detail = paste("Getting Org Database...")) ##### Progress step 1
       
-      validated_app_input <- callModule(SigBio:::app_input_validate_server, "input_validate",
+      validated_app_input <- callModule(SigBio:::app_input_validate_server, "input_validate", session,
                              input_org = input$org,
                              input_orgdb = orgdb,
                              input_ah = ah,
@@ -169,7 +165,7 @@ server <- function(input, output) {
     
     # all maped ids
     if(input$tabs=="mapped-ids"){
-        callModule(SigBio:::mapids_server, "mapids", 
+        callModule(SigBio:::mapids_server, "mapids", session,
                   gene_list_uprcase = app_input$gene_list_uprcase,
                   org_pkg = app_input$org_pkg,
                   gtf_type = app_input$gtf_type)
@@ -177,7 +173,7 @@ server <- function(input, output) {
     
     # gene ontology
     if(input$tabs=="gene-ontology"){
-      callModule(SigBio:::enrichGO_server, "enrichgo",
+      callModule(SigBio:::enrichGO_server, "enrichgo", session,
                 gene_list = app_input$gene_list_uprcase,
                 gene_list_with_fc = app_input$gene_list_with_fc,
                 entrez_ids_with_fc_vector = app_input$entrez_ids_with_fc_vector,
@@ -191,7 +187,7 @@ server <- function(input, output) {
     if(input$tabs=="kegg"){
       incProgress(6/7, detail = paste("Doing KEGG...")) ##### Progress step 6
       SigBio:::sigbio_message(paste0("Doing enrichKEGG... "))
-      callModule(SigBio:::enrichKEGG_server, "enrichkegg",
+      callModule(SigBio:::enrichKEGG_server, "enrichkegg", session,
                 gene_list_with_fc = app_input$gene_list_with_fc,
                 entrez_ids_with_fc_vector = app_input$entrez_ids_with_fc_vector,
                 entrez_ids_with_fc = app_input$entrez_ids_with_fc,
